@@ -1,0 +1,2 @@
+Scaffold-DbContext "server=ADEL;database=Smouhaclub; integrated security=True; TrustServerCertificate=True; Encrypt=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context IG_EEAAContext -DataAnnotations  -f
+

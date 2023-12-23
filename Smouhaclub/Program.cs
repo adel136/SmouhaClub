@@ -1,8 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Smouhaclub.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<SmouhaclubContext>(item => item.UseSqlServer(SettingHelper.GetConnectionString()));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
