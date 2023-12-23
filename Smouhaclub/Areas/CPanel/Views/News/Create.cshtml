@@ -13,28 +13,37 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NewsTitle" class="control-label"></label>
-                <input asp-for="NewsTitle" class="form-control" />
-                <span asp-validation-for="NewsTitle" class="text-danger"></span>
+                <label asp-for="NewsTitle" class="control-label">عنوان الخبر </label>
+                <input asp-for="NewsTitle" class="form-control wizard-required" />
+                <span asp-validation-for="NewsTitle" id="errorNewsTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsContent" class="control-label"></label>
-                <input asp-for="NewsContent" class="form-control" />
-                <span asp-validation-for="NewsContent" class="text-danger"></span>
+                <label asp-for="NewsContent" class="control-label"> تفاصيل الخبر </label>
+                <input asp-for="NewsContent" class="form-control wizard-required" />
+                <span asp-validation-for="NewsContent" id="errorNewsConten"  class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsPhoto" class="control-label"></label>
-                <input asp-for="NewsPhoto" class="form-control" id="PhotoId" />
-                <span asp-validation-for="NewsPhoto" class="text-danger"></span>
+                <label asp-for="NewsPhoto" class="control-label"> صوره الخبر </label>
+                <input asp-for="NewsPhoto" class="form-control wizard-required" id="PhotoId" />
+                <label for="Upload" class="userImg">
+                    <div class="upload-img">
+                        <i class="fal fa-camera"></i>
+                        <img src="" alt="UserImg" id="hdPhoto">
+                    </div>
+                    <label for="UpLogo" class="add-user"><span> تحميل صوره الخبر </span><i class="fal fa-plus"></i></label>
+                    <input class="form-control form-control-sm" id="PhotoId" hidden name="upNewsPhoto" asp-for="NewsPhoto" type="file" accept=".png,.jpg,.jpeg">
+                </label>    
+                <span asp-validation-for="NewsPhoto" id="errorNewsPhoto"  class="text-danger"></span>
+
             </div>
             <div class="form-group">
-                <label asp-for="NewsDate" class="control-label"></label>
-                <input asp-for="NewsDate" class="form-control" />
+                <label asp-for="NewsDate" class="control-label"> تاريخ الخبر</label>
+                <input asp-for="NewsDate" class="form-control wizard-required" />
                 <span asp-validation-for="NewsDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsShowable" class="control-label"></label>
-                <input asp-for="IsShowable" class="form-control" />
+                <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
+                <input asp-for="IsShowable" class="form-control" r />
                 <span asp-validation-for="IsShowable" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,6 +57,4 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/newsscript.js" asp-append-version="true"></script>

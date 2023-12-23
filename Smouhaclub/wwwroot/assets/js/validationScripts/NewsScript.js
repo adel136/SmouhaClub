@@ -35,21 +35,6 @@ function IsFormValidated() {
             isValid = false;
         }
     });
-    //if ($("#txtCompanyNameAr").val().trim() == "") {
-    //    $("#errorCompanyNameAr").text("");
-    //    
-    //    $("#txtCompanyNameAr").focus();
-    //    return false;
-    //}
-    //else if ($("#txtCompanyEmail").val().trim() == "") {
-    //    $("#errorCompanyEmail").text("من فضلك أدخل البريد الالكتروني");
-    //    $("#txtCompanyEmail").css("border", "solid 1px red");
-    //    $("#txtCompanyEmail").focus();
-    //    return false;
-    //}
-    //else {
-    //    return true;
-    //}
     return isValid;
 }
 

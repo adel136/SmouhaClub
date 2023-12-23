@@ -5,16 +5,16 @@ $(document.body).on('click', '[id^="image_"]', function (e) {
 
 $(document.body).on('change', '[id^="PhotoId"]', function (e) {
     var filename = e.target.files[0].name;
-    var splitFileName = filename.split(".");
+    var splitFileName = getFileExtension(filename);
     var allowedExt = "PNG,png,JPG,jpg,JPEG,jpeg";
     var allowedExtarry = allowedExt.split(",");
-    if (!allowedExtarry.includes(splitFileName[1])) {
-        alert('عفوا !  مسموح فقط بتحميل ملفات من نوع png,jpg,jpeg ');
-        $('#img_url')[0].src = ('');
+    if (!allowedExtarry.includes(splitFileName)) {
+        $("#errorNewsTitle").text("عفوا !  مسموح فقط بتحميل ملفات من نوع png,jpg,jpeg")
+        $('#hdPhoto')[0].src = ('');
         $('#imgModal')[0].href = ('');
         return false;
     }
-    $('#img_url')[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
+    $('#hdPhoto')[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
     $('#imgModal')[0].href = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
 });
 
