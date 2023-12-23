@@ -4,9 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Smouhaclub</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Smouhaclub.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="@SettingHelper.GetPublishName()/assets/images/icons/favicon.ico" type="image/x-icon">
+    <!-- FontAwesome -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/font-awesome-all.css" />
+    <!-- Bootstrap -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/bootstrap.min.css" />
+    <!-- jquery Ui-->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/flatpickr.min.css" />
+    <!-- DataTable -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/dataTables/css/jquery.dataTables.min.css" />
+    <!-- Animate -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/animate.css" />
+    <!-- Select2 -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/select2.min.css" />
+    <!-- Main Css -->
+    <link asp-append-version="true" rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/main.css" />
+
+    <!-- jquery -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <header>
@@ -44,9 +59,20 @@
             &copy; 2023 - Smouhaclub - <a asp-area="cpanel" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- flatpickr -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/flatpickr.min.js"></script>
+    <!-- Datatable js -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/dataTables/js/jquery.dataTables.min.js"></script>
+    <!-- bootstrap js -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- sweetalert2 -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/sweetalert2.all.min.js"></script>
+    <!-- select2 -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/select2.min.js"></script>
+    <!-- custom script -->
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/script.js"></script>
+
+    <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/publicscript.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

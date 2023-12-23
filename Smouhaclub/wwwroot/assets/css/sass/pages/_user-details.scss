@@ -1,0 +1,168 @@
+.page-wrapper {
+    &.user-datails {
+
+        section {
+            &.content {
+                .custom-data,
+                .user-img {
+                    padding: 16px;
+                }
+                .user-img {
+                    background-color: #EAF4FF;
+                    @include justify-between;
+                    .data {
+                     @include centering;
+                     gap: 12px;
+                     .image {
+                        width: 150px;
+                        height: 150px;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        overflow: hidden;
+                        border: 1px solid var(--border-color);
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .info {
+                        .custom {
+                            h2 {
+                                font-size: 24px;
+                                font-weight: 600;
+                                margin-bottom: 4px
+                            }
+                            p {
+                                color: var(--main-color);
+                                font-size: 16px;
+                                font-weight: 600;
+                                margin-bottom: 4px;
+                            }
+                        }
+                        .caption {
+                                display: flex;
+                                flex-wrap: wrap;
+                                align-items: center;
+                                font-size: 13px;
+                                font-weight: 600;
+                                gap: 8px;
+                                > div {
+                                    color: #606060;
+                                }
+                           > a {
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                color: var(--main-color);
+                                cursor: pointer
+                            }
+                        }
+                    }
+                    }
+                }
+               
+                
+                .Bonuses {
+                    .salary {
+                        font-size: 14px;
+                        color: #757575;
+                        margin-top: 12px;
+                        font-weight: 600;
+                    }
+                    .num {
+                        font-size: 28px;
+                        color: #292D32;
+                        font-weight: 600;
+                        margin: 0 8px;
+                    }
+                    .user-data {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px 36px;
+                        flex-wrap: wrap;
+                        margin-top: 8px;
+                        border-bottom: 1px solid #E0E0E0;
+                        padding-bottom: 8px;
+                        > div {
+                            p {
+                                &:first-child {
+                                    color: #757575;
+                                    font-weight: 500;
+                                    margin-bottom: 8px;
+                                }
+                                &:last-child {
+                                    color: #0A0A0A;
+                                    font-weight: 600;
+                                    font-size: 15px;
+                                }
+                            }
+                        }
+                        &:last-child {
+                            margin-bottom: 12px;
+                        }                    
+                    }
+                }
+            }
+        }
+        table {
+            &.EmployeeStatus {
+                tbody {
+                    tr  {
+                        text-align: center;
+                        td {
+                            .status  {
+                                padding: 6px 16px;
+                                display: block;
+                                width: max-content;
+                                margin: auto;
+                                border-radius: 25px;
+                                font-size: 14px;
+                                font-weight: 500;
+                                &.payment {
+                                    background-color: rgb(255 107 60 / 24%);
+                                    color: #FF6B3C;
+                                }
+                                &.not-payment {
+                                    background-color: rgb(123 97 255 / 24%);
+                                    color: #7B61FF;
+                                }
+                                &.holiday {
+                                    background-color: #FFD7DB;
+                                    color: #E71D36;
+                                }
+                            }
+                    }
+                    }
+                }
+            }
+        }
+        .custom-data {
+            .details {
+                @include justify-between;
+                border: 1px solid #EDEDED;
+                padding: 18px 16px;
+                box-shadow: rgb(0 0 0 / 5%) 0px 1px 4px;
+                margin: 12px 0;
+                border-radius: 8px;
+                > div {
+                    flex: 1;
+                    position: relative;
+                    padding: 0 12px;
+                    &:not(:last-child) {
+                    border-left: 2px solid #EDEDED;
+                    }
+                    > p {
+                        &:first-child {
+                            margin-bottom: 4px;
+                            font-weight: 600;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

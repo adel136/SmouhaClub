@@ -1,0 +1,393 @@
+/* arabic */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/font/DINNEXTLTARABIC-LIGHT-2-2.ttf") format("truetype");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* latin-ext */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/font/DINNeDINNEXTLTARABIC-LIGHT-2-2.ttf") format("truetype");
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Medium-3.ttf") format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* arabic */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Regular-2.ttf") format("truetype");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* arabic */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Bold-2.ttf") format("truetype");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* latin-ext */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Black-3.ttf") format("truetype");
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* arabic */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Black-4.ttf") format("truetype");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* arabic */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Heavy-1.ttf") format("truetype");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* latin-ext */
+@font-face {
+  font-family: "DINNextLTArabic";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../fonts/font/DINNextLTArabic-Heavy2-1.ttf") format("truetype");
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+input {
+  outline: none;
+}
+
+body {
+  font-family: "DINNextLTArabic", sans-serif;
+  direction: rtl;
+  --white-color: #fff;
+  --border-color: #E2E2E2;
+  --main-transtion: 0.3s;
+  --text-color: #030229;
+  --main-color: #004CA5;
+  --theme-two: rgb(0 76 165 / 75%);
+  --danger-color: rgba(231, 29, 54, 0.08);
+  --common-color: #8E8E8E;
+}
+
+.theme-btn {
+  color: var(--white-color) !important;
+  background: var(--theme-two) !important;
+}
+
+.theme-btn {
+  position: relative;
+  display: flex !important;
+  gap: 8px;
+  padding: 9.5px 24px;
+  text-align: center;
+  font-size: 14px !important;
+  text-decoration: none;
+  cursor: pointer;
+  transition: ease-out var(--main-transtion);
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 0 rgb(0, 76, 165);
+  -webkit-transition: ease-out var(--main-transtion);
+  -moz-transition: ease-out var(--main-transtion);
+  -ms-transition: ease-out var(--main-transtion);
+  -o-transition: ease-out var(--main-transtion);
+  align-items: center;
+}
+.theme-btn:hover {
+  color: white !important;
+  box-shadow: inset 0 -100px 0 0 var(--main-color) !important;
+}
+.theme-btn:active {
+  transform: scale(0.9);
+}
+
+.form-focus {
+  position: relative;
+  height: 44px;
+}
+.form-focus label {
+  z-index: 0;
+}
+.form-focus label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  cursor: text;
+}
+.form-focus label {
+  right: 16px;
+  color: var(--common-color);
+  transition: all var(--main-transtion) ease-in;
+  -webkit-transition: all var(--main-transtion) ease-in;
+  -moz-transition: all var(--main-transtion) ease-in;
+  -ms-transition: all var(--main-transtion) ease-in;
+  -o-transition: all var(--main-transtion) ease-in;
+}
+.form-focus span.required {
+  position: relative;
+  transform: none;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  right: auto;
+  top: auto;
+}
+.form-focus input {
+  height: 100%;
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  z-index: 1;
+  background-color: transparent;
+  position: absolute;
+  border: 1px solid var(--border-color);
+}
+.form-focus.focus-input input {
+  border: 1px solid var(--main-color);
+}
+.form-focus.focus-input input + label {
+  top: 0;
+  right: 4px;
+  background-color: var(--white-color);
+  transform: translateY(-50%) scale(0.8);
+  padding: 0 4px;
+  color: var(--main-color);
+  font-weight: 600;
+  -webkit-transform: translateY(-50%) scale(0.8);
+  -moz-transform: translateY(-50%) scale(0.8);
+  -ms-transform: translateY(-50%) scale(0.8);
+  -o-transform: translateY(-50%) scale(0.8);
+  z-index: 1;
+}
+.form-focus.focus-input input span {
+  color: #c00;
+}
+
+.login {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.login > span {
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+.login > span.right {
+  width: 25%;
+  background-color: var(--main-color);
+  z-index: -1;
+}
+.login > span.right > span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.login > span.right > span::before, .login > span.right > span::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+.login > span.right > span.top::before {
+  right: 30px;
+  top: 30px;
+}
+.login > span.right > span.top::after {
+  left: 30px;
+  top: 50px;
+}
+.login > span.right > span.middle::before {
+  top: 50%;
+  right: 60px;
+  width: 66px;
+  height: 66px;
+}
+.login > span.right > span.middle::after {
+  bottom: 20px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+}
+.login > span.right > span.bottom::before {
+  right: 30px;
+  bottom: 30px;
+}
+.login > span.right > span.bottom::after {
+  left: 30px;
+  bottom: 50px;
+}
+.login .image {
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  overflow: hidden;
+}
+@media (max-width: 991px) {
+  .login .image {
+    display: none;
+  }
+}
+.login .box {
+  padding: 0 4rem;
+}
+@media (max-width: 1200px) {
+  .login .box {
+    padding: 0;
+  }
+}
+.login .box .logo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+.login .box .logo-box img {
+  width: 120px;
+}
+.login .box .logo-box span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--main-color);
+}
+.login .box > h2 {
+  font-weight: 600;
+  margin: 0.5rem auto;
+  text-align: center;
+}
+.login .box > p {
+  max-width: 500px;
+  color: #B9B8B8;
+  margin: 0 auto 12px;
+  text-align: center;
+}
+.login .box .data .form-focus:first-child {
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+.login .box .data .form-focus:last-child {
+  margin-bottom: 8px;
+}
+.login .box .data .form-focus .icon {
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--common-color);
+}
+.login .box .data .form-focus .icon.showPass i::before {
+  content: "\f070";
+}
+.login .box .remember {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.login .box .remember .form-check {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.login .box .remember .form-check .form-check-input {
+  float: none;
+  margin: 0;
+  background-color: #C4C4C4;
+}
+.login .box .remember .form-check .form-check-input:checked {
+  background-color: var(--main-color);
+}
+.login .box .remember .form-check label {
+  color: var(--common-color);
+}
+.login .box .remember a {
+  color: #263A43;
+  text-decoration: none;
+}
+.login .box .theme-btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  height: 42px;
+}
+@media (max-width: 991px) {
+  .login .box-data {
+    width: 100%;
+  }
+  .login .box-data .box {
+    background-color: var(--white-color);
+    padding: 48px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+}
+@media (max-width: 991px) and (max-width: 575px) {
+  .login .box-data .box {
+    padding: 24px;
+  }
+}/*# sourceMappingURL=login.css.map */

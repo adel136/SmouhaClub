@@ -1,0 +1,18 @@
+.nav-tabs {
+    border: none;
+    .nav-link {
+        color: #292D32;
+        border: none;
+        &:hover,
+        &:focus {
+            border: none;
+            isolation: unset;
+        }
+        &.active {
+            border: none;
+            border-bottom: 2px solid var(--main-color);
+            font-weight: 600;
+            color: var(--main-color);
+        }
+    }
+}

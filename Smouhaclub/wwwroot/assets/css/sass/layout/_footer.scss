@@ -1,0 +1,21 @@
+@import "../layout/variables";
+
+
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 256px);
+    right: 256px;
+    background-color: var(--white-color);
+    padding: 12px;
+    border-top: 1px solid var(--border-color);
+    p {
+        color: #292D32;
+        font-weight: 600;
+        a {
+            color: var(--main-color);
+        }
+    }
+}

@@ -1,0 +1,71 @@
+
+@import "../layout/variables";
+
+
+.content-page {
+    margin-bottom: 48px;
+    .card-widget {
+        background-color: var(--white-color);
+        padding: 18px 36px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-radius: 10px;
+        box-shadow: var(--common-box-shadow);
+        position: relative;
+        .icon {
+            @include centering;
+            padding: 12px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--theme-opacity-eight);
+            color: var(--main-color);
+            border-radius: 50%;
+            font-size: 22px;
+        }
+        .caption {
+            .nums {
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--text-color);
+            }
+        }
+        > i {
+            font-size: 3.3rem;
+            position: absolute;
+            bottom: 8px;
+            color: var(--theme-opacity-ten);
+        }
+    }
+        .box {
+            background-color: var(--white-color);
+            height: 500px;
+            box-shadow: var(--common-box-shadow);
+            border-radius: 10px;
+            .card {
+                border: none;
+                height: 100%;
+                display: flex;
+                .card-body {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    #pieChart {
+                        height: 100% !important;
+                    }
+                }
+                
+            }
+        }
+}
+.page-wrapper {
+    &.rtl {
+        .card-widget {
+            > i {
+                left: 12px;
+            }
+        }
+    }
+}

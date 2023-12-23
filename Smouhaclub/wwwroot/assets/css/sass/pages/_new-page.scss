@@ -1,0 +1,32 @@
+@import "../layout/variables";
+
+
+.top-wrapper {
+    @include justify-between;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+    .items {
+        @include centering;
+        gap: 12px;
+        .filter {
+            display: none;
+            button {
+                height: 44px;
+                border-radius: 8px;
+                font-size: 18px !important;
+                background-color: transparent !important;
+                border: 1px solid !important;
+                padding: 8px 16px;
+            } 
+        }
+        &.custom-btn {
+            .filter {
+                display: none;
+            }
+        }
+    }
+    > a {
+        margin-right: auto;
+        z-index: 9;
+    }
+}
