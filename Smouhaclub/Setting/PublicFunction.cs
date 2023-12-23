@@ -191,6 +191,18 @@ public static class PublicFunction
         return dtCSV;
     }
 
+    public static DateTime ConvertDate(DateTime? NewsDate)
+    {
+        var date = NewsDate.Value.Date.ToString("yyyy-MM-dd");
+        return DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    }
+    public static DateTime ConvertDate(string NewsDate)
+    {
+       var date= DateTime.Parse(NewsDate).ToString("yyyy-MM-dd");
+        return DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+
     public static DateTime GetCurrentDate()
     {
         var CurrentDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);

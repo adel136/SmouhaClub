@@ -54,10 +54,22 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsId,NewsTitle,NewsContent,NewsPhoto,NewsDate,IsShowable")] TblNews tblNews)
+        public async Task<IActionResult> Create(TblNews tblNews, string rdIsShowable, IFormFile upNewsPhoto)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(tblNews.NewsTitle) && !string.IsNullOrWhiteSpace(tblNews.NewsContent))
             {
+                if (!string.IsNullOrWhiteSpace(rdIsShowable))
+                {
+                    if (rdIsShowable.Equals("on", StringComparison.OrdinalIgnoreCase))
+                    {
+                        tblNews.IsShowable = true;
+                    }
+                    else
+                    {
+                        tblNews.IsShowable = false;
+                    }
+                }
+                else tblNews.IsShowable = false;
                 _context.Add(tblNews);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
