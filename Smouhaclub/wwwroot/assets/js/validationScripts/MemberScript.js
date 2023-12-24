@@ -281,7 +281,7 @@ $("#btnSaveOption").on("click", function () {
 
                 var errorMsg = $("#" + ddlSelect).attr('data-id');
                 $("#" + errorMsg).text('');
-            }
+            } 
         });
     }
     else {
