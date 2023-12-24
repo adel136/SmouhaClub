@@ -24,22 +24,18 @@ $(".wizard-required").on("change", function () {
 });
 
 function IsFormValidated() {
-
     var isValid = true;
     $('.wizard-required').each(function (index, element) {
         if ($.trim($(element).val()) === "") {
             var ErrormegId = $(element).attr('data-id');
             var letter = $(element).attr("data-letter");
             $(element).css("border", "solid 1px red");
-            $("#" + ErrormegId).text($("#" + letter).val());
+            $("#" + ErrormegId).text(letter);
             isValid = false;
         }
     });
-    
     return isValid;
 }
-
-
 $(document.body).on('change', '[id^="UploadEmpPhoto"]', function (e) {
     var filename = e.target.files[0].name;
     var splitFileName = filename.split(".");
@@ -72,11 +68,9 @@ $(document.body).on('change', '[id^="UploadEmpPhoto"]', function (e) {
     $("#img_url").removeClass("custom-img");
 
 });
-
-
-$("#btnNext").on('click', function () {
+$("#btnSubmitForm").on('click', function () {
     if (IsFormValidated()) {
-        ShowNextInputs();
+        $("#formMember").submit();
         return true;
     } else {
         return false;
@@ -230,8 +224,7 @@ $(".btnOpenModel").on('click', function () {
     ddlSelect = $(this).attr('data-id');
 
     if (ddlSelect == "ddlCity") {
-        if ($("#CountryId").val() == 0)
-        {
+        if ($("#CountryId").val() == 0) {
             var countryValid = $("#PleaseSelectCountry").val();
             Swal.fire({
                 icon: "warning",

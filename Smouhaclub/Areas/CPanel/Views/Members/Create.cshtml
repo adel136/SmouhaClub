@@ -1,0 +1,105 @@
+﻿@model Smouhaclub.Models.TblMember
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TblMember</h4>
+<hr />
+<div class="row">
+
+    <form asp-action="Create" id="formMember">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control wizard-required" data-id="errorFirstName" data-letter="من فضلك ادخل الاسم الاول " />
+                    <span asp-validation-for="FirstName" id="errorFirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control wizard-required" data-id="errorLastName" data-letter="من فضلك ادخل الاسم الثاني  "  />
+                    <span asp-validation-for="LastName" id="errorLastName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="MemberCode" class="control-label"></label>
+                    <input asp-for="MemberCode" class="form-control wizard-required" data-id="errorMemberCode" data-letter="من فضلك ادخل كود العضو "  />
+                    <span asp-validation-for="MemberCode" id="errorMemberCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="MemberEmail" class="control-label"></label>
+                    <input asp-for="MemberEmail" class="form-control" />
+                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="MemberAddress" class="control-label"></label>
+                    <input asp-for="MemberAddress" class="form-control" />
+                    <span asp-validation-for="MemberAddress" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="DateBirth" class="control-label"></label>
+                    <input asp-for="DateBirth" class="form-control" />
+                    <span asp-validation-for="DateBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="JoinDate" class="control-label"></label>
+                    <input asp-for="JoinDate" class="form-control wizard-required" data-id="errorJoinDate" data-letter="من فضلك ادخل  تاريخ الانضمام "/>
+                    <span asp-validation-for="JoinDate" id="errorJoinDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="RenewalDate" class="control-label"></label>
+                    <input asp-for="RenewalDate" class="form-control" data-letter="من فضلك ادخل  تاريخ تجديد الاشتراك"/>
+                    <span asp-validation-for="RenewalDate" id="errorRenewalDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label asp-for="MembershipCost" class="control-label"></label>
+                    <input asp-for="MembershipCost" class="form-control wizard-required" data-id="errorMembershipCost" data-letter="من فضلك ادخل  قيمة الاشتراك " />
+                    <span asp-validation-for="MembershipCost" id="errorMembershipCost" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="button" id="btnSubmitForm" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/memberscript.js" asp-append-version="true"></script>
