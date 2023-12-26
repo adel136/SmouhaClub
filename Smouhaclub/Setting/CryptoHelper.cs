@@ -146,7 +146,7 @@ public class CryptoHelper
     public static string Encrypt(string data)
     {
         string encData = null;
-        byte[][] keys = GetHashKeys(SettingHelper.GetNewGUID());
+        byte[][] keys = GetHashKeys(SettingHelper.GetKey());
 
         try
         {
@@ -162,7 +162,7 @@ public class CryptoHelper
     {
         data= ConvertHexToString(data);
         string decData = null;
-        byte[][] keys = GetHashKeys(SettingHelper.GetNewGUID());
+        byte[][] keys = GetHashKeys(SettingHelper.GetKey());
 
         try
         {
