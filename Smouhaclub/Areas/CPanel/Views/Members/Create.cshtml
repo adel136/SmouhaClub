@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>Create</h1>
-<h4>Member</h4>
+<h1>ضافة</h1>
+<h4>الاعضاء</h4>
 <hr />
 <div class="row">
     <form asp-action="Create" id="formMember">
@@ -19,7 +19,7 @@
             <div class="col-sm-5">
                 <div class="form-group">
                     <label asp-for="LastName" class="control-label">الاسم الثاني <span style="color:red;">*</span></label>
-                    <input asp-for="LastName" class="form-control wizard-required" data-id="errorLastName" data-letter="من فضلك ادخل الاسم الثاني  " />
+                    <input asp-for="LastName" class="form-control wizard-required" data-id="errorLastName" data-letter="من فضلك ادخل الاسم الثاني" />
                     <span asp-validation-for="LastName" id="errorLastName" class="text-danger"></span>
                 </div>
             </div>
@@ -27,16 +27,16 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label">رقم الهاتف </label>
-                    <input asp-for="PhoneNumber" class="form-control" onkeydown="return AcceptOnlyNumbers(this)" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <label asp-for="PhoneNumber" class="control-label">رقم الهاتف <span style="color:red;">*</span> </label>
+                    <input asp-for="PhoneNumber" data-id="errorPhoneNumber" class="form-control wizard-required" id="txtPhoneNumber" onkeydown="return AcceptOnlyNumbers(this)" data-letter="من فضلك ادخل رقم الهاتف " />
+                    <span asp-validation-for="PhoneNumber" id="errorPhoneNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="form-group">
-                    <label asp-for="MemberEmail" class="control-label">البريد الالكتروني </label>
-                    <input asp-for="MemberEmail" class="form-control" onchange=" emailvalidate(this.id)" type="email" />
-                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                    <label asp-for="MemberEmail" class="control-label">البريد الالكتروني  <span style="color:red;">*</span></label>
+                    <input asp-for="MemberEmail" class="form-control  wizard-required" data-id="errorMemberEmail" onchange=" emailvalidate(this.id)" type="email" data-letter="من فضلك ادخل البريد الالكتروني " />
+                    <span asp-validation-for="MemberEmail"  id="errorMemberEmail" class="text-danger"></span>
                 </div>
             </div>
         </div>

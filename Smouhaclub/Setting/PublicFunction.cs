@@ -374,7 +374,7 @@ public static class PublicFunction
     public static string ConvertToHexAndDecrypt(string value)
     {
         string base64columnValue = CryptoHelper.ConvertHexToString(value.ToString());
-        string decriptcolumnValue = CryptoHelper.Decrypt(base64columnValue, SettingHelper.GetPublishName());
+        string decriptcolumnValue = CryptoHelper.Decrypt(base64columnValue);
         return decriptcolumnValue;
     }
 

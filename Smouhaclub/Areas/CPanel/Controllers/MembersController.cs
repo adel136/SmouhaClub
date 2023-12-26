@@ -84,14 +84,14 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return codeNumber;
         }
         // GET: CPanel/Members/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var tblMember = await _context.TblMembers.FindAsync(id);
+            var memberId = PublicFunction.ConvertToHexAndDecrypt(id);
+            var tblMember = await _context.TblMembers.FirstOrDefaultAsync(p => p.MemberId == int.Parse(memberId));
             if (tblMember == null)
             {
                 return NotFound();

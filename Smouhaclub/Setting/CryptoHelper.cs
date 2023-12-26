@@ -143,10 +143,10 @@ public class CryptoHelper
 
 
 
-    public static string Encrypt(string data)
+    public static string Encrypt(string data, string key)
     {
         string encData = null;
-        byte[][] keys = GetHashKeys(SettingHelper.GetKey());
+        byte[][] keys = GetHashKeys(key);
 
         try
         {
@@ -160,7 +160,7 @@ public class CryptoHelper
 
     public static string Decrypt(string data)
     {
-        data= ConvertHexToString(data);
+        data = ConvertHexToString(data);
         string decData = null;
         byte[][] keys = GetHashKeys(SettingHelper.GetKey());
 
@@ -265,25 +265,59 @@ public class CryptoHelper
     }
     public static string ConvertStringToHex(string input)
     {
-        Byte[] stringBytes = Encoding.Default.GetBytes(input);
-        StringBuilder sbBytes = new StringBuilder(stringBytes.Length * 2);
-        foreach (byte b in stringBytes)
+        try
         {
-            sbBytes.AppendFormat("{0:X2}", b);
+            var bytes = Convert.FromBase64String(input);
+            var hex = BitConverter.ToString(bytes);
+            return hex.Replace("-", "").ToLower();
         }
-        return sbBytes.ToString();
+        catch (Exception)
+        {
+            return "-1";
+        }
+
+
+        //Byte[] stringBytes = Encoding.Default.GetBytes(input);
+        //StringBuilder sbBytes = new StringBuilder(stringBytes.Length * 2);
+        //foreach (byte b in stringBytes)
+        //{
+        //    sbBytes.AppendFormat("{0:X2}", b);
+        //}
+        //return sbBytes.ToString();
     }
+
+    //public static string ConvertHexToString(string hexInput)
+    //{
+    //    int numberChars = hexInput.Length;
+    //    byte[] bytes = new byte[numberChars / 2];
+    //    for (int i = 0; i < numberChars; i += 2)
+    //    {
+    //        bytes[i / 2] = Convert.ToByte(hexInput.Substring(i, 2), 16);
+    //    }
+    //    return Encoding.Default.GetString(bytes);
+    //}
+
 
     public static string ConvertHexToString(string hexInput)
     {
-        int numberChars = hexInput.Length;
-        byte[] bytes = new byte[numberChars / 2];
-        for (int i = 0; i < numberChars; i += 2)
+        try
         {
-            bytes[i / 2] = Convert.ToByte(hexInput.Substring(i, 2), 16);
+            var bytes = new byte[hexInput.Length / 2];
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(hexInput.Substring(i * 2, 2), 16);
+            }
+            return Convert.ToBase64String(bytes);
         }
-        return Encoding.Default.GetString(bytes);
+        catch (Exception)
+        {
+            return "-1";
+        }
+
+
     }
+
+
     public static string ReverseString(string s)
     {
         char[] arr = s.ToCharArray();

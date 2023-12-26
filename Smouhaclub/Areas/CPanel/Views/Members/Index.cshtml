@@ -15,31 +15,16 @@
         <thead>
             <tr>
                 <th>
-                    الاسم 
+                    الاسم
                 </th>
                 <th>
                     كود العضو
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                    رقم الهاتف
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.MemberEmail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MemberAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateBirth)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.JoinDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RenewalDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MembershipCost)
+                    البريد الالكتروني
                 </th>
                 <th></th>
             </tr>
@@ -50,18 +35,21 @@
                 var id = PublicFunction.EncryptAndConvertToHex(item.MemberId.ToString());
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                        @(item.FirstName + " " + item.LastName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.MemberCode)
+                    </td>
+                    <td style="direction:rtl;">
+                        @Html.DisplayFor(model => item.PhoneNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.MemberEmail)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@id">Delete</a>
                     </td>
                 </tr>
             }
