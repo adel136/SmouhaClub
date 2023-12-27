@@ -1,11 +1,8 @@
-﻿
-
-$(".wizard-required").on("change", function () {
+﻿$(".wizard-required").on("change", function () {
     $(this).css("border-color", "");
     var ErrormegId = $(this).attr('data-id');
     $("#" + ErrormegId).text('');
 });
-
 function IsFormValidated() {
     var isValid = true;
     $('.wizard-required').each(function (index, element) {
@@ -19,7 +16,6 @@ function IsFormValidated() {
     });
     return isValid;
 }
-
 $("#btnSubmitForm").on('click', function () {
     if (IsFormValidated()) {
         $("#formMember").submit();
@@ -28,16 +24,7 @@ $("#btnSubmitForm").on('click', function () {
         return false;
     }
 })
-
-
-
-
-
-
 function CopareBirthDate() {
-
-    console.log($("#txtDateBirth").val());
-    console.log($("#txtJoinDate").val());
     if ($("#txtDateBirth").val() != "" && $("#txtJoinDate").val() != "") {
         if (new Date($("#txtJoinDate").val().trim()) <= new Date($("#txtDateBirth").val().trim())) {
             Swal.fire({
@@ -58,8 +45,6 @@ function CopareBirthDate() {
         }
     }
 }
-
-
 $(document).bind('keypress', function (e) {
     if (e.keyCode == 13) {
         if ($('#employeesModal').is(':visible')) {
@@ -68,6 +53,55 @@ $(document).bind('keypress', function (e) {
 });
 
 
+function emailMembervalidate() {
+    var val = $("#txtMemberEmail").val();
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(val)) {
 
+        Swal.fire({
+            icon: "warning",
+            title: "من فضلك أدخل بريد إلكتروني صحيح",
+            allowOutsideClick: false,
+            showCloseButton: true,
+            confirmButtonText: "موافق",
+            customClass: {
+                confirmButton: 'theme-btn'
+            },
+        }).then((rsult) => {
+            $("#txtMemberEmail").val('');
+            $("#txtMemberEmail").focus();
+        });
+        return false;
+    } else {
+        var urlValidateEmail = $("#urlAjaxMailValidate").val();
+        var memberEmail = $("#MemberEmail").val();
+        $.ajax({
+            type: "GET",
+            url: urlValidateEmail,
+            data: {
+                "memberEmail": memberEmail,
+            },
+            async: false,
+            success: function (result) {
+                if (result == "1") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "عفواً ! البريد الإلكترونى مستخدم من قبل",
+                        allowOutsideClick: false,
+                        showCloseButton: true,
+                        confirmButtonText: "موافق",
+                        customClass: {
+                            confirmButton: 'theme-btn'
+                        },
+                    }).then((rsult) => {
+                        $("#txtMemberEmail").val("");
+                    });
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+}
 
 

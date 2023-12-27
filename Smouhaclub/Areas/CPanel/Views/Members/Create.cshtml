@@ -35,7 +35,7 @@
             <div class="col-sm-5">
                 <div class="form-group">
                     <label asp-for="MemberEmail" class="control-label">البريد الالكتروني  <span style="color:red;">*</span></label>
-                    <input asp-for="MemberEmail" class="form-control  wizard-required" data-id="errorMemberEmail" onchange=" emailvalidate(this.id)" type="email" data-letter="من فضلك ادخل البريد الالكتروني " />
+                    <input asp-for="MemberEmail" id="txtMemberEmail" class="form-control  wizard-required" data-id="errorMemberEmail" onchange="emailMembervalidate()" type="email" data-letter="من فضلك ادخل البريد الالكتروني " />
                     <span asp-validation-for="MemberEmail"  id="errorMemberEmail" class="text-danger"></span>
                 </div>
             </div>
@@ -89,5 +89,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<input type="hidden" id="urlAjaxMailValidate" value="@SettingHelper.GetPublishName()/Members/EmailValidate" />
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/memberscript.js" asp-append-version="true"></script>

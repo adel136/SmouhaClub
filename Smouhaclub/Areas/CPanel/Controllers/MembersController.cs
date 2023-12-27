@@ -135,21 +135,22 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         }
 
         // GET: CPanel/Members/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            var memberId = PublicFunction.ConvertToHexAndDecrypt(id);
             var tblMember = await _context.TblMembers
-                .FirstOrDefaultAsync(m => m.MemberId == id);
+                .FirstOrDefaultAsync(m => m.MemberId == int.Parse(memberId));
             if (tblMember == null)
             {
                 return NotFound();
             }
-
-            return View(tblMember);
+            _context.Remove(tblMember);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
         // POST: CPanel/Members/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -167,6 +168,17 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         private bool TblMemberExists(int id)
         {
             return _context.TblMembers.Any(e => e.MemberId == id);
+        }
+
+        [HttpGet("Members/EmailValidate/{memberEmail}")]
+        public JsonResult EmailValidate(string memberEmail)
+        {
+            if (!string.IsNullOrWhiteSpace(memberEmail))
+            {
+                var memberMail = _context.TblMembers.Any(p => p.MemberEmail == memberEmail);
+                return Json("1");
+            }
+            return Json("0");
         }
     }
 }

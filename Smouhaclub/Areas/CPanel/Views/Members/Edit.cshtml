@@ -13,8 +13,8 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-md-5">
-                <input type="hidden" asp-for="MemberCode"  />
-                <input type="hidden" name="id" asp-for="MemberId" />
+                <input type="hidden" asp-for="MemberCode" />
+                <input type="hidden" asp-for="MemberId" />
                 <div class="form-group">
                     <label asp-for="FirstName" class="control-label">الاسم الاول <span style="color:red;">*</span></label>
                     <input asp-for="FirstName" class="form-control wizard-required" data-id="errorFirstName" data-letter="من فضلك ادخل الاسم الاول " />
@@ -32,16 +32,16 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label">رقم الهاتف </label>
-                    <input asp-for="PhoneNumber" class="form-control" onkeydown="return AcceptOnlyNumbers(this)" />
+                    <label asp-for="PhoneNumber" class="control-label">رقم الهاتف <span style="color:red;">*</span></label>
+                    <input asp-for="PhoneNumber" class="form-control wizard-required" id="txtPhoneNumber" onkeydown="return AcceptOnlyNumbers(this)" data-letter="من فضلك ادخل رقم الهاتف " />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="form-group">
-                    <label asp-for="MemberEmail" class="control-label">البريد الالكتروني </label>
-                    <input asp-for="MemberEmail" class="form-control" onchange=" emailvalidate(this.id)" type="email" />
-                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                    <label asp-for="MemberEmail" class="control-label">البريد الالكتروني <span style="color:red;">*</span></label>
+                    <input asp-for="MemberEmail" id="txtMemberEmail" class="form-control wizard-required" data-id="errorMemberEmail" onchange="emailMembervalidate()" type="email" data-letter="من فضلك ادخل البريد الالكتروني " />
+                    <span asp-validation-for="MemberEmail" id="errorMemberEmail" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -93,6 +93,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<input type="hidden" id="urlAjaxMailValidate" value="@SettingHelper.GetPublishName()/Members/EmailValidate" />
 
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/memberscript.js" asp-append-version="true"></script>
