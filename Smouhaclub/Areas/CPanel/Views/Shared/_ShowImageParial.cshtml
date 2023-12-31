@@ -1,0 +1,23 @@
+﻿
+
+<div class="modal viewImg fade" id="viewImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewImgLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="viewImgLabel">عرض الصورة</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@SettingHelper.GetPublishName()/CPanel/assets/js/jquery-3.6.1.min.js" asp-append-version="true"></script>
+<script>
+    $(document).on('show.bs.modal', '#viewImg', function (e) {
+        var link = $(e.relatedTarget);
+        $(this).find(".modal-body").empty();
+        $(this).find(".modal-body").html('<img src="' + link.attr("href") + '" class="img-thumbnail" width="100%""/>');
+    });
+</script>

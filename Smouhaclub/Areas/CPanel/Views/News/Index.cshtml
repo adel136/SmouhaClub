@@ -1,37 +1,100 @@
 ﻿@model IEnumerable<TblNews>
 @{
-    ViewData["Title"] = "الاخبار";
+    ViewData["Title"] = "الأخبار";
 }
 
-<h1>Index</h1>
+<div class="page-wrapper rtl">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">الأخبار</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
 
-<a asp-action="Create" asp-controller="News" type="button" class="btn btn-danger">أضافة</a>
+<section class="content">
+    <div class="container">
+        @await Html.PartialAsync("_SuccessMesages")
+        <label>
+            <a asp-action="Create" title="إضافة" class="add-btn"><i class="btn-sm  fas fa-plus"></i></a>
+        </label>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-hover" id="tblList">
+                <thead class="datatablebakground">
+                    <tr class="text-center">
+                        <th class="text-center ignore-sorting">صورة الخبر</th>
+                        <th style="width:40%">عنوان الخبر</th>
+                        <th style="text-align:center;">تاريخ الخبر</th>
+                        <th style="text-align:center;">عرض بالموقع ؟</th>
+                        <th style="width:10%;" class="tblActions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var date = PublicFunction.ConvertDate(Convert.ToDateTime(item.NewsDate.ToString())).Date.ToString("yyyy-MM-dd");
+                        var newsId = PublicFunction.EncryptAndConvertToHex(item.NewsId.ToString());
+                        <tr>
+                            <td style="text-align:center;">
+                                @if (!string.IsNullOrWhiteSpace(item.NewsPhoto))
+                                {
+                                    var path = PublicFunction.GetPath(SettingHelper.GetPublishName(), "/Uploads/News", item.NewsPhoto);
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@path">
+                                        <img id="img_url" src="@path" width="60" />
+                                    </a>
+                                }
+                            </td>
+                            <td>@item.NewsTitle</td>
+                            <td style="text-align:center;">@date</td>
+                            <td style="text-align:center;">
+                                @(item.IsShowable == true ? "نعم" : "لا")
+                            </td>
+                            <td class="tblActions" rowspan="1" colspan="1">
+                                <div class="btns-group">
+                                    <a asp-area="CPanel" class="theme-btn" asp-controller="News" asp-action="Details" asp-route-id="@newsId " title="عرض">عرض</a>
+                                    <a asp-area="CPanel" class="theme-btn" asp-controller="News" asp-action="Edit" asp-route-id="@newsId " title="تعديل">تعديل</a>
+                                    <a href="#" class="theme-btn btn-delete" id="btnDelete_@newsId" data-id="@newsId" title="حذف">حذف</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width:235px; margin:20px;">
+                <strong>عفوا!</strong> لا توجد سجلات
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="right:revert"></button>
+            </div>
+        }
+        @await Html.PartialAsync("_ShowImageParial")
+    </div>
 
-@if (Model.Count() > 0)
-{
+</section>
 
-    <table class="table details-table dataTables_wrapper table-bordered table-hover">
-        <thead>
-            <tr>
-                <th style="text-align:center;">أسم الخبر</th>
-                <th style="text-align:center;">تاريخ الخبر </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.NewsTitle</td>
-                    <td>@PublicFunction.ConvertDate(item.NewsDate.ToString()).ToString("yyyy-MM-dd")</td>
-                </tr>
+
+
+<script type="text/javascript" asp-append-version="true">
+    $("[id^='btnDelete_']").on("click", function () {
+        var itemId = $(this).attr("data-id");
+        swal("", " عفوا ! هل تريد الحذف؟ ", "warning", {
+            buttons: ["الغاء", "موافق"],
+            closeOnClickOutside: false,
+            className: "warning-msg",
+        }).then((rsult) => {
+            if (rsult) {
+                window.location = '@SettingHelper.GetPublishName()/News/Delete/' + itemId;
+                return true;
             }
-        </tbody>
-
-
-    </table>
-
-
-
-}
-
+            else {
+                return false;
+            }
+        });
+    });
+</script>

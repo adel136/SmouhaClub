@@ -1,0 +1,38 @@
+﻿@{
+    var msg = "";
+    if (TempData["AddDone"] != null && bool.Parse(TempData["AddDone"].ToString()))
+    {
+        msg = " تم الحفظ بنجاح";
+    }
+    else if (TempData["DeleteDone"] != null && bool.Parse(TempData["DeleteDone"].ToString()))
+    {
+        msg = "تم الحذف بنجاح";
+    }
+    else if (TempData["EditDone"] != null && bool.Parse(TempData["EditDone"].ToString()))
+    {
+        msg = "تم التعديل بنجاح";
+    }
+    <input type="hidden" id="Message" value="@msg" />
+    if (msg != "")
+    {
+        <div class="sweetalert"></div>
+    }
+}
+<script type="text/javascript" asp-append-version="true">
+    $(function () {
+    @if (msg != "")
+    {
+        <text>
+                    var Message = $("#Message").val();
+            swal("تمت العملية بنجاح", "" + Message + "", "success", {
+                buttons: false,
+                timer: 2000,
+                className: "success-msg",
+            });
+
+        </text>
+    }
+
+                            })
+
+</script>

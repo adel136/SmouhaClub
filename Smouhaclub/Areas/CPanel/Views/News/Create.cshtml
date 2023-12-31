@@ -1,12 +1,131 @@
 ﻿@model Smouhaclub.Models.TblNews
-
 @{
-    ViewData["Title"] = "Create";
-
-
+    ViewData["Title"] = "الأخبار";
 }
-
-<h1>Create</h1>
+<div class="breadcrumb">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index" title="الصفحة الرئيسية"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="News" asp-action="Index" title="الأخبار">الأخبار</a></li>
+                <li class="breadcrumb-item active" aria-current="page">إضافة</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<section class="content">
+    <div class="container">
+        <form method="post" asp-action="Create" asp-area="CPanel" id="formNews" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <p><b>(<span style="color:red;">*</span>) </b>تعنى حقل يجب إدخاله</p>
+            <div class="con-sp-box ">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsTitle" class="control-label">عنوان الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input asp-for="NewsTitle" rows="3" cols="50" pattern=".*\S+.*" class="form-control" data-letter="من فضلك ادخل عنوان الخبر " placeholder="عنوان الخبر">
+                                <span asp-validation-for="NewsTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label class="control-label">صورة الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <span id="image_" style="cursor:pointer" title="صورة الخبر"><i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <input type="file" id="PhotoId" asp-for="NewsPhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
+                                <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="">
+                                    <img id="img_url" src="" width="60" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsDate" class="control-label">تاريخ الخبر<span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="custom-date">
+                                    <input asp-for="NewsDate" data-provide="datepicker" type="text" class="text-center datepicker form-control" maxlength="10" id="txtDate" pattern=".*\S+.*" onKeyUp="mask(this.value,this,'2,5','-')" onBlur="checkDate(this.value,this)" class="form-control text-center" placeholder="تاريخ الخبر" required oninvalid="this.setCustomValidity('من فضلك ادخل تاريخ الخبر ')" oninput="this.setCustomValidity('')">
+                                    <span asp-validation-for="NewsDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsContent" class="control-label">تفاصيل الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <textarea id="txtNewsContent" asp-for="NewsContent" class="form-control"></textarea>
+                                <span asp-validation-for="NewsContent" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="hidden" name="rdIsShowable" value="true" id="rdIsShowable" />
+                                <label class="switch">
+                                    <input id="rdShowable" type="checkbox" onchange="SetValue(this.id)" checked="checked" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="con-sp-main">
+                <h2 class="main-title"> صور الخبر</h2>
+                <div class="box-adding">
+                        <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm bs" title="إضافة صور للخبر" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>
+                        <table class="table table-bordered table-hover input_fields_wrap fields_Gallery">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">  صور الخبر  <span class="star-required" style="color:red;">*</span></th>
+                                    <th style="width:8%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm  btn bs" title="" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>              
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-save">
+                        <input type="button" id="btnFormSubmit" title="حفظ" value="حفظ" class="btn btn-primary" />
+                        <span></span>
+                    </div>
+                    <a asp-controller="News" asp-area="CPanel" asp-action="Index" title=" الغاء" class="btn btn-danger theme-btn cancel">الغاء</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
+<script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/NewsScript.js" asp-append-version="true"></script>
+<script src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
+@await Html.PartialAsync("_ShowImageParial")
+<@* h1>Create</h1>
 <h4>TblNews</h4>
 <hr />
 <div class="row">
@@ -74,4 +193,4 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/newsscript.js" asp-append-version="true"></script>
-<script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
+<s *@cript type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
