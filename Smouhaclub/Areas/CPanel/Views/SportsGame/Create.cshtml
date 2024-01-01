@@ -2,19 +2,21 @@
 @{
     ViewData["Title"] = "الألعاب الرياضية";
 }
-<div class="breadcrumb">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol>
-                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
-                <li class="breadcrumb-item active" aria-current="page">إضافة</li>
-            </ol>
-        </nav>
-    </div>
-</div>
+
 <section class="content">
-    <div class="container">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">إضافة</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    
+    <div>
         <form asp-area="CPanel" asp-controller="SportsGame" asp-action="Create" id="frmSPortsGame" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -80,16 +82,12 @@
                 </div>
             </div>
 
-            <div class="row form-group">
-                <div class="col-sm-5">
-                </div>
-                <div class="col-sm-4">
+            <div class="form-group custom-buttons">
                     <div class="input-save">
-                        <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="btn btn-primary" />
+                        <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="theme-btn" />
                         <span></span>
-                        <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" title=" الغاء" class="btn btn-danger theme-btn cancel">الغاء</a>
                     </div>
-                </div>
+                        <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" title=" الغاء" class="theme-btn-two">الغاء</a>
             </div>
         </form>
     </div>

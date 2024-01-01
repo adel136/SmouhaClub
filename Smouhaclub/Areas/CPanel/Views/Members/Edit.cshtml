@@ -3,11 +3,21 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<section class="content">
 
-<h1>تعديل</h1>
+<div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li asp-action="Index"  class="breadcrumb-item" aria-current="page">الاعضاء</li>
+                    <li class="breadcrumb-item active" aria-current="تعديل">تعديل</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
-<h4> الاعضاء</h4>
-<hr />
+
 <div class="row">
     <form asp-action="Edit" id="formMember">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -84,15 +94,15 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <input type="button" id="btnSubmitForm" value="Create" class="btn btn-primary" />
+        <div class="form-group custom-buttons">
+            <input type="button" id="btnSubmitForm" value="Create" class="theme-btn" />
+            <a asp-action="Index" class="theme-btn-two">Back to List</a>
         </div>
     </form>
 </div>
+</section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 <input type="hidden" id="urlAjaxMailValidate" value="@SettingHelper.GetPublishName()/Members/EmailValidate" />
 
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>

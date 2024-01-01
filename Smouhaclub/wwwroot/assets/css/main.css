@@ -253,6 +253,32 @@ input::-moz-placeholder {
   transform: scale(0.9);
 }
 
+.btn-delete {
+  position: relative;
+  display: flex !important;
+  gap: 8px;
+  padding: 9.5px 24px;
+  text-align: center;
+  font-size: 14px !important;
+  text-decoration: none;
+  cursor: pointer;
+  transition: ease-out var(--main-transtion);
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 0 rgba(204, 0, 0, 0.231);
+  -webkit-transition: ease-out var(--main-transtion);
+  -moz-transition: ease-out var(--main-transtion);
+  -ms-transition: ease-out var(--main-transtion);
+  -o-transition: ease-out var(--main-transtion);
+  align-items: center;
+  background-color: hsla(0, 100%, 40%, 0.231) !important;
+  color: #c00 !important;
+}
+.btn-delete:hover {
+  box-shadow: inset 0 -100px 0 0 hsla(0, 100%, 40%, 0.41) !important;
+  color: #fff !important;
+}
+
 .form-check {
   display: flex;
   flex-wrap: wrap;
@@ -464,6 +490,15 @@ input::-moz-placeholder {
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
   background-color: var(--main-color);
   color: var(--common-color);
+}
+
+.admin-footer {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  padding: 8px 0;
+  background-color: #fff;
 }
 
 .empty-data {
@@ -2439,9 +2474,292 @@ input::-moz-placeholder {
   justify-content: center;
 }
 
+section .main-breadcrumb {
+  border-bottom: 1px solid #e7e7e7;
+  box-shadow: none;
+}
+section .main-breadcrumb .header {
+  margin: 0;
+  padding-top: 4px;
+}
 section.content {
   background-color: #fff;
   box-shadow: var(--common-box-shadow);
   border-radius: 8px;
   padding: 12px;
+  height: calc(100vh - 130px);
+  overflow: auto;
+}
+section.content form {
+  margin-top: 12px;
+}
+section.content .custom-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+section.content .add-btn {
+  padding: 12px 18px;
+  width: -moz-max-content;
+  width: max-content;
+}
+section.content .form-group label {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 0;
+}
+section table.dataTable, section table.common-table {
+  border-collapse: collapse;
+  border-bottom: none;
+  width: 100% !important;
+}
+section table.dataTable th, section table.dataTable td, section table.common-table th, section table.common-table td {
+  padding: 7px 8px 7px 22px !important;
+}
+section table.dataTable thead tr, section table.common-table thead tr {
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+section table.dataTable thead tr th, section table.common-table thead tr th {
+  text-align: center;
+  background-color: var(--bg-thead-color);
+  border: none;
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+section table.dataTable thead tr th::before, section table.dataTable thead tr th::after, section table.common-table thead tr th::before, section table.common-table thead tr th::after {
+  left: 0;
+  right: auto !important;
+}
+section table.dataTable thead tr th.tblActions, section table.common-table thead tr th.tblActions {
+  width: auto !important;
+}
+section table.dataTable tbody, section table.common-table tbody {
+  background-color: transparent;
+}
+section table.dataTable tbody tr, section table.common-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+}
+section table.dataTable tbody tr td.dataTables_empty, section table.common-table tbody tr td.dataTables_empty {
+  color: rgba(66, 0, 8, 0.85);
+  font-weight: 600;
+}
+section table.dataTable tbody tr:nth-of-type(odd) > *, section table.common-table tbody tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: var(--white-color);
+  box-shadow: none;
+}
+section table.dataTable tbody tr:hover, section table.common-table tbody tr:hover {
+  background-color: var(--theme-opacity-four);
+}
+section table.dataTable tbody tr td, section table.common-table tbody tr td {
+  font-size: 14px;
+  border: none;
+  vertical-align: middle;
+  box-shadow: none;
+}
+section table.dataTable tbody tr td:last-child.custom-btns, section table.common-table tbody tr td:last-child.custom-btns {
+  padding: 0 !important;
+  vertical-align: middle;
+  background: none;
+  max-width: -moz-max-content !important;
+  max-width: max-content !important;
+  position: relative;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options, section table.common-table tbody tr td:last-child.custom-btns .btn-options {
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options a, section table.common-table tbody tr td:last-child.custom-btns .btn-options a {
+  background-color: transparent;
+  color: var(--text-color);
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options a:hover, section table.common-table tbody tr td:last-child.custom-btns .btn-options a:hover {
+  background-color: var(--theme-opacity-eight);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--main-color);
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options a:hover i, section table.common-table tbody tr td:last-child.custom-btns .btn-options a:hover i {
+  border-color: var(--main-color) !important;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options a.btn-delete, section table.common-table tbody tr td:last-child.custom-btns .btn-options a.btn-delete {
+  color: #E71D36;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options a.btn-delete:hover, section table.common-table tbody tr td:last-child.custom-btns .btn-options a.btn-delete:hover {
+  background-color: rgba(231, 29, 54, 0.08);
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options > a, section table.common-table tbody tr td:last-child.custom-btns .btn-options > a {
+  margin: auto;
+  display: block;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options > a i, section table.common-table tbody tr td:last-child.custom-btns .btn-options > a i {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: var(--main-color);
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px 9px;
+  transition: all 0.3s ease-in ease-in;
+  justify-content: center;
+  -moz-transition: all 0.3s ease-in ease-in;
+  -ms-transition: all 0.3s ease-in ease-in;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action, section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action {
+  position: absolute;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  left: 10px;
+  top: 100%;
+  width: 110px;
+  transform: translateY(40px);
+  -webkit-transform: translateY(40px);
+  -moz-transform: translateY(40px);
+  -ms-transform: translateY(40px);
+  -o-transform: translateY(40px);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action ul, section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action ul {
+  margin-bottom: 0;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action ul li, section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action ul li {
+  overflow: hidden;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action ul li:not(:last-child), section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action ul li:not(:last-child) {
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action ul li a, section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action ul li a {
+  transition: all 0.4s ease-in;
+  transform: translateY(70px);
+  -webkit-transform: translateY(70px);
+  -moz-transform: translateY(70px);
+  -ms-transform: translateY(70px);
+  -o-transform: translateY(70px);
+  -webkit-transition: all 0.4s ease-in;
+  -moz-transition: all 0.4s ease-in;
+  -ms-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  padding: 4px 6px;
+}
+section table.dataTable tbody tr td:last-child.custom-btns .btn-options .btns-action ul li a.btn-edit i, section table.common-table tbody tr td:last-child.custom-btns .btn-options .btns-action ul li a.btn-edit i {
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid var(--text-color);
+}
+section table.dataTable tbody tr.open-menu td:last-child .btn-options > a, section table.common-table tbody tr.open-menu td:last-child .btn-options > a {
+  z-index: 0;
+}
+section table.dataTable tbody tr.open-menu td:last-child .btn-options > a > i, section table.common-table tbody tr.open-menu td:last-child .btn-options > a > i {
+  background-color: var(--theme-opacity-ten);
+  color: var(--main-color);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+section table.dataTable tbody tr.open-menu td:last-child .btn-options .btns-action, section table.common-table tbody tr.open-menu td:last-child .btn-options .btns-action {
+  opacity: 1;
+  visibility: visible;
+}
+section table.dataTable tbody tr.open-menu td:last-child .btn-options .btns-action ul li a, section table.common-table tbody tr.open-menu td:last-child .btn-options .btns-action ul li a {
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+  opacity: 1;
+  visibility: visible;
+}
+section table.dataTable tbody tr.open-menu td:last-child .btn-options .btns-action, section table.dataTable tbody tr.open-menu td:last-child .btn-options .btns-action::before, section table.common-table tbody tr.open-menu td:last-child .btn-options .btns-action, section table.common-table tbody tr.open-menu td:last-child .btn-options .btns-action::before {
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+}
+section .dataTables_wrapper {
+  width: 100%;
+}
+section .dataTables_wrapper .dataTables_paginate {
+  float: left;
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+section .dataTables_wrapper .dataTables_paginate > span {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button {
+  border: 1px solid var(--main-color);
+  color: var(--main-color) !important;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button.current, section .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: var(--main-color);
+  color: var(--white-color) !important;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-image: none;
+  background-color: var(--main-color);
+  color: var(--white-color) !important;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  box-shadow: none;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+  color: #BCBCBC !important;
+}
+section .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, section .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  border: none !important;
+  background-color: transparent;
+}
+section .dataTables_wrapper .dataTables_paginate > a {
+  border: none !important;
+  font-weight: 600;
+}
+section .btns-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+section .btns-group > a {
+  padding: 0;
+  width: 36px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px !important;
 }/*# sourceMappingURL=main.css.map */

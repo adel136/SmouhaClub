@@ -3,7 +3,10 @@
     ViewData["Title"] = "الأخبار";
 }
 
-<div class="page-wrapper rtl">
+
+    
+
+<section class="content">
     <div class="main-breadcrumb">
         <div class="header">
             <nav aria-label="breadcrumb">
@@ -14,17 +17,14 @@
             </nav>
         </div>
     </div>
-</div>
-
-<section class="content">
-    <div class="container">
+    <div>
         @await Html.PartialAsync("_SuccessMesages")
         <label>
-            <a asp-action="Create" title="إضافة" class="add-btn"><i class="btn-sm  fas fa-plus"></i></a>
+            <a asp-action="Create" title="إضافة" class="theme-btn-two mt-2 mb-2 add-btn"><i class="btn-sm  fas fa-plus"></i></a>
         </label>
         @if (Model.Count() > 0)
         {
-            <table class="table table-bordered table-hover" id="tblList">
+            <table class="table dataTables_wrapper table-bordered table-hover" id="tblList">
                 <thead class="datatablebakground">
                     <tr class="text-center">
                         <th class="text-center ignore-sorting">صورة اللعبة</th>
@@ -55,9 +55,9 @@
                             </td>
                             <td class="tblActions" rowspan="1" colspan="1">
                                 <div class="btns-group">
-                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Details" asp-route-id="@gameId " title="عرض" class="theme-btn">عرض</a>
-                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Edit" asp-route-id="@gameId " title="تعديل">تعديل class="theme-btn"</a>
-                                    <a href="#" class="theme-btn btn-delete" id="btnDelete_@gameId" data-id="@gameId" title="حذف">حذف</a>
+                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Details" asp-route-id="@gameId " title="عرض" class="theme-btn-two"><i class="fal fa-eye"></i></a>
+                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Edit" asp-route-id="@gameId " title="تعديل" class="theme-btn-two"><i class="fal fa-edit"></i></a>
+                                    <a href="#" class="btn-delete" id="btnDelete_@gameId" data-id="@gameId" title="حذف"><i class="fal fa-trash-alt"></i></a>
                                 </div>
                             </td>
                         </tr>

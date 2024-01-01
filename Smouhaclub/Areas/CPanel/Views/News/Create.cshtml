@@ -2,19 +2,20 @@
 @{
     ViewData["Title"] = "الأخبار";
 }
-<div class="breadcrumb">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol>
-                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index" title="الصفحة الرئيسية"><i class="icon-home"></i></a></li>
+
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index" title="الصفحة الرئيسية"><i class="far fa-home"></i></a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="News" asp-action="Index" title="الأخبار">الأخبار</a></li>
                 <li class="breadcrumb-item active" aria-current="page">إضافة</li>
-            </ol>
-        </nav>
+                </ol>
+            </nav>
+        </div>
     </div>
-</div>
-<section class="content">
-    <div class="container">
+    <div>
         <form method="post" asp-action="Create" asp-area="CPanel" id="formNews" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -94,7 +95,7 @@
                 <h2 class="main-title"> صور الخبر</h2>
                 <div class="box-adding">
                         <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm bs" title="إضافة صور للخبر" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>
-                        <table class="table table-bordered table-hover input_fields_wrap fields_Gallery">
+                        <table class="table table-bordered dataTables_wrapper table-hover input_fields_wrap fields_Gallery">
                             <thead>
                                 <tr>
                                     <th style="width:20%">  صور الخبر  <span class="star-required" style="color:red;">*</span></th>
@@ -107,16 +108,12 @@
                         <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm  btn bs" title="" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>              
                 </div>
             </div>
-            <div class="row form-group">
-                <div class="col-sm-5">
-                </div>
-                <div class="col-sm-4">
+            <div class="custom-buttons form-group">
                     <div class="input-save">
-                        <input type="button" id="btnFormSubmit" title="حفظ" value="حفظ" class="btn btn-primary" />
+                        <input type="button" id="btnFormSubmit" title="حفظ" value="حفظ" class="theme-btn" />
                         <span></span>
                     </div>
-                    <a asp-controller="News" asp-area="CPanel" asp-action="Index" title=" الغاء" class="btn btn-danger theme-btn cancel">الغاء</a>
-                </div>
+                    <a asp-controller="News" asp-area="CPanel" asp-action="Index" title=" الغاء" class=" theme-btn-two">الغاء</a>
             </div>
         </form>
     </div>
