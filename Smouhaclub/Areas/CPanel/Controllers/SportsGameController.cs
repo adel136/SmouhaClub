@@ -60,6 +60,43 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 model.IsShowable = rdIsShowable == "true" ? true : false;
                 _context.Add(model);
                 _context.SaveChanges();
+                TempData["AddDone"] = true;
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        public IActionResult Edit(string id)
+        {
+            var rowId =Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
+            var model = _context.TblServices.FirstOrDefault(p => p.ServiceId == rowId);
+            if (model != null)
+            {
+                return View(model);
+            }
+
+            return RedirectToAction("Error", "Home", new { area = "CPanel" });
+        }
+
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit(int servicId, TblService model, string rdIsShowable, IFormFile upGamePhoto)
+        {
+            if (!string.IsNullOrWhiteSpace(model.ServiceName) && !string.IsNullOrWhiteSpace(model.ServiceDescription))
+            {
+                PublicFunction.CreateDirectory(_wwwRoot, _image);
+
+                //var gamePhoto = "";
+                if (upGamePhoto != null)
+                {
+                    model.ServicePhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
+                }
+
+                model.IsShowable = rdIsShowable == "true" ? true : false;
+                _context.Update(model);
+                _context.SaveChanges();
+                TempData["EditDone"] = true;
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
