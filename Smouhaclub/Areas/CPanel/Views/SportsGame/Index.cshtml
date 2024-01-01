@@ -1,0 +1,99 @@
+﻿@model IEnumerable<TblService>
+@{
+    ViewData["Title"] = "الأخبار";
+}
+
+<div class="page-wrapper rtl">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">الألعاب الرياضية</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        @await Html.PartialAsync("_SuccessMesages")
+        <label>
+            <a asp-action="Create" title="إضافة" class="add-btn"><i class="btn-sm  fas fa-plus"></i></a>
+        </label>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-hover" id="tblList">
+                <thead class="datatablebakground">
+                    <tr class="text-center">
+                        <th class="text-center ignore-sorting">صورة اللعبة</th>
+                        <th style="width:40%">اسم اللعبة</th>
+                        <th style="text-align:center;">وصف اللعبة</th>
+                        <th style="text-align:center;">عرض بالموقع ؟</th>
+                        <th style="width:10%;" class="tblActions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var gameId = PublicFunction.EncryptAndConvertToHex(item.ServiceId.ToString());
+                        <tr>
+                            <td style="text-align:center;">
+                                @if (!string.IsNullOrWhiteSpace(item.ServicePhoto))
+                                {
+                                    var path = PublicFunction.GetPath(SettingHelper.GetPublishName(), "/Uploads/News", item.ServicePhoto);
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@path">
+                                        <img id="img_url" src="@path" width="60" />
+                                    </a>
+                                }
+                            </td>
+                            <td>@item.ServiceName</td>
+                            <td style="text-align:center;">@item.ServiceDescription</td>
+                            <td style="text-align:center;">
+                                @(item.IsShowable == true ? "نعم" : "لا")
+                            </td>
+                            <td class="tblActions" rowspan="1" colspan="1">
+                                <div class="btns-group">
+                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Details" asp-route-id="@gameId " title="عرض" class="theme-btn">عرض</a>
+                                    <a asp-area="CPanel" asp-controller="SportsGame" asp-action="Edit" asp-route-id="@gameId " title="تعديل">تعديل class="theme-btn"</a>
+                                    <a href="#" class="theme-btn btn-delete" id="btnDelete_@gameId" data-id="@gameId" title="حذف">حذف</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width:235px; margin:20px;">
+                <strong>عفوا!</strong> لا توجد سجلات
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="right:revert"></button>
+            </div>
+        }
+        @await Html.PartialAsync("_ShowImageParial")
+    </div>
+
+</section>
+
+
+
+<script type="text/javascript" asp-append-version="true">
+    $("[id^='btnDelete_']").on("click", function () {
+        var itemId = $(this).attr("data-id");
+        swal("", " عفوا ! هل تريد الحذف؟ ", "warning", {
+            buttons: ["الغاء", "موافق"],
+            closeOnClickOutside: false,
+            className: "warning-msg",
+        }).then((rsult) => {
+            if (rsult) {
+                window.location = '@SettingHelper.GetPublishName()/SportsGame/Delete/' + itemId;
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    });
+</script>

@@ -1,0 +1,99 @@
+﻿@model Smouhaclub.Models.TblService
+@{
+    ViewData["Title"] = "الألعاب الرياضية";
+}
+<div class="breadcrumb">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
+                <li class="breadcrumb-item active" aria-current="page">إضافة</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<section class="content">
+    <div class="container">
+        <form asp-area="CPanel" asp-controller="SportsGame" asp-action="Create" id="frmSPortsGame" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <p><b>(<span style="color:red;">*</span>) </b>تعنى حقل يجب إدخاله</p>
+            <div class="con-sp-box ">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="ServiceName" class="control-label"> اسم اللعبة الرياضية <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input asp-for="ServiceName" rows="3" cols="50" pattern=".*\S+.*" class="form-control" data-letter="من فضلك ادخل اسم اللعبة الرياضية " placeholder="اسم اللعبة الرياضية">
+                                <span asp-validation-for="ServiceName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label class="control-label">صورة اللعبة <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <label for="PhotoId">
+                                    <span style="cursor:pointer" title="صورة اللعبة"><i for="PhotoId" class="fa fa-upload" aria-hidden="true"></i></span>
+                                    <input type="file" id="PhotoId" asp-for="ServicePhoto" name="upGamePhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
+                                </label>
+                                <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="">
+                                    <img id="img_url" src="" width="60" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="ServiceDescription" class="control-label">تفاصيل اللعبة الرياضية <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <textarea id="txtNewsContent" asp-for="ServiceDescription" class="form-control"></textarea>
+                                <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <label class="switch">
+                                    <input id="rdShowable" name="rdIsShowable" type="checkbox" value="true" checked="checked" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-save">
+                        <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="btn btn-primary" />
+                        <span></span>
+                        <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" title=" الغاء" class="btn btn-danger theme-btn cancel">الغاء</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
+<script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/SportsGameScript.js" asp-append-version="true"></script>
+@await Html.PartialAsync("_ShowImageParial")
