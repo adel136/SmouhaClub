@@ -1,0 +1,18 @@
+//
+// order must be Files,ImageGallery,Photo
+//
+
+{
+  "Companies": {
+    "Logo": "Uploads/Companies/Logo"
+  },
+
+  "SportsGame": {
+    "Photo": "Uploads/SportsGame/Photo"
+  },
+
+  "Users": {
+    "UserPhoto": "Uploads/Users/Photo"
+  }
+
+}
