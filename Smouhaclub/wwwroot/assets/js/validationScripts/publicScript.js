@@ -23,18 +23,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 function emailvalidate(id) {
-    var messageEmail = $("#alrtCheckEmailValid").val();
     var val = $("#" + id + "").val();
-
     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(val)) {
 
         Swal.fire({
             icon: "warning",
-            title: messageEmail,
+            title: "من فضلك أدخل بريد إلكتروني صحيح",
             allowOutsideClick: false,
             showCloseButton: true,
-            confirmButtonText: btnOk,
+            confirmButtonText: "موافق",
             customClass: {
                 confirmButton: 'theme-btn'
             },

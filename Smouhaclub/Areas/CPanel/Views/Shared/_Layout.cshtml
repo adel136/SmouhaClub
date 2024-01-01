@@ -23,7 +23,7 @@
     <!-- jquery -->
     <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/jquery-3.7.1.min.js"></script>
 </head>
-<body>
+<body dir="rtl">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -76,6 +76,5 @@
     <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/script.js"></script>
 
     <script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/publicscript.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

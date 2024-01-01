@@ -198,7 +198,7 @@ public static class PublicFunction
     }
     public static DateTime ConvertDate(string NewsDate)
     {
-       var date= DateTime.Parse(NewsDate).ToString("yyyy-MM-dd");
+        var date = DateTime.Parse(NewsDate).ToString("yyyy-MM-dd");
         return DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
     }
 
@@ -361,6 +361,21 @@ public static class PublicFunction
         }
 
         return input;
+    }
+
+    public static string EncryptAndConvertToHex(string value)
+    {
+        string encryptUsreId = CryptoHelper.Encrypt(value, SettingHelper.GetKey());
+        string encryptHex = CryptoHelper.ConvertStringToHex(encryptUsreId);
+        return encryptHex;
+    }
+
+
+    public static string ConvertToHexAndDecrypt(string value)
+    {
+        string base64columnValue = CryptoHelper.ConvertHexToString(value.ToString());
+        string decriptcolumnValue = CryptoHelper.Decrypt(base64columnValue);
+        return decriptcolumnValue;
     }
 
 }
