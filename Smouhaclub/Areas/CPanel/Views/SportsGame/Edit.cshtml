@@ -8,16 +8,19 @@
             <ol>
                 <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="icon-home"></i></a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
-                <li class="breadcrumb-item active" aria-current="page">إضافة</li>
+                <li class="breadcrumb-item active" aria-current="page">تعديل</li>
             </ol>
         </nav>
     </div>
 </div>
 <section class="content">
     <div class="container">
-        <form asp-area="CPanel" asp-controller="SportsGame" asp-action="Create" id="frmSPortsGame" enctype="multipart/form-data">
+        <form asp-area="CPanel" asp-controller="SportsGame" asp-action="Edit" id="frmSPortsGame" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="ServiceId">
+
             <p><b>(<span style="color:red;">*</span>) </b>تعنى حقل يجب إدخاله</p>
             <div class="con-sp-box ">
                 <div class="row">
@@ -45,9 +48,20 @@
                                     <span style="cursor:pointer" title="صورة اللعبة"><i for="PhotoId" class="fa fa-upload" aria-hidden="true"></i></span>
                                     <input type="file" id="PhotoId" asp-for="ServicePhoto" name="upGamePhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
                                 </label>
-                                <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="">
-                                    <img id="img_url" src="" width="60" />
-                                </a>
+
+                                @if (!string.IsNullOrWhiteSpace(Model.ServicePhoto))
+                                {
+                                    var path = PublicFunction.GetPath(SettingHelper.GetPublishName(), "/Uploads/SportsGame/Photo", Model.ServicePhoto);
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@path">
+                                        <img id="img_url" src="@path" width="60" />
+                                    </a>
+                                }
+                                else{
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="">
+                                        <img id="img_url" src="" width="60" />
+                                    </a>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -60,7 +74,7 @@
                                 <label asp-for="ServiceDescription" class="control-label">تفاصيل اللعبة الرياضية <span class="star-required" style="color:red;">*</span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
-                                <textarea asp-for="ServiceDescription"  data-id="requiredServiceDescription" data-letter="من فضلك ادخل تفاصيل اللعبة الرياضية" class="form-control wizard-required"></textarea>
+                                <textarea asp-for="ServiceDescription" data-id="requiredServiceDescription" data-letter="من فضلك ادخل تفاصيل اللعبة الرياضية" class="form-control wizard-required"></textarea>
                             </div>
                             <span id="requiredServiceDescription" class="text-danger"></span>
                         </div>
@@ -71,10 +85,20 @@
                                 <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
                             </div>
                             <div class="col-md-8 col-sm-8">
+                                @if(Model.IsShowable == true)
+                                {
                                 <label class="switch">
                                     <input id="rdShowable" name="rdIsShowable" type="checkbox" value="true" checked="checked" class="checkbox">
                                     <div class="slider"></div>
                                 </label>
+                                }
+                                else
+                                {
+                                <label class="switch">
+                                    <input id="rdShowable" name="rdIsShowable" type="checkbox" value="false" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                                }
                             </div>
                         </div>
                     </div>
@@ -87,7 +111,8 @@
                 <div class="col-sm-4">
                     <div class="input-save">
                         @* <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="btn btn-primary" /> *@
-                        <input type="submit" id="btnSubmit" class="btn btn-success" value="حفظ">
+                        <input type="hidden" value="@Model.ServiceId" name="servicId">
+                        <input type="submit" class="btn btn-success" value="حفظ">
                         <span></span>
                         <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" class="btn theme-btn cancel">الغاء</a>
                     </div>

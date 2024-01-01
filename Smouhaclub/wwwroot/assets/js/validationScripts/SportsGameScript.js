@@ -6,8 +6,20 @@ $(document.body).on('change', '[id^="PhotoId"]', function (e) {
     var allowedExtarry = allowedExt.split(",");
 
     if (!allowedExtarry.includes(fileExtensions)) {
-        alert("من فضلك ختر صورة");
-        //$("#errorNewsPhoto").text("من فضلك قم برفع صوره ");
+        Swal.fire({
+            title: 'عفواً! هذا الملف غير مسموح به , الإمتدادات المسموح بها هي .pnb , .jpg , .jpeg',
+            icon: "warning",
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'موافق',
+            cancelButtonText: 'إلغاء',
+            closeOnClickOutside: false,
+            className: "warning-msg",
+            customClass: {
+                confirmButton: 'theme-btn',
+                cancelButton: 'theme-btn-two'
+            },
+        });
         //$('#hdPhoto')[0].src = '';
         $("#PhotoId").val("");
         return false;
@@ -19,41 +31,26 @@ $(document.body).on('change', '[id^="PhotoId"]', function (e) {
 
 });
 
-function getFileExtension(fileName) {
-    // Find the last occurrence of the dot (.)
-    var lastDotIndex = fileName.lastIndexOf(".");
-    // If there is no dot or it's the last character in the file name, return an empty string
-    if (lastDotIndex === -1 || lastDotIndex === fileName.length - 1) {
-        return "";
-    }
-    // Extract the file extension using the substring method
-    var extension = fileName.substring(lastDotIndex + 1);
-    return extension;
-}
 
-//$(".wizard-required").on("keypress", function () {
-//    $(this).css("border-color", "");
-//    var ErrormegId = $(this).attr('data-id');
-//    $("#" + ErrormegId).text('');
-//});
+
+$(".wizard-required").on("keypress", function () {
+   $(this).css("border-color", "");
+   var ErrormegId = $(this).attr('data-id');
+   $("#" + ErrormegId).text('');
+});
 
 
 function IsFormValidated() {
     var isValid = true;
-    //$('.wizard-required').each(function (index, element) {
-    //    if ($.trim($(element).val()) === "") {
-    //        var ErrormegId = $(element).attr('data-id');
-    //        var letter = $(element).attr("data-letter");
-    //        $(element).css("border", "solid 1px red");
-    //        $("#" + ErrormegId).text(letter);
-    //        isValid = false;
-    //    }
-    //});
-
-    //if ($("#PhotoId").val() == "") {
-    //    $("#errorNewsPhoto").text("من فضلك قم برفع صورة الخبر ");
-    //    isValid = false;
-    //}
+    $('.wizard-required').each(function (index, element) {
+       if ($.trim($(element).val()) === "") {
+           var ErrormegId = $(element).attr('data-id');
+           var letter = $(element).attr("data-letter");
+           $(element).css("border", "solid 1px red");
+           $("#" + ErrormegId).text(letter);
+           isValid = false;
+       }
+    });
     return isValid;
 }
 
