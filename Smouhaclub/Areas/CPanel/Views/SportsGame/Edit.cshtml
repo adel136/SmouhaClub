@@ -47,6 +47,7 @@
                                 <label for="PhotoId">
                                     <span style="cursor:pointer" title="صورة اللعبة"><i for="PhotoId" class="fa fa-upload" aria-hidden="true"></i></span>
                                     <input type="file" id="PhotoId" asp-for="ServicePhoto" name="upGamePhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
+                                    <input type="hidden" value="@Model.ServicePhoto" name="oldPhoto" />
                                 </label>
 
                                 @if (!string.IsNullOrWhiteSpace(Model.ServicePhoto))
@@ -79,25 +80,28 @@
                             <span id="requiredServiceDescription" class="text-danger"></span>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="row form-group">
                             <div class="col-md-4 col-sm-4">
                                 <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
                             </div>
                             <div class="col-md-8 col-sm-8">
-                                @if(Model.IsShowable == true)
+                                @if (Model.IsShowable == true)
                                 {
-                                <label class="switch">
-                                    <input id="rdShowable" name="rdIsShowable" type="checkbox" value="true" checked="checked" class="checkbox">
-                                    <div class="slider"></div>
-                                </label>
+                                    <label class="switch">
+                                        <input id="rdShowable" name="rdIsShowable" type="checkbox" value="true" checked="checked" class="checkbox">
+                                        <div class="slider"></div>
+                                    </label>
                                 }
                                 else
                                 {
-                                <label class="switch">
-                                    <input id="rdShowable" name="rdIsShowable" type="checkbox" value="false" class="checkbox">
-                                    <div class="slider"></div>
-                                </label>
+                                    <label class="switch">
+                                        <input id="rdShowable" name="rdIsShowable" type="checkbox" value="false" class="checkbox">
+                                        <div class="slider"></div>
+                                    </label>
                                 }
                             </div>
                         </div>
@@ -110,9 +114,8 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="input-save">
-                        @* <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="btn btn-primary" /> *@
                         <input type="hidden" value="@Model.ServiceId" name="servicId">
-                        <input type="submit" class="btn btn-success" value="حفظ">
+                        <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="theme-btn" />
                         <span></span>
                         <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" class="btn theme-btn cancel">الغاء</a>
                     </div>

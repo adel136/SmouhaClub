@@ -11,6 +11,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         private readonly SmouhaclubContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly string? _image;
+        private readonly string? _imageGallery;
         private readonly string? _wwwRoot;
 
         public SportsGameController(SmouhaclubContext context, IWebHostEnvironment env)
@@ -19,7 +20,8 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             _env = env;
             var uploadPaths = UploadFiles.GetSectionPaths("SportsGame").ToList();
             _wwwRoot = _env.WebRootPath;
-            _image = uploadPaths[0].Value;
+            _image = uploadPaths[1].Value;
+            _imageGallery = uploadPaths[0].Value;
         }
 
 
@@ -45,13 +47,12 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Create(TblService model, string rdIsShowable, IFormFile upGamePhoto)
+        public IActionResult Create(TblService model, string rdIsShowable, IFormFile upGamePhoto, IFormFile[] upGamePhotoGallery)
         {
             if (!string.IsNullOrWhiteSpace(model.ServiceName) && !string.IsNullOrWhiteSpace(model.ServiceDescription))
             {
                 PublicFunction.CreateDirectory(_wwwRoot, _image);
 
-                //var gamePhoto = "";
                 if (upGamePhoto != null)
                 {
                     model.ServicePhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
@@ -60,6 +61,23 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 model.IsShowable = rdIsShowable == "true" ? true : false;
                 _context.Add(model);
                 _context.SaveChanges();
+
+                if (upGamePhotoGallery.Length > 0)
+                {
+                    PublicFunction.CreateDirectory(_wwwRoot, _imageGallery);
+
+                    for (int i = 0; i < upGamePhotoGallery.Length; i++)
+                    {
+                        _context.TblServiceGalleries.Add(new TblServiceGallery
+                        {
+                            ServiceId = model.ServiceId,
+                            ServicGalleryPhoto = PublicFunction.SaveFile(upGamePhotoGallery[i], _wwwRoot, _imageGallery),
+                        });
+
+                        _context.SaveChanges();
+                    }
+                }
+
                 TempData["AddDone"] = true;
                 return RedirectToAction(nameof(Index));
             }
@@ -68,7 +86,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
         public IActionResult Edit(string id)
         {
-            var rowId =Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
+            var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
             var model = _context.TblServices.FirstOrDefault(p => p.ServiceId == rowId);
             if (model != null)
             {
@@ -81,8 +99,11 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit(int servicId, TblService model, string rdIsShowable, IFormFile upGamePhoto)
+        public IActionResult Edit(int servicId, TblService model, string rdIsShowable, IFormFile upGamePhoto, string oldPhoto)
         {
+            if (model.ServiceId != servicId)
+                return RedirectToAction("Error", "Home");
+
             if (!string.IsNullOrWhiteSpace(model.ServiceName) && !string.IsNullOrWhiteSpace(model.ServiceDescription))
             {
                 PublicFunction.CreateDirectory(_wwwRoot, _image);
@@ -91,6 +112,11 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 if (upGamePhoto != null)
                 {
                     model.ServicePhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
+                    PublicFunction.DeleteFile(_wwwRoot, _image, oldPhoto);
+                }
+                else
+                {
+                    model.ServicePhoto = oldPhoto;
                 }
 
                 model.IsShowable = rdIsShowable == "true" ? true : false;

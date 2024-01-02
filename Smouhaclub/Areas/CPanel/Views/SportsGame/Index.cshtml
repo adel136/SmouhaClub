@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TblService>
+﻿@using EEAAPortal.Setting
+@model IEnumerable<TblService>
 @{
     ViewData["Title"] = "الألعاب الرياضية";
 }
@@ -42,7 +43,9 @@
                             <td style="text-align:center;">
                                 @if (!string.IsNullOrWhiteSpace(item.ServicePhoto))
                                 {
-                                    var path = PublicFunction.GetPath(SettingHelper.GetPublishName(), "/Uploads/SportsGame/Photo", item.ServicePhoto);
+                                    var uploadPaths = UploadFiles.GetSectionPaths("SportsGame").ToList();
+                                    var path = SettingHelper.GetPublishName() + "/" + uploadPaths[1].Value + "/" + item.ServicePhoto;
+
                                     <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@path">
                                         <img id="img_url" src="@path" width="60" />
                                     </a>

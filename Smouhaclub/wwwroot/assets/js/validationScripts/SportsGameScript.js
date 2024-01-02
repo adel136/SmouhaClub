@@ -57,7 +57,7 @@ function IsFormValidated() {
 
 $("#btnSubmit").on("click", function () {
     if (IsFormValidated()) {
-        $("#frmSportsGame").submit();
+        $("#frmSPortsGame").submit();
     }
     return false;
 });

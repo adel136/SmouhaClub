@@ -67,6 +67,9 @@
                             <span id="requiredServiceDescription" class="text-danger"></span>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="row form-group">
                             <div class="col-md-4 col-sm-4">
@@ -83,12 +86,41 @@
                 </div>
             </div>
 
+
+            <div>
+
+                <div class="attchments">
+                    <div class="userImg addAttchments">
+                        <button type="button" class="add-user addNewRow">
+                            <span>إضافة صورة</span>
+                            <i class="fal fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="custom-scroll">
+                        <table class="table details-table table-responsive table-bordered table-hover dataTable table_Attachments">
+                            <thead>
+                                <tr>
+                                    <th>الصورة <span class="required">*</span></th>
+                                    
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
             <div class="form-group custom-buttons">
                     <div class="input-save">
                         <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="theme-btn" />
                         <span></span>
+                    <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" title=" الغاء" class="theme-btn-two">الغاء</a>
                     </div>
-                        <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" title=" الغاء" class="theme-btn-two">الغاء</a>
+                        
             </div>
         </form>
     </div>
@@ -96,3 +128,75 @@
 <input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
 <script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/SportsGameScript.js" asp-append-version="true"></script>
 @await Html.PartialAsync("_ShowImageParial")
+
+
+
+<script>
+    var publsihName = $("#hdnPublishName").val();
+    ////////////////////////////////////////////////////////////////
+    var rowNumber = 1;
+    var rowNumber_ = 1;
+    var wrapperGallery = $(".table_Attachments tbody");
+
+    $(wrapperGallery).on("click", ".ButtonRemoveRow", function (e) {
+        e.preventDefault();
+        $(this).closest('tr').remove();
+        rowNumber_--;
+    });
+
+
+    $(".addNewRow").on("click", function (e) {//on add input button click
+        e.preventDefault();
+        $(wrapperGallery).append(`
+
+            <tr>
+                <td>
+                    <div class="upload">
+                                
+                        <label for="fileAttach_`+ rowNumber + `" class="btn-upload" type="button">
+                            <i class="fal fa-upload"></i>
+                                <input id="fileAttach_`+ rowNumber + `" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
+                        </label>
+                            <img id="img_url_`+ rowNumber + `" src="" width="32" />
+
+                    </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-remove delete theme-btn-two ButtonRemoveRow" title="حذف"><i class="fal fa-trash-alt"></i></button>
+                        </td>
+                    </tr>`);
+
+        rowNumber++;
+        rowNumber_++;
+    });
+
+
+    $(document.body).on('change', '[id^="fileAttach_"]', function (e) {
+        var id = $(this).attr('id');
+        var ret1 = id.split("_");
+        var filename = e.target.files[0].name;
+        var splitFileName = filename.split(".");
+        var allowedExt = "png,PNG,jpg,JPG,jpeg,JPEG";
+        var allowedExtarry = allowedExt.split(",");
+        if (!allowedExtarry.includes(splitFileName[1])) {
+            Swal.fire({
+                icon: "warning",
+                title: 'عفواً! هذا الملف غير مسموح به , الإمتدادات المسموح بها هي .pnb , .jpg , .jpeg',
+                allowOutsideClick: false,
+                showCloseButton: true,
+                confirmButtonText: 'موافق',
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((rsult) => {
+                $('#img_url_' + ret1[1]).hide();
+                $('#img_url_' + ret1[1])[0].src = ('');
+            });
+            return false;
+        } else {
+            $('#img_url_' + ret1[1]).show();
+            $('#img_url_' + ret1[1])[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
+        }
+    });
+
+</script>
