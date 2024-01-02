@@ -13,6 +13,9 @@
 
   "Users": {
     "UserPhoto": "Uploads/Users/Photo"
+  },
+  "News": {
+    "ImageGallery": "Uploads/News/ImageGallery",
+    "Photo": "Uploads/News/Photo"
   }
-
 }

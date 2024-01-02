@@ -29,7 +29,7 @@ $(".wizard-required").on("change", function () {
 function IsFormValidated() {
     var isValid = true;
     $('.wizard-required').each(function (index, element) {
-        console.log($(element));
+
         if ($.trim($(element).val()) === "") {
             var ErrormegId = $(element).attr('data-id');
             var letter = $(element).attr("data-letter");
@@ -39,15 +39,28 @@ function IsFormValidated() {
         }
     });
 
-    //if ($("#PhotoId").val() == "") {
-    //    $("#errorNewsPhoto").text("من فضلك قم برفع صورة الخبر ");
-    //    isValid = false;
-    //}
+    if ($("#PhotoId").val() == "") {
+        $("#newsPhotoValidation").text("من فضلك قم برفع صورة الخبر ");
+        isValid = false;
+    }
+
+    $("[id^='fuImageGallery_']").each(function () {
+        var id = $(this).attr("id");
+        var rowNumber = id.split("_")[1];
+        if ($(this).val() == "") {
+            $("#imageNewsDetails_" + rowNumber).text("من فضلك قم برفع صورة الخبر");
+        }
+
+
+
+    });
+
+
     return isValid;
 }
 
 
-$("#btnSubmitForm").on("click", function () {
+$("#btnFormSubmit").on("click", function () {
     if (IsFormValidated()) {
         $("#formNews").submit();
         return true;
@@ -59,9 +72,9 @@ $("#btnSubmitForm").on("click", function () {
 
 
 ////////////////////////////////////////////////////////////////
-var count_hiddenGallery = 1;
-var rowNumberGallery = 1;
-var rowNumberGallery_ = 1;
+var count_hiddenGallery = 2;
+var rowNumberGallery = 2;
+var rowNumberGallery_ = 2;
 var wrapperGallery = $(".fields_Gallery");
 $(wrapperGallery).on("click", ".remove_fieldGallery", function (e) {
     e.preventDefault();
@@ -70,7 +83,8 @@ $(wrapperGallery).on("click", ".remove_fieldGallery", function (e) {
 });
 $(".add_field_buttonGallery").on("click", function (e) {//on add input button click
     e.preventDefault();
-    $(wrapperGallery).append(`<tr>
+    $("#tblNews tbody").append(`
+    <tr>
              <td>
              <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
              <span id="cv_" style="cursor:pointer" class="uplaod-btn theme-btn">  <i class="fa fa-upload" aria-hidden="true"></i> </span>
@@ -81,36 +95,20 @@ $(".add_field_buttonGallery").on("click", function (e) {//on add input button cl
                     <img id="img_gelrtyy_" src="" width="60" />
                 </a>
              </label>
-             </td>
-              <td> <input name="ImageDescriptionAr" id="txtGalleryDescriptionAr_" rows="3" cols="50" pattern=".*\S+.*" class="form-control" /></td>
-              <td><input name="ImageDescriptionEn" id="txtGalleryDescriptionEn_" rows="3" cols="50" pattern=".*\S+.*" class="form-control custom-dir" /></td>
-             <td style="text-align:center;">
-
-             <input type="hidden" name="rdIsShowableImageGallery" id="rdSubIsShowableGallery_`+ rowNumberGallery + `"  />
-                                
-             <label class="switch">
-                <input id="rdIsShowableGalleryYes_" name="rdIsShowableGallery_`+ rowNumberGallery + `" type="checkbox" checked="checked" class="checkbox">
-                <div class="slider"></div>
-            </label>
-
-
-             
-             
+              <span id="imageNewsDetails_"></span>
              </td>
              <td>
              <div class="btns-group">
                              <a class="remove_fieldGallery btn theme-btn btn-delete" title="حذف"><i class="icon-bin"></i></a>
 
              </div>
-             </td>                                                                                                         </tr>`
+             </td>       </tr>`
     );
 
     $('#fuImageGallery_').attr('id', 'fuImageGallery_' + rowNumberGallery);
-    $('#txtGalleryDescriptionAr_').attr('id', 'txtGalleryDescriptionAr_' + rowNumberGallery);
-    $('#txtGalleryDescriptionEn_').attr('id', 'txtGalleryDescriptionEn_' + rowNumberGallery);
     $('#fileImageGalleryE_').attr('id', 'fileImageGalleryE_' + rowNumberGallery);
     $('#fileImageGallery_').attr('id', 'fileImageGallery_' + rowNumberGallery);
-
+    $("#imageNewsDetails_").attr('id', 'imageNewsDetails_' + rowNumberGallery);
     /*$('#rdIsShowableGalleryNo_').attr('id', 'rdIsShowableGalleryNo_' + rowNumberGallery);*/
 
     $("#rdIsShowableGalleryYes_").attr('id', 'rdIsShowableGalleryYes_' + rowNumberGallery);

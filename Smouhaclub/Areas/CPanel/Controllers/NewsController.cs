@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EEAAPortal.Setting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,19 @@ namespace Smouhaclub.Areas.CPanel.Controllers
     public class NewsController : Controller
     {
         private readonly SmouhaclubContext _context;
+        private readonly IWebHostEnvironment _env;
+        private readonly string _wwwRoot;
+        private readonly string _photo;
+        private readonly string _imgGallary;
 
-        public NewsController(SmouhaclubContext context)
+        public NewsController(SmouhaclubContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
+            _wwwRoot = _env.WebRootPath;
+            var uploadPaths = UploadFiles.GetSectionPaths("News").ToList();
+            _imgGallary = uploadPaths[0].Value;
+            _photo = uploadPaths[1].Value;
         }
 
         // GET: CPanel/TblNews
@@ -54,7 +64,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TblNews tblNews, string rdIsShowable, IFormFile upNewsPhoto)
+        public async Task<IActionResult> Create(TblNews tblNews, string rdIsShowable, IFormFile upNewsPhoto, IFormFile[] fuFileImage)
         {
             if (!string.IsNullOrWhiteSpace(tblNews.NewsTitle) && !string.IsNullOrWhiteSpace(tblNews.NewsContent))
             {
@@ -72,11 +82,31 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 else tblNews.IsShowable = false;
                 _context.Add(tblNews);
                 await _context.SaveChangesAsync();
+                await CreateNewsDetails(fuFileImage, tblNews.NewsId);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(tblNews);
         }
 
+
+        private async Task CreateNewsDetails(IFormFile[] fuFileImage, int newsId)
+        {
+            if (fuFileImage.Count() > 0)
+            {
+                for (int i = 0; i < fuFileImage.Length; i++)
+                {
+                    var imageName = PublicFunction.SaveFile(fuFileImage[i], _wwwRoot, _imgGallary, i);
+                    TblNewsGallery model = new()
+                    {
+                        NewGalleryImage = imageName,
+                        NewsId = newsId,
+                    };
+                    await _context.TblNewsGalleries.AddAsync(model);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
         // GET: CPanel/TblNews/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

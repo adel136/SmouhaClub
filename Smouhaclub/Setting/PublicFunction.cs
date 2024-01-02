@@ -125,11 +125,11 @@ public static class PublicFunction
 
         return str;
     }
-    public static string RenameFiles(string FileName)
+    public static string RenameFiles(string FileName, int i = 0)
     {
         var ext = FileName.Split('.')[1].ToLower();
         //string name = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond + Path.GetExtension(FileName);
-        string name = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond + "." + ext;
+        string name = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond + i + "." + ext;
         return name;
     }
     public static void RemoveFile(string filePath, string fileName)
@@ -298,9 +298,9 @@ public static class PublicFunction
     {
         return Path.Combine(wwwRoot, uploadPath, fileName);
     }
-    public static string SaveFile(IFormFile formfile, string wwwRoot, string uploadPath)
+    public static string SaveFile(IFormFile formfile, string wwwRoot, string uploadPath, int i = 0)
     {
-        string fileName = RenameFiles(formfile.FileName);
+        string fileName = RenameFiles(formfile.FileName, i);
         FileStream stream = new FileStream(GetPath(wwwRoot, uploadPath, fileName), FileMode.Create);
         formfile.CopyTo(stream);
         stream.Close();
