@@ -190,7 +190,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         {
             if (fuFileImage.Count() > 0 || hdnGalleryImage.Count() > 0)
             {
-                await DeleteTblNewsGallery(newsId);
+                await DeleteTblNewsGallery(newsId, hdnGalleryImage);
                 if (hdnGalleryImage.Count() > 0)
                 {
                     hdnGalleryImage.ToList().ForEach(photo =>
@@ -224,21 +224,24 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             }
             else
             {
-                await DeleteTblNewsGallery(newsId);
+                await DeleteTblNewsGallery(newsId, hdnGalleryImage);
             }
         }
 
 
-        private async Task DeleteTblNewsGallery(int newsId)
+        private async Task DeleteTblNewsGallery(int newsId, string[] hdnGalleryImage)
         {
-            _context.TblNewsGalleries.Where(p => p.NewsId == newsId).ToList().ForEach(async p =>
+            _context.TblNewsGalleries.Where(p => p.NewsId == newsId).ToList().ForEach(p =>
             {
                 if (!string.IsNullOrWhiteSpace(p.NewGalleryImage))
                 {
-                    PublicFunction.DeleteFile(_wwwRoot, _imgGallary, p.NewGalleryImage);
+                    if (!hdnGalleryImage.Contains(p.NewGalleryImage))
+                    {
+                        PublicFunction.DeleteFile(_wwwRoot, _imgGallary, p.NewGalleryImage);
+                    }
                 }
                 _context.Remove(p);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             });
         }
 

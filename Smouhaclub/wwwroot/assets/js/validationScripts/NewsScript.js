@@ -73,12 +73,14 @@ $("#btnFormSubmit").on("click", function () {
 
 ////////////////////////////////////////////////////////////////
 
-
-
-
-var count_hiddenGallery = 2;
-var rowNumberGallery = 2;
-var rowNumberGallery_ = 2;
+var rowIdsArray = [];
+var rowIds = $("#tblBody tr").each(function () {
+    rowIdsArray.push(parseInt($(this).attr("id").split("_")[1]));
+});
+var LastId = Math.max(...rowIdsArray);
+var count_hiddenGallery = parseInt(LastId);
+var rowNumberGallery = parseInt(LastId);
+var rowNumberGallery_ = parseInt(LastId);
 var wrapperGallery = $(".fields_Gallery");
 $(wrapperGallery).on("click", ".remove_fieldGallery", function (e) {
     e.preventDefault();
@@ -88,7 +90,7 @@ $(wrapperGallery).on("click", ".remove_fieldGallery", function (e) {
 $(".add_field_buttonGallery").on("click", function (e) {//on add input button click
     e.preventDefault();
     $("#tblNews tbody").append(`
-    <tr>
+    <tr id="trRow_">
              <td>
              <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
              <span id="cv_" style="cursor:pointer" class="uplaod-btn theme-btn">  <i class="fa fa-upload" aria-hidden="true"></i> </span>
@@ -108,31 +110,30 @@ $(".add_field_buttonGallery").on("click", function (e) {//on add input button cl
              </div>
              </td>       </tr>`
     );
+    count_hiddenGallery++;
+    rowNumberGallery++;
+    rowNumberGallery_++;
 
     $('#fuImageGallery_').attr('id', 'fuImageGallery_' + rowNumberGallery);
     $('#fileImageGalleryE_').attr('id', 'fileImageGalleryE_' + rowNumberGallery);
     $('#fileImageGallery_').attr('id', 'fileImageGallery_' + rowNumberGallery);
     $("#imageNewsDetails_").attr('id', 'imageNewsDetails_' + rowNumberGallery);
+    $("#trRow_").attr('id', 'trRow_' + rowNumberGallery);
     /*$('#rdIsShowableGalleryNo_').attr('id', 'rdIsShowableGalleryNo_' + rowNumberGallery);*/
-
     $("#rdIsShowableGalleryYes_").attr('id', 'rdIsShowableGalleryYes_' + rowNumberGallery);
     $("#rdSubCatIsShowableGallery_").attr('id', 'rdSubCatIsShowableGallery_' + rowNumberGallery);
     $("#img_gelrtyy_").attr('id', 'img_gelrtyy_' + rowNumberGallery);
     $("#imgModalGallery_").attr('id', 'imgModalGallery_' + rowNumberGallery);
-
-    count_hiddenGallery++;
-    rowNumberGallery++;
-    rowNumberGallery_++;
 });
 
 $(document.body).on('change', '[id^="fuImageGallery_"]', function (e) {
     var id = $(this).attr('id');
     var ret1 = id.split("_");
     var filename = e.target.files[0].name;
-    var splitFileName = filename.split(".");
+    var splitFileName = getFileExtension(filename);
     var allowedExt = "png,PNG,jpg,JPG,gif,GIF,jpeg,JPEG,pjp,PJP";
     var allowedExtarry = allowedExt.split(",");
-    if (!allowedExtarry.includes(splitFileName[1])) {
+    if (!allowedExtarry.includes(splitFileName)) {
         swal("", "من فضلك قم برفع صوره ", "warning", {
             buttons: "موافق",
             closeOnClickOutside: false,

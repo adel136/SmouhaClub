@@ -115,7 +115,7 @@
                                 <th style="width:8%"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tblBody">
                             @{
                                 if (Model.Gallery.Count() > 0)
                                 {
@@ -127,7 +127,7 @@
                                         {
                                             pathGallery = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadPaths[0].Value, item.NewGalleryImage);
                                         }
-                                        <tr>
+                                        <tr id="trRow_@count">
                                             <td>
                                                 <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
                                                     <input type="hidden" id="fileImageGallery_@count" name="fileImage" />
@@ -150,7 +150,7 @@
                                 }
                                 else
                                 {
-                                    <tr>
+                                    <tr id="trRow_1">
                                         <td>
                                             <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
                                                 <span id="cv_1" style="cursor:pointer" class="uplaod-btn theme-btn">  <i class="fa fa-upload" aria-hidden="true"></i> </span>
