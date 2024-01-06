@@ -78,23 +78,24 @@
 
 </section>
 
-
+<script asp-append-version="true" src="@SettingHelper.GetPublishName()/assets/js/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript" asp-append-version="true">
     $("[id^='btnDelete_']").on("click", function () {
         var itemId = $(this).attr("data-id");
-        swal("", " عفوا ! هل تريد الحذف؟ ", "warning", {
-            buttons: ["الغاء", "موافق"],
-            closeOnClickOutside: false,
-            className: "warning-msg",
-        }).then((rsult) => {
-            if (rsult) {
-                window.location = '@SettingHelper.GetPublishName()/News/Delete/' + itemId;
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
+        window.location = '@SettingHelper.GetPublishName()/CPanel/News/Delete/' + itemId;
+        // swal("", " عفوا ! هل تريد الحذف؟ ", "warning", {
+        //     buttons: ["الغاء", "موافق"],
+        //     closeOnClickOutside: false,
+        //     className: "warning-msg",
+        // }).then((rsult) => {
+        //     if (rsult) {
+        //         window.location = '@SettingHelper.GetPublishName()/News/Delete/' + itemId;
+        //         return true;
+        //     }
+        //     else {
+        //         return false;
+        //     }
+        // });
     });
 </script>

@@ -37,15 +37,18 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         }
 
         // GET: CPanel/TblNews/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [Route("CPanel/TblNews/Details/{id}")]
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound();
             }
-
+            int newsId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
             var tblNews = await _context.TblNews
-                .FirstOrDefaultAsync(m => m.NewsId == id);
+                .FirstOrDefaultAsync(m => m.NewsId == newsId);
+
+
             if (tblNews == null)
             {
                 return NotFound();
@@ -235,10 +238,18 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(p.NewGalleryImage))
                 {
-                    if (!hdnGalleryImage.Contains(p.NewGalleryImage))
+                    if (hdnGalleryImage.Count() > 0)
+                    {
+                        if (!hdnGalleryImage.Contains(p.NewGalleryImage))
+                        {
+                            PublicFunction.DeleteFile(_wwwRoot, _imgGallary, p.NewGalleryImage);
+                        }
+                    }
+                    else
                     {
                         PublicFunction.DeleteFile(_wwwRoot, _imgGallary, p.NewGalleryImage);
                     }
+
                 }
                 _context.Remove(p);
                 _context.SaveChanges();
@@ -246,21 +257,31 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         }
 
         // GET: CPanel/TblNews/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [Route("CPanel/News/Delete/{newsId}")]
+        public async Task<IActionResult> Delete(string newsId)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(newsId))
             {
                 return NotFound();
             }
 
+            int id = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(newsId));
+
             var tblNews = await _context.TblNews
                 .FirstOrDefaultAsync(m => m.NewsId == id);
+
             if (tblNews == null)
             {
                 return NotFound();
             }
-
-            return View(tblNews);
+            if (!string.IsNullOrWhiteSpace(tblNews.NewsPhoto))
+            {
+                PublicFunction.DeleteFile(_wwwRoot, _photo, tblNews.NewsPhoto);
+            }
+            _context.Remove(tblNews);
+            _context.SaveChanges();
+            await DeleteTblNewsGallery(tblNews.NewsId, []);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: CPanel/TblNews/Delete/5
