@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using Smouhaclub.Models;
 
 public static class PublicFunction
 {
@@ -376,6 +377,22 @@ public static class PublicFunction
         string base64columnValue = CryptoHelper.ConvertHexToString(value.ToString());
         string decriptcolumnValue = CryptoHelper.Decrypt(base64columnValue);
         return decriptcolumnValue;
+    }
+
+    public static bool ConvertStringToBoolean(string value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            if (value.Equals("on", StringComparison.OrdinalIgnoreCase) || Convert.ToBoolean(value))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else return false;
     }
 
 }

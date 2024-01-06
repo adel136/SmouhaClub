@@ -6,6 +6,7 @@ using EEAAPortal.Setting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Smouhaclub.Areas.CPanel.ViewsModel;
 using Smouhaclub.Models;
 
 namespace Smouhaclub.Areas.CPanel.Controllers
@@ -68,18 +69,15 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         {
             if (!string.IsNullOrWhiteSpace(tblNews.NewsTitle) && !string.IsNullOrWhiteSpace(tblNews.NewsContent))
             {
-                if (!string.IsNullOrWhiteSpace(rdIsShowable))
+                PublicFunction.CreateDirectory(_wwwRoot, _photo);
+                PublicFunction.CreateDirectory(_wwwRoot, _imgGallary);
+                tblNews.IsShowable = PublicFunction.ConvertStringToBoolean(rdIsShowable);
+                if (upNewsPhoto != null)
                 {
-                    if (rdIsShowable.Equals("on", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tblNews.IsShowable = true;
-                    }
-                    else
-                    {
-                        tblNews.IsShowable = false;
-                    }
+                    tblNews.NewsPhoto = PublicFunction.SaveFile(upNewsPhoto, _wwwRoot, _photo);
                 }
-                else tblNews.IsShowable = false;
+
+
                 _context.Add(tblNews);
                 await _context.SaveChangesAsync();
                 await CreateNewsDetails(fuFileImage, tblNews.NewsId);
@@ -88,8 +86,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             }
             return View(tblNews);
         }
-
-
         private async Task CreateNewsDetails(IFormFile[] fuFileImage, int newsId)
         {
             if (fuFileImage.Count() > 0)
@@ -108,19 +104,31 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             }
         }
         // GET: CPanel/TblNews/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var tblNews = await _context.TblNews.FindAsync(id);
+            var newsId = PublicFunction.ConvertToHexAndDecrypt(id);
+            var tblNews = await _context.TblNews.FirstOrDefaultAsync(p => p.NewsId == Convert.ToInt32(newsId));
+            var newsDetails = await _context.TblNewsGalleries.Where(p => p.NewsId == Convert.ToInt32(newsId)).ToListAsync();
             if (tblNews == null)
             {
                 return NotFound();
             }
-            return View(tblNews);
+            newsModel model = new()
+            {
+                NewsId = tblNews.NewsId,
+                IsShowable = tblNews.IsShowable,
+                NewsContent = tblNews.NewsContent,
+                NewsDate = tblNews.NewsDate,
+                NewsPhoto = tblNews.NewsPhoto,
+                NewsTitle = tblNews.NewsTitle,
+                Gallery = newsDetails
+
+            };
+            return View(model);
         }
 
         // POST: CPanel/TblNews/Edit/5
@@ -128,19 +136,37 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NewsId,NewsTitle,NewsContent,NewsPhoto,NewsDate,IsShowable")] TblNews tblNews)
+        public async Task<IActionResult> Edit(int id, newsModel tblNews, string hdinNewsPhoto,
+            string rdIsShowable, string[] hdnGalleryImage, string[] hdnGalleryId, IFormFile upNewsPhoto, IFormFile[] fuFileImage)
         {
-            if (id != tblNews.NewsId)
+            if (!string.IsNullOrWhiteSpace(tblNews.NewsTitle) && !string.IsNullOrWhiteSpace(tblNews.NewsContent))
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
+                PublicFunction.CreateDirectory(_wwwRoot, _photo);
+                PublicFunction.CreateDirectory(_wwwRoot, _imgGallary);
                 try
                 {
-                    _context.Update(tblNews);
+                    if (upNewsPhoto is not null)
+                    {
+                        tblNews.NewsPhoto = PublicFunction.SaveFile(upNewsPhoto, _wwwRoot, _photo);
+                    }
+                    else
+                    {
+                        tblNews.NewsPhoto = hdinNewsPhoto;
+                    }
+                    TblNews model = new()
+                    {
+                        NewsTitle = tblNews.NewsTitle,
+                        NewsContent = tblNews.NewsContent,
+                        NewsDate = tblNews.NewsDate,
+                        NewsId = tblNews.NewsId,
+                        NewsPhoto = tblNews.NewsPhoto,
+                        IsShowable = PublicFunction.ConvertStringToBoolean(rdIsShowable),
+                    };
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
+                    await EditNewsDetails(fuFileImage, model.NewsId, hdnGalleryImage);
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,6 +182,64 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(tblNews);
+        }
+
+
+
+        private async Task EditNewsDetails(IFormFile[] fuFileImage, int newsId, string[] hdnGalleryImage)
+        {
+            if (fuFileImage.Count() > 0 || hdnGalleryImage.Count() > 0)
+            {
+                await DeleteTblNewsGallery(newsId);
+                if (hdnGalleryImage.Count() > 0)
+                {
+                    hdnGalleryImage.ToList().ForEach(photo =>
+                    {
+                        if (!string.IsNullOrWhiteSpace(photo))
+                        {
+                            TblNewsGallery model = new()
+                            {
+                                NewGalleryImage = photo,
+                                NewsId = newsId,
+                            };
+                            _context.TblNewsGalleries.Add(model);
+                            _context.SaveChanges();
+                        }
+                    });
+                }
+                if (fuFileImage.Count() > 0)
+                {
+                    for (int i = 0; i < fuFileImage.Length; i++)
+                    {
+                        var imageName = PublicFunction.SaveFile(fuFileImage[i], _wwwRoot, _imgGallary, i);
+                        TblNewsGallery model = new()
+                        {
+                            NewGalleryImage = imageName,
+                            NewsId = newsId,
+                        };
+                        await _context.TblNewsGalleries.AddAsync(model);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+            else
+            {
+                await DeleteTblNewsGallery(newsId);
+            }
+        }
+
+
+        private async Task DeleteTblNewsGallery(int newsId)
+        {
+            _context.TblNewsGalleries.Where(p => p.NewsId == newsId).ToList().ForEach(async p =>
+            {
+                if (!string.IsNullOrWhiteSpace(p.NewGalleryImage))
+                {
+                    PublicFunction.DeleteFile(_wwwRoot, _imgGallary, p.NewGalleryImage);
+                }
+                _context.Remove(p);
+                await _context.SaveChangesAsync();
+            });
         }
 
         // GET: CPanel/TblNews/Delete/5

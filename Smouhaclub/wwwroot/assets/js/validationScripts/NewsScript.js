@@ -1,18 +1,18 @@
 ﻿
-$(document.body).on('change', '[id^="PhotoId"]', function (e) {
+$(document.body).on('change', '[id^="fuPhotoId"]', function (e) {
     var filename = e.target.files[0].name;
     var fileExtensions = getFileExtension(filename);
-    var allowedExt = ".png,.jpg,.jpeg";
+    var allowedExt = "png,jpg,jpeg";
+    console.log(fileExtensions);
     var allowedExtarry = allowedExt.split(",");
     if (!allowedExtarry.includes(fileExtensions)) {
-        $("#errorNewsPhoto").text("من فضلك قم برفع صوره ");
-        $('#hdPhoto')[0].src = '';
-        $("#PhotoId").val("");
+        $("#newsPhotoValidation").text("من فضلك قم برفع صوره ");
+        $('#img_url')[0].src = '';
+        $("#fuPhotoId").val("");
         return false;
     }
-    $('#hdPhoto')[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
-    $("#errorNewsPhoto").text("");
-    $("#hdPhoto").removeClass("custom-img");
+    $('#img_url')[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
+    $("#newsPhotoValidation").text("");
 });
 $(".wizard-required").on("keypress", function () {
     $(this).css("border-color", "");
@@ -72,6 +72,10 @@ $("#btnFormSubmit").on("click", function () {
 
 
 ////////////////////////////////////////////////////////////////
+
+
+
+
 var count_hiddenGallery = 2;
 var rowNumberGallery = 2;
 var rowNumberGallery_ = 2;

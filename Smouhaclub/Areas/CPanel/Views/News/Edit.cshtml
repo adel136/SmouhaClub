@@ -1,54 +1,196 @@
-﻿@model Smouhaclub.Models.TblNews
-
+﻿@model Smouhaclub.Areas.CPanel.ViewsModel.newsModel
 @{
     ViewData["Title"] = "Edit";
+    var uploadPaths = UploadFiles.GetSectionPaths("News").ToList();
+    var pathNewsPhoto = "";
+    if (!string.IsNullOrWhiteSpace(Model.NewsPhoto))
+    {
+        pathNewsPhoto = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadPaths[1].Value, Model.NewsPhoto);
+    }
+
+
 }
 
-<h1>Edit</h1>
-
-<h4>TblNews</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index" title="الصفحة الرئيسية"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="News" asp-action="Index" title="الأخبار">الأخبار</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">تعديل</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div>
+        <form method="post" asp-action="Edit" asp-area="CPanel" id="formNews" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="NewsId" />
-            <div class="form-group">
-                <label asp-for="NewsTitle" class="control-label"></label>
-                <input asp-for="NewsTitle" class="form-control" />
-                <span asp-validation-for="NewsTitle" class="text-danger"></span>
+            <input type="hidden" value="@Model.NewsId" asp-for="NewsId" />
+            <p><b>(<span style="color:red;">*</span>) </b>تعنى حقل يجب إدخاله</p>
+            <div class="con-sp-box ">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsTitle" class="control-label">عنوان الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input asp-for="NewsTitle" data-id="newsTitleValidation" rows="3" cols="50" pattern=".*\S+.*" class="form-control wizard-required" data-letter="من فضلك ادخل عنوان الخبر " placeholder="عنوان الخبر">
+                                <span asp-validation-for="NewsTitle" id="newsTitleValidation" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label class="control-label">صورة الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
+                                    <span id="cv_1" style="cursor:pointer" class="uplaod-btn theme-btn">  <i class="fa fa-upload" aria-hidden="true"></i> </span>
+                                    <input type="file" id="fuPhotoId" name="upNewsPhoto" asp-for="NewsPhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
+                                    <input type="hidden" id="hdonNewsPhoto" name="hdinNewsPhoto" value="@Model.NewsPhoto" />
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="/@pathNewsPhoto">
+                                        <img id="img_url" src="/@pathNewsPhoto" width="60" />
+                                    </a>
+                                </label>
+                                <span asp-validation-for="NewsPhoto" id="newsPhotoValidation"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsDate" class="control-label ">تاريخ الخبر<span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="custom-date">
+                                    <input asp-for="NewsDate" data-id="newsDateValidation" data-provide="datepicker" type="text" class="text-center datepicker form-control wizard-required" maxlength="10" id="txtDate" pattern=".*\S+.*" onKeyUp="mask(this.value,this,'2,5','-')" onBlur="checkDate(this.value,this)" class="form-control text-center" placeholder="تاريخ الخبر" data-letter="من فضلك ادخل تاريخ الخبر " oninput="this.setCustomValidity('')">
+                                    <span asp-validation-for="NewsDate" id="newsDateValidation" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="NewsContent" class="control-label">تفاصيل الخبر <span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <textarea id="txtNewsContent" placeholder="تفاصيل الخبر" asp-for="NewsContent" data-id="newsContentValidation" class="form-control wizard-required" data-letter="من فضلك ادخل تفاصيل الخبر"></textarea>
+                                <span asp-validation-for="NewsContent" id="newsContentValidation" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="hidden" name="rdIsShowable" value="true" id="rdIsShowable" />
+                                <label class="switch">
+                                    <input id="rdShowable" type="checkbox" onchange="SetValue(this.id)" checked="checked" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NewsContent" class="control-label"></label>
-                <input asp-for="NewsContent" class="form-control" />
-                <span asp-validation-for="NewsContent" class="text-danger"></span>
+            <div class="con-sp-main">
+                <h2 class="main-title"> صور الخبر</h2>
+                <div class="box-adding">
+                    <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm bs" title="إضافة صور للخبر" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>
+                    <table class="table table-bordered  table-hover input_fields_wrap fields_Gallery" id="tblNews">
+                        <thead>
+                            <tr>
+                                <th style="width:20%">  صور الخبر  <span class="star-required" style="color:red;">*</span></th>
+                                <th style="width:8%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.Gallery.Count() > 0)
+                                {
+                                    var count = 1;
+                                    foreach (var item in Model.Gallery)
+                                    {
+                                        var pathGallery = "";
+                                        if (!string.IsNullOrWhiteSpace(item.NewGalleryImage))
+                                        {
+                                            pathGallery = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadPaths[0].Value, item.NewGalleryImage);
+                                        }
+                                        <tr>
+                                            <td>
+                                                <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
+                                                    <input type="hidden" id="fileImageGallery_@count" name="fileImage" />
+                                                    <a id="imgModalGallery_@count" data-toggle="modal" target="_blank" data-bs-target="#viewImg" href="/@pathGallery">
+                                                        <img id="img_gelrtyy_@count" src="/@pathGallery" width="60" />
+                                                    </a>
+                                                </label>
+                                                <input type="hidden" value="@item.NewGalleryImage" name="hdnGalleryImage" id="hdnGalleryImage_@count" />
+                                                <input type="hidden" id="hdnGalleryId_@count" name="hdnGalleryId" value="@item.NewGalleryId" />
+                                                <span id="imageNewsDetails_@count"></span>
+                                            </td>
+                                            <td>
+                                                <div class="btns-group">
+                                                    <a class="remove_fieldGallery btn theme-btn btn-delete" title="حذف"><i class="icon-bin"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            <label style=" cursor: pointer" title="صورة الخبر" class="img-upload">
+                                                <span id="cv_1" style="cursor:pointer" class="uplaod-btn theme-btn">  <i class="fa fa-upload" aria-hidden="true"></i> </span>
+                                                <input type="file" id="fuImageGallery_1" name="fuFileImage" style="display:none" accept=".png,.JPG" />
+                                                <input type="hidden" id="fileImageGallery_1" name="fileImage" />
+                                                <span id="fileImageGalleryE_1"></span>
+                                                <a id="imgModalGallery_1" data-toggle="modal" data-bs-target="#viewImg" href="">
+                                                    <img id="img_gelrtyy_1" src="" width="60" />
+                                                </a>
+                                            </label>
+                                            <input type="hidden" value="" name="hdnGalleryImage" id="hdnGalleryImage_1" />
+                                            <input type="hidden" id="hdnGalleryId_1" name="hdnGalleryId" value="0" />
+                                            <span id="imageNewsDetails_1"></span>
+                                        </td>
+                                        <td>
+                                            <div class="btns-group">
+                                                <a class="remove_fieldGallery btn theme-btn btn-delete" title="حذف"><i class="icon-bin"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <button id="addnewFiledImage" class="add_field_buttonGallery  btn-sm  btn bs" title="" tabindex="1"><i class="btn-sm fas fa-plus"></i></button>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NewsPhoto" class="control-label"></label>
-                <input asp-for="NewsPhoto" class="form-control" />
-                <span asp-validation-for="NewsPhoto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsDate" class="control-label"></label>
-                <input asp-for="NewsDate" class="form-control" />
-                <span asp-validation-for="NewsDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsShowable" class="control-label"></label>
-                <input asp-for="IsShowable" class="form-control" />
-                <span asp-validation-for="IsShowable" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="custom-buttons form-group">
+                <div class="input-save">
+                    <input type="button" id="btnFormSubmit" title="حفظ" value="حفظ" class="theme-btn" />
+                    <span></span>
+                </div>
+                <a asp-controller="News" asp-area="CPanel" asp-action="Index" title=" الغاء" class=" theme-btn-two">الغاء</a>
             </div>
         </form>
     </div>
-</div>
+</section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
+<script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/NewsScript.js" asp-append-version="true"></script>
+<script src="@SettingHelper.GetPublishName()/assets/js/mask.js" asp-append-version="true"></script>
+@await Html.PartialAsync("_ShowImageParial")
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
