@@ -1,6 +1,8 @@
-﻿@model Smouhaclub.Models.TblService
+﻿@model Smouhaclub.Areas.CPanel.ViewsModel.ServicesModels
 @{
     ViewData["Title"] = "الألعاب الرياضية";
+    var uploadPaths = UploadFiles.GetSectionPaths("SportsGame").ToList();
+    var pathPhoto = SettingHelper.GetPublishName() + "/" + uploadPaths[1].Value + "/";
 }
 <div class="breadcrumb">
     <div class="container">
@@ -49,20 +51,18 @@
                                     <input type="file" id="PhotoId" asp-for="ServicePhoto" name="upGamePhoto" style="display:none" accept="image/png, image/jpg, image/jpeg" />
                                     <input type="hidden" value="@Model.ServicePhoto" name="oldPhoto" />
                                 </label>
-
                                 @if (!string.IsNullOrWhiteSpace(Model.ServicePhoto))
                                 {
-                                    var path = PublicFunction.GetPath(SettingHelper.GetPublishName(), "/Uploads/SportsGame/Photo", Model.ServicePhoto);
-                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@path">
-                                        <img id="img_url" src="@path" width="60" />
+                                    <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@(pathPhoto+Model.ServicePhoto)">
+                                        <img id="img_url" src="@(pathPhoto+Model.ServicePhoto)" width="60" />
                                     </a>
                                 }
-                                else{
+                                else
+                                {
                                     <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="">
                                         <img id="img_url" src="" width="60" />
                                     </a>
                                 }
-
                             </div>
                         </div>
                     </div>
@@ -108,17 +108,62 @@
                     </div>
                 </div>
             </div>
-
+            <div>
+                <div class="attchments">
+                    <div class="userImg addAttchments">
+                        <button type="button" class="add-user addNewRow">
+                            <span>إضافة صورة</span>
+                            <i class="fal fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="custom-scroll">
+                        <table class="table details-table table-responsive table-bordered table-hover dataTable table_Attachments">
+                            <thead>
+                                <tr>
+                                    <th>الصورة <span class="required">*</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblBody">
+                                @if (Model.ServiceGalleries is not null)
+                                {
+                                    var count = 1;
+                                    @foreach (var item in Model.ServiceGalleries)
+                                    {
+                                        var pathGallery = SettingHelper.GetPublishName() + "/" + uploadPaths[0].Value + "/" + item.ServicGalleryPhoto;
+                                        <tr id="tblRow_@count">
+                                            <td>
+                                                <div class="upload">
+                                                    @*    <label for="fileAttach_1" class="btn-upload" type="button">
+                                            <i class="fal fa-upload"></i>
+                                            <input id="fileAttach_1" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
+                                            </label> *@
+                                                    <img id="img_url_@count" src="@pathGallery" width="32" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-remove delete theme-btn-two ButtonRemoveRow" title="حذف"><i class="fal fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="row form-group">
                 <div class="col-sm-5">
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-1">
                     <div class="input-save">
                         <input type="hidden" value="@Model.ServiceId" name="servicId">
                         <input type="button" id="btnSubmit" title="حفظ" value="حفظ" class="theme-btn" />
-                        <span></span>
-                        <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" class="btn theme-btn cancel">الغاء</a>
                     </div>
+                </div>
+                <div class="col-sm-1">
+                    <a asp-controller="SportsGame" asp-area="CPanel" asp-action="Index" class="btn theme-btn cancel">الغاء</a>
                 </div>
             </div>
         </form>
@@ -127,3 +172,76 @@
 <input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
 <script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/SportsGameScript.js" asp-append-version="true"></script>
 @await Html.PartialAsync("_ShowImageParial")
+<script type="text/javascript" asp-append-version="true">
+    var publsihName = $("#hdnPublishName").val();
+    ////////////////////////////////////////////////////////////////
+
+
+    var rowIdsArray = [];
+    var rowIds = $("#tblBody tr").each(function () {
+        rowIdsArray.push(parseInt($(this).attr("id").split("_")[1]));
+    });
+    var LastId = Math.max(...rowIdsArray);
+    var rowNumber = parseInt(LastId) + 1;
+    var rowNumber_ = parseInt(LastId) + 1;
+    var wrapperGallery = $(".table_Attachments tbody");
+
+    $(wrapperGallery).on("click", ".ButtonRemoveRow", function (e) {
+        e.preventDefault();
+        $(this).closest('tr').remove();
+        rowNumber_--;
+    });
+
+
+    $(".addNewRow").on("click", function (e) {//on add input button click
+        e.preventDefault();
+        $(wrapperGallery).append(`
+                                        <tr id="tblRow_`+ rowNumber + `">
+                                                                                    <td>
+                                                                                        <div class="upload">
+                                                                                            <label for="fileAttach_`+ rowNumber + `" class="btn-upload" type="button">
+                                                                                                <i class="fal fa-upload"></i>
+                                                                                                    <input id="fileAttach_`+ rowNumber + `" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
+                                                                                            </label>
+                                                                                                <img id="img_url_`+ rowNumber + `" src="" width="32" />
+                                                                                        </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <button type="button" class="btn btn-remove delete theme-btn-two ButtonRemoveRow" title="حذف"><i class="fal fa-trash-alt"></i></button>
+                                                                                            </td>
+                                                                                        </tr>`);
+        rowNumber++;
+        rowNumber_++;
+    });
+
+
+    $(document.body).on('change', '[id^="fileAttach_"]', function (e) {
+        var id = $(this).attr('id');
+        var ret1 = id.split("_");
+        var filename = e.target.files[0].name;
+        var splitFileName = filename.split(".");
+        var allowedExt = "png,PNG,jpg,JPG,jpeg,JPEG";
+        var allowedExtarry = allowedExt.split(",");
+        if (!allowedExtarry.includes(splitFileName[1])) {
+            Swal.fire({
+                icon: "warning",
+                title: 'عفواً! هذا الملف غير مسموح به , الإمتدادات المسموح بها هي .pnb , .jpg , .jpeg',
+                allowOutsideClick: false,
+                showCloseButton: true,
+                confirmButtonText: 'موافق',
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((rsult) => {
+                $('#img_url_' + ret1[1]).hide();
+                $('#img_url_' + ret1[1])[0].src = ('');
+            });
+            return false;
+        } else {
+            $('#img_url_' + ret1[1]).show();
+            $('#img_url_' + ret1[1])[0].src = (window.URL ? URL : webkitURL).createObjectURL(e.target.files[0]);
+        }
+    });
+
+</script>
+

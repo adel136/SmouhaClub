@@ -1,5 +1,6 @@
 ﻿using EEAAPortal.Setting;
 using Microsoft.AspNetCore.Mvc;
+using Smouhaclub.Areas.CPanel.ViewsModel;
 using Smouhaclub.Models;
 
 namespace Smouhaclub.Areas.CPanel.Controllers
@@ -87,9 +88,18 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         public IActionResult Edit(string id)
         {
             var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
-            var model = _context.TblServices.FirstOrDefault(p => p.ServiceId == rowId);
-            if (model != null)
+            var tblServices = _context.TblServices.FirstOrDefault(p => p.ServiceId == rowId);
+            if (tblServices is not null)
             {
+                ServicesModels model = new()
+                {
+                    ServiceName = tblServices.ServiceName,
+                    IsShowable = tblServices.IsShowable,
+                    ServiceDescription = tblServices.ServiceDescription,
+                    ServiceId = tblServices.ServiceId,
+                    ServicePhoto = tblServices.ServicePhoto,
+                    ServiceGalleries = _context.TblServiceGalleries.Where(p => p.ServiceId == tblServices.ServiceId).ToList(),
+                };
                 return View(model);
             }
 
