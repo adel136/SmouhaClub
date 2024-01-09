@@ -19,7 +19,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         private readonly string _wwwRoot;
         private readonly string _photo;
         private readonly string _imgGallary;
-
         public NewsController(SmouhaclubContext context, IWebHostEnvironment env)
         {
             _context = context;
@@ -29,13 +28,11 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             _imgGallary = uploadPaths[0].Value;
             _photo = uploadPaths[1].Value;
         }
-
         // GET: CPanel/TblNews
         public async Task<IActionResult> Index()
         {
             return View(await _context.TblNews.ToListAsync());
         }
-
         // GET: CPanel/TblNews/Details/5
         [Route("CPanel/TblNews/Details/{id}")]
         public async Task<IActionResult> Details(string id)
@@ -56,13 +53,11 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
             return View(tblNews);
         }
-
         // GET: CPanel/TblNews/Create
         public IActionResult Create()
         {
             return View();
         }
-
         // POST: CPanel/TblNews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -133,7 +128,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             };
             return View(model);
         }
-
         // POST: CPanel/TblNews/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -186,9 +180,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             }
             return View(tblNews);
         }
-
-
-
         private async Task EditNewsDetails(IFormFile[] fuFileImage, int newsId, string[] hdnGalleryImage)
         {
             if (fuFileImage.Count() > 0 || hdnGalleryImage.Count() > 0)
@@ -230,8 +221,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 await DeleteTblNewsGallery(newsId, hdnGalleryImage);
             }
         }
-
-
         private async Task DeleteTblNewsGallery(int newsId, string[] hdnGalleryImage)
         {
             _context.TblNewsGalleries.Where(p => p.NewsId == newsId).ToList().ForEach(p =>
@@ -298,7 +287,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool TblNewsExists(int id)
         {
             return _context.TblNews.Any(e => e.NewsId == id);
