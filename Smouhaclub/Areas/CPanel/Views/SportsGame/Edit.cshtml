@@ -134,6 +134,7 @@
                                         <tr id="tblRow_@count">
                                             <td>
                                                 <div class="upload">
+                                                    <input type="hidden" name="servicGalleryId" value="@item.ServicGalleryId" />
                                                     @*    <label for="fileAttach_1" class="btn-upload" type="button">
                                             <i class="fal fa-upload"></i>
                                             <input id="fileAttach_1" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
@@ -196,20 +197,21 @@
     $(".addNewRow").on("click", function (e) {//on add input button click
         e.preventDefault();
         $(wrapperGallery).append(`
-                                        <tr id="tblRow_`+ rowNumber + `">
-                                                                                    <td>
-                                                                                        <div class="upload">
-                                                                                            <label for="fileAttach_`+ rowNumber + `" class="btn-upload" type="button">
-                                                                                                <i class="fal fa-upload"></i>
-                                                                                                    <input id="fileAttach_`+ rowNumber + `" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
-                                                                                            </label>
-                                                                                                <img id="img_url_`+ rowNumber + `" src="" width="32" />
-                                                                                        </div>
-                                                                                            </td>
+                                                <tr id="tblRow_`+ rowNumber + `">
                                                                                             <td>
-                                                                                                <button type="button" class="btn btn-remove delete theme-btn-two ButtonRemoveRow" title="حذف"><i class="fal fa-trash-alt"></i></button>
-                                                                                            </td>
-                                                                                        </tr>`);
+                                                                                                <div class="upload">
+                                                                                                    <input type="hidden" name="servicGalleryId" value="0" />
+                                                                                                    <label for="fileAttach_`+ rowNumber + `" class="btn-upload" type="button">
+                                                                                                        <i class="fal fa-upload"></i>
+                                                                                                            <input id="fileAttach_`+ rowNumber + `" name="upGamePhotoGallery" type="file" accept=".png,.jpg,.jpeg" class="form-control" hidden>
+                                                                                                    </label>
+                                                                                                        <img id="img_url_`+ rowNumber + `" src="" width="32" />
+                                                                                                </div>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <button type="button" class="btn btn-remove delete theme-btn-two ButtonRemoveRow" title="حذف"><i class="fal fa-trash-alt"></i></button>
+                                                                                                    </td>
+                                                                                                </tr>`);
         rowNumber++;
         rowNumber_++;
     });

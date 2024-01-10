@@ -109,7 +109,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Edit(int servicId, TblService model, string rdIsShowable, IFormFile upGamePhoto, string oldPhoto)
+        public IActionResult Edit(int servicId, TblService model, string rdIsShowable, IFormFile upGamePhoto, string oldPhoto, int[] servicGalleryId, IFormFile[] upGamePhotoGallery)
         {
             if (model.ServiceId != servicId)
                 return RedirectToAction("Error", "Home");
@@ -132,6 +132,10 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 model.IsShowable = rdIsShowable == "true" ? true : false;
                 _context.Update(model);
                 _context.SaveChanges();
+                SportsPhotoGalleryController sportsPhotoGallery = new SportsPhotoGalleryController(_context, _env);
+                sportsPhotoGallery.EditPhotoGallery(servicId, servicGalleryId, upGamePhotoGallery);
+
+
                 TempData["EditDone"] = true;
                 return RedirectToAction(nameof(Index));
             }
