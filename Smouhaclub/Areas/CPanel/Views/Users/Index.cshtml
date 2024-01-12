@@ -1,0 +1,97 @@
+@using EEAAPortal.Setting
+@model IEnumerable<TblUsers>
+@{
+    ViewData["Title"] = "مستخدموا النظام";
+}
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">مستخدموا النظام</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div>
+        @await Html.PartialAsync("_SuccessMesages")
+        <label>
+            <a asp-action="Create" title="إضافة" class="theme-btn-two mt-2 mb-2 add-btn"><i class="btn-sm  fas fa-plus"></i></a>
+        </label>
+        @if (Model.Count() > 0)
+        {
+            <table class="table dataTables_wrapper table-bordered table-hover" id="tblList">
+                <thead class="datatablebakground">
+                    <tr class="text-center">
+                        <th class="text-center ignore-sorting">الاسم بالكامل</th>
+                        <th style="width:40%">اسم المستخدم</th>
+                        <th style="text-align:center;">البريد الإلكتروني</th>
+                        <th style="text-align:center;">حالة المستخدم</th>
+                        <th style="width:10%;" class="tblActions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var rowId = PublicFunction.EncryptAndConvertToHex(item.UserId.ToString());
+                        <tr>
+                            <td>@item.UserFullName</td>
+                            <td>@item.UserName</td>
+                            <td style="text-align:center;">@item.UserEmail</td>
+                            <td style="text-align:center;">
+                                @(item.IsActive == true ? "مفعل" : "غير مفعل")
+                            </td>
+                            <td class="tblActions" rowspan="1" colspan="1">
+                                <div class="btns-group">
+                                    <a asp-area="CPanel" asp-controller="Users" asp-action="Details" asp-route-id="@rowId " title="عرض" class="theme-btn-two"><i class="fal fa-eye"></i></a>
+                                    <a asp-area="CPanel" asp-controller="Users" asp-action="Edit" asp-route-id="@rowId " title="تعديل" class="theme-btn-two"><i class="fal fa-edit"></i></a>
+                                    <a href="#" class="btn-delete" id="btnDelete_@rowId" data-id="@rowId" title="حذف"><i class="fal fa-trash-alt"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width:235px; margin:20px;">
+                <strong>عفوا!</strong> لا توجد سجلات
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="right:revert"></button>
+            </div>
+        }
+    </div>
+
+</section>
+
+
+
+<script type="text/javascript" asp-append-version="true">
+    $("[id^='btnDelete_']").on("click", function () {
+        var itemId = $(this).attr("data-id");
+console.log(itemId);
+ Swal.fire({
+        title: 'عفواً! هل تريد الحذف',
+        icon: "warning",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'موافق',
+        cancelButtonText: 'إلغاء',
+        closeOnClickOutside: false,
+        className: "warning-msg",
+        customClass: {
+            confirmButton: 'theme-btn',
+            cancelButton: 'theme-btn-two'
+        },
+    }).then((rsult) => {
+        if (rsult.isConfirmed) {
+            window.location = '@SettingHelper.GetPublishName()/CPanel/Users/Delete/' + itemId;
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+    });
+</script>
