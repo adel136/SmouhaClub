@@ -31,13 +31,17 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return View(_context.TblServices);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(string id)
         {
+            if(string.IsNullOrWhiteSpace(id))
+                return RedirectToAction("Error","Home");
+
+            var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
             ViewBag.serviceGallery = _context.TblServiceGalleries
-                .Where(m => m.ServiceId == id).ToList();
+                .Where(m => m.ServiceId == rowId).ToList();
 
             return View(_context.TblServices
-                .FirstOrDefault(m => m.ServiceId == id));
+                .FirstOrDefault(m => m.ServiceId == rowId));
         }
 
         public IActionResult Create()
@@ -117,8 +121,6 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             if (!string.IsNullOrWhiteSpace(model.ServiceName) && !string.IsNullOrWhiteSpace(model.ServiceDescription))
             {
                 PublicFunction.CreateDirectory(_wwwRoot, _image);
-
-                //var gamePhoto = "";
                 if (upGamePhoto != null)
                 {
                     model.ServicePhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
@@ -142,6 +144,31 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return View(model);
         }
 
+
+        public IActionResult Delete(string id)
+        {
+            if(string.IsNullOrWhiteSpace(id))
+                return RedirectToAction("Error","Home");
+
+            var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
+            var tblServices = _context.TblServices.FirstOrDefault(p => p.ServiceId == rowId);
+            if (tblServices is not null)
+            {
+                var servGallery = _context.TblServiceGalleries.Where(x=>x.ServiceId == rowId).ToList();
+                servGallery.ForEach(g=>{
+                    
+                    PublicFunction.DeleteFile(_wwwRoot, _imageGallery, g.ServicGalleryPhoto);
+                    _context.Remove(g);
+                    _context.SaveChanges();
+
+                });
+
+                _context.Remove(tblServices);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index","SportsGame");
+        }
 
     }
 }

@@ -81,18 +81,28 @@
 <script type="text/javascript" asp-append-version="true">
     $("[id^='btnDelete_']").on("click", function () {
         var itemId = $(this).attr("data-id");
-        swal("", " عفوا ! هل تريد الحذف؟ ", "warning", {
-            buttons: ["الغاء", "موافق"],
-            closeOnClickOutside: false,
-            className: "warning-msg",
-        }).then((rsult) => {
-            if (rsult) {
-                window.location = '@SettingHelper.GetPublishName()/SportsGame/Delete/' + itemId;
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
+console.log(itemId);
+ Swal.fire({
+        title: 'عفواً! هل تريد الحذف',
+        icon: "warning",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'موافق',
+        cancelButtonText: 'إلغاء',
+        closeOnClickOutside: false,
+        className: "warning-msg",
+        customClass: {
+            confirmButton: 'theme-btn',
+            cancelButton: 'theme-btn-two'
+        },
+    }).then((rsult) => {
+        if (rsult.isConfirmed) {
+            window.location = '@SettingHelper.GetPublishName()/CPanel/SportsGame/Delete/' + itemId;
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
     });
 </script>
