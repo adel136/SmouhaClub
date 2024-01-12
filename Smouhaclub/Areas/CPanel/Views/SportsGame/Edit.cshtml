@@ -4,18 +4,20 @@
     var uploadPaths = UploadFiles.GetSectionPaths("SportsGame").ToList();
     var pathPhoto = SettingHelper.GetPublishName() + "/" + uploadPaths[1].Value + "/";
 }
-<div class="breadcrumb">
-    <div class="container">
+
+
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
         <nav aria-label="breadcrumb">
-            <ol>
-                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
-                <li class="breadcrumb-item active" aria-current="page">تعديل</li>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
+                <li class="breadcrumb-item active">تعديل</li>
             </ol>
         </nav>
     </div>
 </div>
-<section class="content">
     <div class="container">
         <form asp-area="CPanel" asp-controller="SportsGame" asp-action="Edit" id="frmSPortsGame" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
