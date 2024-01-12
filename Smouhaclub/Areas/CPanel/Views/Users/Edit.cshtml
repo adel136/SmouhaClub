@@ -1,0 +1,139 @@
+@model Smouhaclub.Models.TblUsers
+@{
+    ViewData["Title"] = "تعديل";
+
+    var uploadPaths = UploadFiles.GetSectionPaths("Users").ToList();
+    var pathPhoto = "";
+
+     if(!string.IsNullOrWhiteSpace(Model.UserPhoto))
+        pathPhoto= SettingHelper.GetPublishName() + "/" + uploadPaths[0].Value + "/" + Model.UserPhoto;
+}
+<section class="content">
+
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i
+                                class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a asp-area="CPanel" asp-controller="Users" asp-action="Index">مستخدموا
+                            النظام</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">تعديل</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <form asp-action="Edit" id="frmUsers" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" value="@Model.UserId">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="row form-group">
+                        <div class="col-md-4 col-sm-4">
+                            <label class="control-label">صورة المستخدم</label>
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <label for="PhotoId">
+                                <span style="cursor:pointer" title="صورة المستخدم">
+                                    <i for="PhotoId" class="fa fa-upload" aria-hidden="true"></i>
+                                </span>
+                                <input type="file" id="PhotoId" asp-for="UserPhoto" name="upGamePhoto"
+                                    style="display:none" accept="image/png, image/jpg, image/jpeg" />
+                                <input type="hidden" name="oldPhoto" value="@Model.UserPhoto">
+                            </label>
+                            <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@pathPhoto">
+                                <img id="img_url" src="@pathPhoto" width="60" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="UserFullName" class="control-label">الاسم بالكامل <span
+                                style="color:red;">*</span></label>
+                        <input asp-for="UserFullName" class="form-control wizard-required" data-id="errorFullName"
+                            data-letter="من فضلك ادخل الاسم بالكامل " />
+                        <span asp-validation-for="UserFullName" id="errorFullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label">اسم المستخدم <span
+                                style="color:red;">*</span></label>
+                        <input asp-for="UserName" class="form-control wizard-required" data-id="errorUserName"
+                            data-letter="من فضلك ادخل اسم المستخدم" />
+                        <span asp-validation-for="UserName" id="errorUserName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label asp-for="UserPassword" class="control-label">كلمة المرور <span
+                                style="color:red;">*</span> </label>
+                        <input asp-for="UserPassword" type="password" id="txtUserPassword" data-id="errorUserPassword"
+                            class="form-control wizard-required" data-letter="من فضلك ادخل كلمة المرور " />
+                        <span asp-validation-for="UserPassword" id="errorUserPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label asp-for="UserEmail" class="control-label">البريد الالكتروني</label>
+                        <input asp-for="UserEmail" id="txtUserEmail" class="form-control"
+                            onchange="emailMembervalidate()" type="email" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="row form-group">
+                        <div class="col-md-4 col-sm-4">
+                            <label asp-for="IsActive" class="control-label">حالة المستخدم ؟</label>
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+
+                            @if (Model.IsActive)
+                            {
+                                <label class="switch">
+                                    <input id="rdIsActive" name="rdIsActive" type="checkbox" value="true" checked="checked" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                            }
+                            else
+                            {
+                                <label class="switch">
+                                    <input id="rdIsActive" name="rdIsActive" type="checkbox" value="false" class="checkbox">
+                                    <div class="slider"></div>
+                                </label>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group custom-buttons">
+                <input type="hidden" name="userid" value="@Model.UserId">
+                <input type="button" id="btnSubmitForm" value="حفظ" class="theme-btn" />
+                <a asp-action="Index" class="theme-btn-two">إلغاء</a>
+            </div>
+        </form>
+    </div>
+
+
+
+</section>
+
+@await Html.PartialAsync("_ShowImageParial")
+
+<input type="hidden" id="CheckEmailUri" value="@SettingHelper.GetPublishName()/Users/EmailValidate" />
+
+<script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/UserScript.js"
+    asp-append-version="true"></script>

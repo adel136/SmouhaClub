@@ -17,7 +17,7 @@
     </div>
 
 <div class="row">
-    <form asp-action="Create" id="frmUsers">
+    <form asp-action="Create" id="frmUsers" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         
         <div class="row">
@@ -97,9 +97,9 @@
     </form>
 </div>
 
-
-
 </section>
+
+@await Html.PartialAsync("_ShowImageParial")
 
 <input type="hidden" id="CheckEmailUri" value="@SettingHelper.GetPublishName()/Users/EmailValidate" />
 

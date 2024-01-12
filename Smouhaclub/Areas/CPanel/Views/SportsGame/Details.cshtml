@@ -7,71 +7,76 @@
 
     var uploadPaths = UploadFiles.GetSectionPaths("SportsGame").ToList();
     string pathFile = "";
-    if(!string.IsNullOrWhiteSpace(Model.ServicePhoto))
-        pathFile= SettingHelper.GetPublishName() + "/" + uploadPaths[1].Value + "/" + Model.ServicePhoto;
+    if (!string.IsNullOrWhiteSpace(Model.ServicePhoto))
+        pathFile = SettingHelper.GetPublishName() + "/" + uploadPaths[1].Value + "/" + Model.ServicePhoto;
 }
 <section class="content">
     <div class="main-breadcrumb">
         <div class="header">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
-                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="SportsGame" asp-action="Index">الألعاب الرياضية</a></li>
-                <li class="breadcrumb-item active">عرض</li>
-            </ol>
-        </nav>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i
+                                class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="SportsGame"
+                            asp-action="Index">الألعاب الرياضية</a></li>
+                    <li class="breadcrumb-item active">عرض</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-</div>
 
     <div>
-    <h4></h4>
-    <hr />
-    <dl class="row">
-        
-        <dt class = "col-sm-2">
-            صورة اللعبة
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@pathFile" alt="@Model.ServiceName" width="200px" />
-        </dd>
+        <h4></h4>
+        <hr />
+        <dl class="row">
 
-        <dt class = "col-sm-2">
-            اسم اللعبة
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.ServiceName
-        </dd>
-        <dt class = "col-sm-2">
-            وصف اللعبة
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.ServiceDescription
-        </dd>
-        
-        <dt class = "col-sm-2">
-            عرض بالموقع؟
-        </dt>
-        <dd class = "col-sm-10">
-            @(Model.IsShowable ==  true ? "نعم" : "لا")
-        </dd>
-    </dl>
-</div>
+            <dt class="col-sm-2">
+                صورة اللعبة
+            </dt>
+            <dd class="col-sm-10">
+                <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@pathFile">
+                    <img id="img_url" alt="@Model.ServiceName" src="@pathFile" width="60" />
+                </a>
+            </dd>
 
-@if (gallery.Count() > 0)
-        {
-    <div class="attchments">
-        <div class="custom-scroll">
-            <table class="table details-table table-responsive table-bordered table-hover dataTable">
-                <thead>
-                    <tr>
-                        <th>الصورة </th>
-                    </tr>
-                </thead>
-                <tbody id="tblBody">
-                    
+            <dt class="col-sm-2">
+                اسم اللعبة
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ServiceName
+            </dd>
+            <dt class="col-sm-2">
+                وصف اللعبة
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ServiceDescription
+            </dd>
+
+            <dt class="col-sm-2">
+                عرض بالموقع؟
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.IsShowable == true ? "نعم" : "لا")
+            </dd>
+        </dl>
+    </div>
+
+    @if (gallery.Count() > 0)
+    {
+        <div class="attchments">
+            <div class="custom-scroll">
+                <table class="table details-table table-responsive table-bordered table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>الصورة </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblBody">
+
                         @foreach (var item in gallery)
                         {
-                            var pathGallery = SettingHelper.GetPublishName() + "/" + uploadPaths[0].Value + "/" + item.ServicGalleryPhoto;
+                            var pathGallery = SettingHelper.GetPublishName() + "/" + uploadPaths[0].Value + "/" +
+                            item.ServicGalleryPhoto;
                             <tr>
                                 <td>
                                     <div class="upload">
@@ -80,16 +85,14 @@
                                 </td>
                             </tr>
                         }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-        }
+    }
 
 
 </section>
 
 
-        @await Html.PartialAsync("_ShowImageParial")
-
-
+@await Html.PartialAsync("_ShowImageParial")

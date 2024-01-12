@@ -101,17 +101,24 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int userid, TblUsers model)
+        public async Task<IActionResult> Edit(int userid, TblUsers model, IFormFile upGamePhoto, string oldPhoto , string rdIsActive)
         {
             if (userid != model.UserId)
-            {
                 return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.UserName) && !string.IsNullOrWhiteSpace(model.UserPassword))
             {
                 try
                 {
+                     PublicFunction.CreateDirectory(_wwwRoot, _image);
+
+                    if (upGamePhoto != null)
+                    {
+                        model.UserPhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
+                        string filePath= PublicFunction.GetDirectory(_wwwRoot,_image);
+                        PublicFunction.RemoveFile(filePath,oldPhoto);
+                    }
+                    model.IsActive=rdIsActive == "true" ? true : false;
                     _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
@@ -156,12 +163,12 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return _context.TblUsers.Any(e => e.UserId == id);
         }
 
-        [HttpGet("Users/EmailValidate/{mail}")]
-        public JsonResult EmailValidate(string mail)
+        [HttpGet("Users/EmailValidate/{email}")]
+        public JsonResult EmailValidate(string email)
         {
-            if (!string.IsNullOrWhiteSpace(mail))
+            if (!string.IsNullOrWhiteSpace(email))
             {
-                var emailExist = _context.TblUsers.Any(p => p.UserEmail == mail);
+                var emailExist = _context.TblUsers.Any(p => p.UserEmail == email);
                 if(emailExist)
                     return Json("1");
 

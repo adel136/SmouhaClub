@@ -31,7 +31,7 @@ namespace Smouhaclub.Models
     [Unicode(false)]
     public string? UserPhoto { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
         
     }
 }

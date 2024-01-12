@@ -70,3 +70,54 @@ $("#rdIsActive").on("change", function () {
         $("#rdIsActive").val("false");
     }
 });
+
+function emailMembervalidate() {
+    var val = $("#txtUserEmail").val();
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(val)) {
+
+        Swal.fire({
+            icon: "warning",
+            title: "من فضلك أدخل بريد إلكتروني صحيح",
+            allowOutsideClick: false,
+            showCloseButton: true,
+            confirmButtonText: "موافق",
+            customClass: {
+                confirmButton: 'theme-btn'
+            },
+        }).then((rsult) => {
+            $("#txtUserEmail").val('');
+            $("#txtUserEmail").focus();
+        });
+        return false;
+    } else {
+        var urlValidateEmail = $("#CheckEmailUri").val();
+        var email = $("#txtUserEmail").val();
+        $.ajax({
+            type: "GET",
+            url: urlValidateEmail,
+            data: {
+                "email": email,
+            },
+            async: false,
+            success: function (result) {
+                if (result == "1") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "عفواً ! البريد الإلكترونى مستخدم من قبل",
+                        allowOutsideClick: false,
+                        showCloseButton: true,
+                        confirmButtonText: "موافق",
+                        customClass: {
+                            confirmButton: 'theme-btn'
+                        },
+                    }).then((rsult) => {
+                        $("#txtUserEmail").val("");
+                    });
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+}
