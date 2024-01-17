@@ -20,7 +20,6 @@ $(document.body).on('change', '[id^="PhotoId"]', function (e) {
                 cancelButton: 'theme-btn-two'
             },
         });
-        //$('#hdPhoto')[0].src = '';
         $("#PhotoId").val("");
         return false;
     }

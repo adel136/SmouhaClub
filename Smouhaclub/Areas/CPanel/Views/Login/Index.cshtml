@@ -1,0 +1,204 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>تسجيل الدخول</title>
+    <!-- Fav Icon -->
+</head>
+
+<body dir="rtl">
+
+    <section class="sec-login">
+        <span class="right-side"></span>
+        <span class="left-side"></span>
+        <div class="container">
+            <div class="main-login">
+                <div class="main-box">
+                    <div class="login-info">
+                        <div class="logo">
+                            <img src="@SettingHelper.GetPublishName()/CPanel/assets/images/logo-ae.png" />
+                        </div>
+                        <div class="caption">
+                            <h1>مرحبا بعودتك</h1>
+                            <p>سجل الدخول الآن بكتابة اسم المستخدم وكلمة المرور الخاصة بك</p>
+                        </div>
+                        <form asp-area="CPanel" asp-controller="Login" asp-action="Login" id="frmLogin">
+                            <div class="info">
+                                <label>اسم المستخدم</label>
+                                <div>
+                                    <input type="text" name="txtLoginName" id="txtUserName" autofocus placeholder="اسم المستخدم" />
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <label>كلمة المرور</label>
+                                <div>
+                                    <input type="password" id="txtPassword" name="txtLoginPassword" placeholder="كلمة المرور" />
+                                    <i class="fa fa-lock"></i>
+                                    <span id="showPass" class="showpass fa fa-eye"></span>
+                                </div>
+                                <div class="login-btn">
+
+                                    <button type="button" id="btnLogin" class="theme-btn">
+                                        تسجيل الدخول
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                        <footer class="main-footer login-footer">
+                            <p class="copyright">
+                                جميع الحقوق محفوظة  ©
+                                <a href="https://new.infoglobe.ae/" target="_blank"> لطلبة كلية الهندسة</a>
+                                <span class="year"></span>
+                            </p>
+                        </footer>
+                    </div>
+                    <div class="box">
+                        <span class="shape"></span>
+                        <div class="image">
+                            @* <img src="@SettingHelper.GetPublishName()/CPanel/assets/images/login-bg.png" /> *@
+                        </div>
+                        <div class="circle top">
+                            <span class="circle-sm"></span>
+                        </div>
+                        <div class="circle bottom">
+                            <span class="circle-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+<input type="hidden" value='@TempData["message"]' id="msgLogin" />
+<script src="@SettingHelper.GetPublishName()/assets/js/jquery-3.7.1.min.js"></script>
+<script src="@SettingHelper.GetPublishName()/assets/js/sweetalert2.all.min.js"></script>
+
+<script>
+
+    $("#btnLogin").click(function () {
+
+        if ($("#txtUserName").val() == "") {
+
+            Swal.fire({
+                icon: "warning",
+                title: "عفواً! من فضلك أدخل اسم المستخدم",
+                allowOutsideClick: false,
+                showCloseButton: true,
+                confirmButtonText: "موافق",
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((rsult) => {
+                $("#txtUserName").focus();
+            });
+            return false;
+        }
+        else if ($("#txtPassword").val().trim() == "") {
+            Swal.fire({
+                icon: "warning",
+                title: "عفواً! من فضلك أدخل كلمة المرور",
+                allowOutsideClick: false,
+                showCloseButton: true,
+                confirmButtonText: "موافق",
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((rsult) => {
+                $("#txtPassword").focus();
+            });
+
+            return false;
+        }
+        else {
+            $("#frmLogin").submit();
+        }
+    });
+
+    $(".sec-login .main-login .showpass").on('click', function () {
+        $(this).toggleClass("active");
+    })
+    $("#showPass").click(function () {
+        if ($("#txtPassword").attr("type") === "password") {
+            $("#txtPassword").prop("type", "text");
+        } else {
+            $("#txtPassword").prop("type", "password");
+        }
+    });
+
+    $(document).bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+            if ($("#txtUserName").val() == "") {
+
+                Swal.fire({
+                    icon: "warning",
+                    title: "عفواً! من فضلك أدخل اسم المستخدم",
+                    allowOutsideClick: false,
+                    showCloseButton: true,
+                    confirmButtonText: "موافق",
+                    customClass: {
+                        confirmButton: 'theme-btn'
+                    },
+                }).then((rsult) => {
+                    $("#txtUserName").focus();
+                });
+                return false;
+            }
+            else if ($("#txtPassword").val().trim() == "") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "عفواً! من فضلك أدخل كلمة المرور",
+                    allowOutsideClick: false,
+                    showCloseButton: true,
+                    confirmButtonText: "موافق",
+                    customClass: {
+                        confirmButton: 'theme-btn'
+                    },
+                }).then((rsult) => {
+                    $("#txtPassword").focus();
+                });
+
+                return false;
+            }
+            else {
+                $("#frmLogin").submit();
+            }
+        }
+    });
+
+    $(function () {
+    @if (TempData["message"] != null)
+    {
+        if (!String.IsNullOrEmpty((string)TempData["message"]))
+        {
+
+            <text>
+               var msgLogin = $("#msgLogin").val();
+
+                Swal.fire({
+                    icon: "warning",
+                    title: msgLogin,
+                    allowOutsideClick: false,
+                    showCloseButton: true,
+                    confirmButtonText: "موافق",
+                    customClass: {
+                        confirmButton: 'theme-btn'
+                    },
+                }).then((rsult) => {
+                    $("#txtPassword").focus();
+                });
+
+            </text>
+        }
+    }
+                });
+</script>

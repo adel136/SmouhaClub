@@ -7,6 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<SmouhaclubContext>(item => item.UseSqlServer(SettingHelper.GetConnectionString()));
+
+
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,10 +32,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
                 name: "areaRoute",
-                pattern: "{area:exists}/{controller=Home}/{action=index}/{id?}");
+                pattern: "{area:exists}/{controller=Login}/{action=index}/{id?}");
                 
 app.MapControllerRoute(
     name: "default",

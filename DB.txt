@@ -1,0 +1,164 @@
+USE [Smouhaclub]
+GO
+/****** Object:  Table [dbo].[Tbl_Complaints]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_Complaints](
+	[ComplaintId] [int] IDENTITY(1,1) NOT NULL,
+	[ComplaintEmail] [varchar](150) NULL,
+	[ComplaintDate] [date] NULL,
+	[ComplaintTitle] [varchar](250) NULL,
+	[ComplaintDescription] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ComplaintId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_Members]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_Members](
+	[MemberId] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NULL,
+	[MemberCode] [varchar](50) NULL,
+	[PhoneNumber] [varchar](50) NULL,
+	[MemberEmail] [varchar](50) NULL,
+	[MemberAddress] [nvarchar](100) NULL,
+	[DateBirth] [date] NULL,
+	[JoinDate] [date] NULL,
+	[RenewalDate] [date] NULL,
+	[MembershipCost] [decimal](18, 0) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[MemberId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_MemberShip]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_MemberShip](
+	[shipId] [int] IDENTITY(1,1) NOT NULL,
+	[MemberId] [int] NULL,
+	[MemberType] [nvarchar](250) NULL,
+	[SubscriptionFee] [decimal](18, 0) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[shipId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tbl_News]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_News](
+	[NewsId] [int] IDENTITY(1,1) NOT NULL,
+	[NewsTitle] [nvarchar](2000) NULL,
+	[NewsContent] [nvarchar](max) NULL,
+	[NewsPhoto] [varchar](150) NULL,
+	[NewsDate] [date] NULL,
+	[IsShowable] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[NewsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tbl_NewsGallery]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_NewsGallery](
+	[NewGalleryId] [int] IDENTITY(1,1) NOT NULL,
+	[NewsId] [int] NULL,
+	[NewGalleryImage] [varchar](150) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[NewGalleryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_ServiceGallery]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_ServiceGallery](
+	[ServicGalleryId] [int] IDENTITY(1,1) NOT NULL,
+	[ServiceID] [int] NULL,
+	[ServicGalleryPhoto] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ServicGalleryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_Services]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_Services](
+	[ServiceID] [int] IDENTITY(1,1) NOT NULL,
+	[ServiceName] [nvarchar](255) NULL,
+	[ServiceDescription] [nvarchar](max) NULL,
+	[ServicePhoto] [varchar](150) NULL,
+	[IsShowable] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ServiceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_Users]    Script Date: 1/17/2024 8:35:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_Users](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[UserFullName] [nvarchar](250) NOT NULL,
+	[UserName] [varchar](250) NOT NULL,
+	[UserPassword] [nvarchar](500) NOT NULL,
+	[UserEmail] [varchar](250) NULL,
+	[UserPhoto] [varchar](250) NULL,
+	[IsActive] [bit] NOT NULL,
+ CONSTRAINT [PK_tbl_Users] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[tbl_ServiceGallery] ON 
+GO
+INSERT [dbo].[tbl_ServiceGallery] ([ServicGalleryId], [ServiceID], [ServicGalleryPhoto]) VALUES (1, 1, N'20240102100855725.jpg')
+GO
+INSERT [dbo].[tbl_ServiceGallery] ([ServicGalleryId], [ServiceID], [ServicGalleryPhoto]) VALUES (2, 1, N'20240102100855740.jpg')
+GO
+INSERT [dbo].[tbl_ServiceGallery] ([ServicGalleryId], [ServiceID], [ServicGalleryPhoto]) VALUES (3, 1, N'20240102100855743.jpg')
+GO
+SET IDENTITY_INSERT [dbo].[tbl_ServiceGallery] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tbl_Services] ON 
+GO
+INSERT [dbo].[tbl_Services] ([ServiceID], [ServiceName], [ServiceDescription], [ServicePhoto], [IsShowable]) VALUES (1, N'كرة القدم الأمريكية', N'تفاصيل اللعبة '' كرة القدم الأمريكية ''', N'20240102100855608.jpg', 1)
+GO
+SET IDENTITY_INSERT [dbo].[tbl_Services] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tbl_Users] ON 
+GO
+INSERT [dbo].[tbl_Users] ([UserId], [UserFullName], [UserName], [UserPassword], [UserEmail], [UserPhoto], [IsActive]) VALUES (2, N'System Admin', N'admin', N'af90598ee850d9e93d27a4be8780b181', NULL, NULL, 1)
+GO
+SET IDENTITY_INSERT [dbo].[tbl_Users] OFF
+GO
