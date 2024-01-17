@@ -27,13 +27,13 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             _image = uploadPaths[0].Value;
         }
 
-        // GET: CPanel/Members
+        // GET: CPanel/Users
         public async Task<IActionResult> Index()
         {
             return View(await _context.TblUsers.ToListAsync());
         }
 
-        // GET: CPanel/Members/Details/5
+        // GET: CPanel/Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
              if(string.IsNullOrWhiteSpace(id))
@@ -51,18 +51,16 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return View(tblUser);
         }
 
-        // GET: CPanel/Members/Create
+        // GET: CPanel/Users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CPanel/Members/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CPanel/Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TblUsers model,string rdIsActive, IFormFile upGamePhoto)
+        public async Task<IActionResult> Create(TblUser model,string rdIsActive, IFormFile upGamePhoto)
         {
             if (!string.IsNullOrWhiteSpace(model.UserName) && !string.IsNullOrWhiteSpace(model.UserPassword))
             {
@@ -73,14 +71,15 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                     model.UserPhoto = PublicFunction.SaveFile(upGamePhoto, _wwwRoot, _image);
                 }
                 model.IsActive =  rdIsActive == "true" ? true : false;
+                model.UserPassword = CryptoHelper.Encrypt(model.UserPassword,SettingHelper.GetKey());
                 _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
-      
-        // GET: CPanel/Members/Edit/5
+
+        // GET: CPanel/Users/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
              if(string.IsNullOrWhiteSpace(id))
@@ -96,12 +95,10 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return View(tblUser);
         }
 
-        // POST: CPanel/Members/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CPanel/Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int userid, TblUsers model, IFormFile upGamePhoto, string oldPhoto , string rdIsActive)
+        public async Task<IActionResult> Edit(int userid, TblUser model,string userpassword, string oldPassword, IFormFile upGamePhoto, string oldPhoto , string rdIsActive)
         {
             if (userid != model.UserId)
                 return NotFound();
@@ -119,6 +116,16 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                         PublicFunction.RemoveFile(filePath,oldPhoto);
                     }
                     model.IsActive=rdIsActive == "true" ? true : false;
+
+                    if (userpassword != "********")
+                    {
+                        model.UserPassword = CryptoHelper.Encrypt(userpassword, SettingHelper.GetKey());
+                    }
+                    else
+                    {
+                        model.UserPassword = oldPassword;
+                    }
+
                     _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
@@ -138,7 +145,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             return View(model);
         }
 
-        // GET: CPanel/Members/Delete/5
+        // GET: CPanel/Users/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if(string.IsNullOrWhiteSpace(id))
@@ -161,6 +168,27 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         private bool TblMemberExists(int id)
         {
             return _context.TblUsers.Any(e => e.UserId == id);
+        }
+
+        public JsonResult CheckUserNameExist(int userId,string userName)
+        {
+            if (!string.IsNullOrWhiteSpace(userName))
+            {
+                bool isExist;
+                if (userId == 0)
+                {
+                    isExist = _context.TblUsers.Any(p => p.UserName == userName);
+                } else
+                {
+                    isExist = _context.TblUsers.Any(p => p.UserName == userName && p.UserId != userId);
+                }
+
+                if (isExist)
+                    return Json(isExist);
+
+                return Json("0");
+            }
+            return Json("Error");
         }
 
         [HttpGet("Users/EmailValidate/{email}")]

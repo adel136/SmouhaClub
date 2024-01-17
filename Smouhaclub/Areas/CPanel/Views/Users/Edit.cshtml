@@ -1,4 +1,4 @@
-@model Smouhaclub.Models.TblUsers
+@model Smouhaclub.Models.TblUser
 @{
     ViewData["Title"] = "تعديل";
 
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label asp-for="UserName" class="control-label">اسم المستخدم <span
                                 style="color:red;">*</span></label>
-                        <input asp-for="UserName" class="form-control wizard-required" data-id="errorUserName"
+                        <input asp-for="UserName" id="txtUserName" onchange="return checkName()" class="form-control wizard-required" data-id="errorUserName"
                             data-letter="من فضلك ادخل اسم المستخدم" />
                         <span asp-validation-for="UserName" id="errorUserName" class="text-danger"></span>
                     </div>
@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label asp-for="UserPassword" class="control-label">كلمة المرور <span
                                 style="color:red;">*</span> </label>
-                        <input asp-for="UserPassword" type="password" id="txtUserPassword" data-id="errorUserPassword"
+                        <input type="password" name="userpassword" id="txtUserPassword" value="********" onkeyup="return ValidatePassword()" maxlength="20" min="8" data-id="errorUserPassword"
                             class="form-control wizard-required" data-letter="من فضلك ادخل كلمة المرور " />
                         <span asp-validation-for="UserPassword" id="errorUserPassword" class="text-danger"></span>
                     </div>
@@ -121,6 +121,7 @@
 
             <div class="form-group custom-buttons">
                 <input type="hidden" name="userid" value="@Model.UserId">
+                <input type="hidden" name="oldPassword" value="@Model.UserPassword">
                 <input type="button" id="btnSubmitForm" value="حفظ" class="theme-btn" />
                 <a asp-action="Index" class="theme-btn-two">إلغاء</a>
             </div>
@@ -134,6 +135,7 @@
 @await Html.PartialAsync("_ShowImageParial")
 
 <input type="hidden" id="CheckEmailUri" value="@SettingHelper.GetPublishName()/Users/EmailValidate" />
+<input type="hidden" id="CheckUserNameUri" value="@Url.Action("CheckUserNameExist","Users")" />
 
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/UserScript.js"
     asp-append-version="true"></script>

@@ -1,0 +1,77 @@
+﻿@using EEAAPortal.Setting
+@model Smouhaclub.Models.TblUser
+@{
+    ViewData["Title"] = "مستخدموا النظام";
+
+    List<TblServiceGallery> gallery = ViewBag.serviceGallery;
+
+    var uploadPaths = UploadFiles.GetSectionPaths("Users").ToList();
+    string pathFile = "";
+    if (!string.IsNullOrWhiteSpace(Model.UserPhoto))
+        pathFile = SettingHelper.GetPublishName() + "/" + uploadPaths[0].Value + "/" + Model.UserPhoto;
+}
+
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a asp-area="CPanel" asp-controller="Users" asp-action="Index">مستخدموا النظام</a>
+                    </li>
+                    <li class="breadcrumb-item active">عرض</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div>
+        <h4></h4>
+        <hr />
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                الصورة
+            </dt>
+            <dd class="col-sm-10">
+                <a id="imgModal" data-bs-toggle="modal" data-bs-target="#viewImg" href="@pathFile">
+                    <img id="img_url" alt="@Model.UserPhoto" src="@pathFile" width="60" />
+                </a>
+            </dd>
+
+            <dt class="col-sm-2">
+                الإسم بالكامل
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UserFullName
+            </dd>
+            <dt class="col-sm-2">
+                اسم المستخدم
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UserName
+            </dd>
+            <dt class="col-sm-2">
+                البريد الإلكتروني
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UserEmail
+            </dd>
+
+            <dt class="col-sm-2">
+                حالة المستخدم ؟
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.IsActive == true ? "مفعل" : "غير مفعل")
+            </dd>
+        </dl>
+    </div>
+
+
+</section>
+
+
+@await Html.PartialAsync("_ShowImageParial")

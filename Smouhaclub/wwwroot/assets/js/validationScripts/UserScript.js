@@ -71,6 +71,65 @@ $("#rdIsActive").on("change", function () {
     }
 });
 
+
+function checkName() {
+    if ($("#txtUserName").val().trim() != "") {
+        $.ajax({
+            type: "GET",
+            url: $("#CheckUserNameUri").val(),
+            data: {
+                "userId": $("#UserId").val(),
+                "userName": $("#txtUserName").val().trim()
+            },
+            async: false,
+            success: function (result) {
+                if (result == true) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "عفواً ! اسم المستخدم مستخدم من قبل",
+                        allowOutsideClick: false,
+                        showCloseButton: true,
+                        confirmButtonText: "موافق",
+                        customClass: {
+                            confirmButton: 'theme-btn'
+                        },
+                    }).then((rsult) => {
+                        $("#txtUserName").val("");
+                        $("#txtUserName").focus();
+                    });
+                }
+            }
+        });
+    }
+}
+
+
+function ValidatePassword() {
+    var strength = document.getElementById('strength');
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    var pwd = document.getElementById("txtUserPassword");
+    if (pwd.value.length == 0) {
+        strength.innerHTML = '';
+    } else if (false == enoughRegex.test(pwd.value)) {
+        strength.innerHTML = '<span  id="strength1">برجاء اختيار كلمة مرور قوية</span> <input type="hidden"  value="0" name="txtHiddnPass" id="txtHiddnPass"/>';
+        $("txtUserPassword").focus();
+
+    } else if (strongRegex.test(pwd.value)) {
+        strength.innerHTML = '<span  id="strength1" style="color:green">كلمة المرور قوية</span> <input type="hidden"  value="1" name="txtHiddnPass" id="txtHiddnPass"/>';
+
+    } else if (mediumRegex.test(pwd.value)) {
+        strength.innerHTML = '<span  id="strength1" style="color:orange">كلمة المرور متوسط!</span> <input type="hidden"  value="0" name="txtHiddnPass" id="txtHiddnPass"/>';
+        $("txtUserPassword").focus();
+
+    } else {
+        strength.innerHTML = '<span id="strength1" style="color:red">كلمة المرور ضعيف!</span> <input type="hidden"  value="0" name="txtHiddnPass" id="txtHiddnPass"/>';
+        $("txtUserPassword").focus();
+    }
+}
+
+
 function emailMembervalidate() {
     var val = $("#txtUserEmail").val();
     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
