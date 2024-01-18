@@ -15,10 +15,6 @@ namespace Smouhaclub.Controllers
 
         public IActionResult Index()
         {
-            List<string> xx = new List<string>();
-            xx.Add("Ali");
-            xx.Add("Ahmed");
-            ViewBag.data= xx.ToList();
             return View();
         }
 
