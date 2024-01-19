@@ -1,0 +1,62 @@
+@using EEAAPortal.Setting
+@model IEnumerable<TblComplaint>
+@{
+    ViewData["Title"] = "الشكاوي";
+}
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">الشكاوي</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div>
+        @await Html.PartialAsync("_SuccessMesages")
+        <label>
+            <a asp-action="Create" title="إضافة" class="theme-btn-two mt-2 mb-2 add-btn"><i class="btn-sm  fas fa-plus"></i></a>
+        </label>
+        @if (Model.Count() > 0)
+        {
+            <table class="table dataTables_wrapper table-bordered table-hover" id="tblList">
+                <thead class="datatablebakground">
+                    <tr class="text-center">
+                        <th class="text-center">اسم الشكوي</th>
+                        <th style="width:40%">تاريخ الشكوي</th>
+                        <th style="text-align:center;">البريد الإلكتروني</th>
+                        <th style="text-align:center;">بعض التفاصيل</th>
+                        <th style="width:10%;" class="tblActions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var rowId = PublicFunction.EncryptAndConvertToHex(item.ComplaintId.ToString());
+                        <tr>
+                            <td>@item.ComplaintTitle</td>
+                            <td>@item.ComplaintDate</td>
+                            <td>@item.ComplaintEmail</td>
+                            <td>@item.ComplaintDescription</td>
+                            <td class="tblActions" rowspan="1" colspan="1">
+                                <div class="btns-group">
+                                    <a asp-area="CPanel" asp-controller="Users" asp-action="Details" asp-route-id="@rowId " title="عرض" class="theme-btn-two"><i class="fal fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width:235px; margin:20px;">
+                <strong>عفوا!</strong> لا توجد سجلات
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="right:revert"></button>
+            </div>
+        }
+    </div>
+
+</section>

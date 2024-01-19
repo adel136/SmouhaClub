@@ -14,7 +14,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
     public class UsersController : Controller
     {
         private readonly SmouhaclubContext _context;
-         private readonly IWebHostEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly string? _image;
         private readonly string? _wwwRoot;
 
