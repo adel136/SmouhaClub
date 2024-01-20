@@ -1,35 +1,33 @@
-
+@model TblComplaint
 @{
     ViewData["Title"] = "الشكاوي";
 }
 
-
-
  <section class="sec-pad Complaints">
         <div class="container">
             <div class="main-title">شكاوي و مقترحات</div>
-            <form action="">
+            <form asp-controller="Complaints" asp-action="SendComplaint">
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="common-label">الاسم الاول</label>
-                        <input type="text" class="form-control" placeholder="الاسم الاول" />
+                        <label class="common-label">عنوان للشكوي او الإقتراح</label>
+                        <input type="text" asp-for="ComplaintTitle" id="txtTitle" class="form-control" placeholder="عنوان للشكوي او الإقتراح" />
                     </div>
-                    <div class="col-md-6">
-                        <label class="common-label">الاسم الثاني</label>
-                        <input type="text" class="form-control" placeholder="الاسم الثاني" />
-                    </div>
+                    @* <div class="col-md-6">
+                        <label class="common-label">الاسم الأخير</label>
+                        <input type="text" id="txtLastName" class="form-control" placeholder="الاسم الأخير" />
+                    </div> *@
                     <div class="col-md-12">
                         <label class="common-label">البريد الالكتروني</label>
-                        <input type="email" class="form-control" placeholder="البريد الالكتروني" />
+                        <input type="email" asp-for="ComplaintEmail" id="txtEmail" class="form-control" placeholder="البريد الالكتروني" />
                     </div>
                     <div class="col-md-12">
                         <label class="common-label">رقم التليفون</label>
-                        <input type="text" class="form-control" placeholder="الاسم الثاني" />
+                        <input type="text" id="txtMobile" name="txtMobile" class="form-control" placeholder="رقم الهاتف" />
                     </div>
                     <div class="col-md-12">
                         <label class="common-label">الوصف</label>
-                        <textarea type="text" class="form-control" placeholder="الوصف"></textarea>
-                        <button type="button" class="theme-btn">ارسل رسالة</button>
+                        <textarea type="text" asp-for="ComplaintDescription" id="txtDescription" class="form-control" placeholder="الوصف"></textarea>
+                        <button type="submit" id="btnSave" class="theme-btn">إرسال</button>
                     </div>
                 </div>
             </form>

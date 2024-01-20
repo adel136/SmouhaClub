@@ -23,5 +23,16 @@ namespace Namespace
         {
             return View(_context.TblComplaints.ToList());
         }
+
+        public IActionResult Details(string id)
+        {
+            if(string.IsNullOrWhiteSpace(id))
+                return RedirectToAction("Error","Home");
+
+            var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
+
+            return View(_context.TblComplaints
+                .FirstOrDefault(m => m.ComplaintId == rowId));
+        }
     }
 }

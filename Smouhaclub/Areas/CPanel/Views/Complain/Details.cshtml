@@ -1,0 +1,60 @@
+@using EEAAPortal.Setting
+@model Smouhaclub.Models.TblComplaint
+@{
+    ViewData["Title"] = "الشكاوي و الإقتراحات";
+}
+
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a asp-area="CPanel" asp-controller="Complain" asp-action="Index">الشكاوي و الإقتراحات</a>
+                    </li>
+                    <li class="breadcrumb-item active">عرض</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div>
+        <h4></h4>
+        <hr />
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                عنوان الشكوي او الإقتراح
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ComplaintTitle
+            </dd>
+
+            <dt class="col-sm-2">
+                البريد الإلكتروني
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ComplaintEmail
+            </dd>
+            
+            <dt class="col-sm-2">
+                تاريخ الإرسال
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ComplaintDate
+            </dd>
+
+            <dt class="col-sm-2">
+                 التفاصيل
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ComplaintDescription
+            </dd>
+        </dl>
+    </div>
+
+</section>
+
