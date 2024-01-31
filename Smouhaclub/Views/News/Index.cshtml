@@ -1,0 +1,40 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "News Page";
+    var uploadPaths = UploadFiles.GetSectionPaths("News").ToList();
+
+}
+
+
+<section class="articles sec-news sec-pad">
+    <div class="container">
+        <h2 class="main-title">أخبار الأكاديمية</h2>
+        <div class="row">
+            @foreach (var item in Model.tblNews)
+            {
+                var pathPhoto = SettingHelper.GetPublishName() + "/assets/images/news/article-1.jpg";
+                if (!string.IsNullOrWhiteSpace(item.NewsPhoto))
+                {
+                    pathPhoto = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadPaths[1].Value, item.NewsPhoto);
+                }
+
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <div class="image">
+                            <img src="@pathPhoto" alt="">
+                        </div>
+                        <div class="caption">
+                            <p class="date">
+                                @if (!string.IsNullOrWhiteSpace(item.NewsDate.ToString()))
+                                    @PublicFunction.ConvertDate(item.NewsDate.ToString()).ToString("yyyy-MM-dd")
+                            </p>
+                            <a asp-action="details" asp-controller="News" asp-route-id="@item.NewsId"> @item.NewsTitle</a>
+                            <a asp-action="details" asp-controller="News" asp-route-id="@item.NewsId" class="read-more">اقرأ المزيد <i class="fal fa-angle-left"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

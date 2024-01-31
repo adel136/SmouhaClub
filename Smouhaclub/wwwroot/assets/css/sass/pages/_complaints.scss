@@ -1,0 +1,50 @@
+.Complaints {
+    .main-title {
+        border-bottom: 1px solid;
+        width: fit-content;
+        padding-bottom: 4px;
+        margin: 0 0 16px;
+    }
+    textarea {
+        margin-bottom: 24px;
+        height: 120px;
+    }
+    .theme-btn {
+        width: 100%;
+        justify-content: center;
+        margin: auto;
+    }
+    .border-top-bottom {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        position: relative;
+        &::before,
+        &::after {
+            content: "";
+            width: calc(100% - 24px);
+            height: 1px;
+            background-color: #ACACAC;
+            left: 12px;
+            position: absolute;
+        }
+        &::before {
+            top: 0;
+        }
+        &::after {
+            bottom: 0;
+        }
+       
+    }
+    .custom-text {
+        color: #0A0D13;
+        &.total {
+            font-weight: 700;
+        }
+    }
+    .conditions {
+        margin-top: 16px;
+        color: #ACACAC;
+        font-size: 14px;
+        max-width: 550px;
+    }
+}

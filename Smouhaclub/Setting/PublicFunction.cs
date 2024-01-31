@@ -337,6 +337,30 @@ public static class PublicFunction
         return fileStream;
     }
 
+
+    public static string GetMonth(int month)
+    {
+        return month switch
+        {
+            1 => "يناير",
+            2 => "فبراير",
+            3 => "مارس",
+            4 => "إبريل",
+            5 => "مايو",
+            6 => "يونيو",
+            7 => "يوليو",
+            8 => "أغسطس",
+            9 => "سبتمبر",
+            10 => "أكتوبر",
+            11 => "نوفمبر",
+            12 => "ديسمبر",
+            _ => ""
+        };
+
+
+
+
+    }
     public static ExpandoObject ToExpando(this object anonymousObject)
     {
         IDictionary<string, object> anonymousDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(anonymousObject);

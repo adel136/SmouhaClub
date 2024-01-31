@@ -3,49 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Smouhaclub</title>
-    @* <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/font-awesome-all.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/select2.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/animate.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/dataTables/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/main.css" /> *@
-
-    <link rel="stylesheet" href="assets/css/font-awesome-all.css" />
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="assets/css/select2.min.css" />
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="assets/css/animate.css" />
-    <link rel="stylesheet" href="assets/dataTables/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-
-    
- 
-
+    <title>Document</title>
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/font-awesome-all.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/jquery-ui.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/select2.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/owl.carousel.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/owl.theme.default.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/animate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/dataTables/css/jquery.dataTables.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@SettingHelper.GetPublishName()/assets/css/main.css" asp-append-version="true" />
 </head>
 <body>
 
-   <header class="header">
+    <header class="header">
         <nav class="main-navbar">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="logo">
-                            <img src="assets/images/Smouha-logo.png" alt="Smouha-logo" />
+                            <img src="@SettingHelper.GetPublishName()/assets/images/Smouha-logo.png" alt="Smouha-logo" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <ul class="nav-list">
-                            <li><a href="home.html">الصفحة الرئيسية</a></li>
-                            <li><a href="news.html">اخبار النادي</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">الصفحة الرئيسية</a></li>
+                            <li><a asp-action="Index" asp-controller="News">اخبار النادي</a></li>
                             <li><a href="sports.html">الالعاب</a></li>
                             <li><a href="subscribe.html">الاشتراكات</a></li>
-                            <li><a asp-controller="Complaints" asp-action="Index" >الشكاوي</a></li>
+                            <li><a asp-controller="Complaints" asp-action="Index">الشكاوي</a></li>
                             <li><a href="contact.html">تواصل معنا</a></li>
                         </ul>
                     </div>
@@ -57,12 +43,12 @@
         </nav>
     </header>
 
-           <div class="container-fluid">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-       
+
 
     <!-- Footer -->
     <section class="main-footer sec-pad">
@@ -71,12 +57,12 @@
                 <div class="col-md-3">
                     <div class="box text-center">
                         <div class="logo-box">
-                            <img src="assets/images/Smouha-logo.png" alt="Smouha-logo" />
+                            <img src="@SettingHelper.GetPublishName()/assets/images/Smouha-logo.png" alt="Smouha-logo" />
                         </div>
                         <h4>سموحة</h4>
                         <p>نادي سموحه الرياضي و الاجتماعي من اقدم الاندية المصرية</p>
                     </div>
-                    
+
                 </div>
                 <div class="col-md-3">
                     <div class="box">
@@ -120,20 +106,12 @@
     <div class="copyrights">
         <p>جميع الحقوق محفوظه لنادي سموحة &copy;</p>
     </div>
-    @* <script src="@SettingHelper.GetPublishName()/assets/js/jquery-3.7.1.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/jquery-ui.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/owl.carousel.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/select2.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/sweetalert2.all.min.js"></script>
-    <script src="@SettingHelper.GetPublishName()/assets/js/script.js"></script> *@
-
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/select2.min.js"></script>
-    <script src="assets/js/sweetalert2.all.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/jquery-3.7.1.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/select2.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/sweetalert2.all.min.js" asp-append-version="true"></script>
+    <script src="@SettingHelper.GetPublishName()/assets/js/script.js" asp-append-version="true"></script>
 </body>
 </html>

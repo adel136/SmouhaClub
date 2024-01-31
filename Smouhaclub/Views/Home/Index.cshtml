@@ -1,173 +1,142 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
+    var uploadPaths = UploadFiles.GetSectionPaths("News").ToList();
+    var uploadSportsGame = UploadFiles.GetSectionPaths("SportsGame").ToList();
+
 }
 
- <!-- Slider -->
-    <section class="slider">
-        <div class="slider-carousel owl-carousel owl-theme">
-            <div class="team-block-one item">
-                <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
-                <div class="inner-box">
-                    <span class="news">اخبار كرة القدم</span>
-                    <span class="date"> 04 يوليو 2023</span>
-                    <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
-                    <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.  </p>
-                </div>
-            </div>
-            <div class="team-block-one item">
-                <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
-                <div class="inner-box">
-                    <span class="news">اخبار كرة القدم</span>
-                    <span class="date"> 04 يوليو 2023</span>
-                    <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
-                    <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
-                </div>
-            </div>
-            <div class="team-block-one item">
-                <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
-                <div class="inner-box">
-                    <span class="news">اخبار كرة القدم</span>
-                    <span class="date"> 04 يوليو 2023</span>
-                    <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
-                    <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
-                </div>
-            </div>
-            <div class="team-block-one item">
-                <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
-                <div class="inner-box">
-                    <span class="news">اخبار كرة القدم</span>
-                    <span class="date"> 04 يوليو 2023</span>
-                    <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
-                    <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
-                </div>
-            </div>
-            <div class="team-block-one item">
-                <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
-                <div class="inner-box">
-                    <span class="news">اخبار كرة القدم</span>
-                    <span class="date"> 04 يوليو 2023</span>
-                    <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
-                    <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
-                </div>
+<!-- Slider -->
+<section class="slider">
+    <div class="slider-carousel owl-carousel owl-theme">
+        <div class="team-block-one item">
+            <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
+            <div class="inner-box">
+                <span class="news">اخبار كرة القدم</span>
+                <span class="date"> 04 يوليو 2023</span>
+                <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
+                <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.  </p>
             </div>
         </div>
-    </section>
-    
-    <!-- Games -->
-    <section class="games sec-pad">
-        <div class="container">
-            <h2 class="main-title">الالعاب الرياضية</h2>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="images">
-                            <img src="assets/images/blogs/tennis.png" alt="tennis" />
-                        </div>
-                        <div class="caption">
-                            <p>تنس طاولة</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="images">
-                            <img src="assets/images/blogs/handball.png" alt="handball" />
-                        </div>
-                        <div class="caption">
-                            <p>كرة اليد</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="images">
-                            <img src="assets/images/blogs/basketball.png" alt="basketball" />
-                        </div>
-                        <div class="caption">
-                            <p>كرة السلة</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="images">
-                            <img src="assets/images/blogs/football.png" alt="football" />
-                        </div>
-                        <div class="caption">
-                            <p>كرة القدم</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="team-block-one item">
+            <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
+            <div class="inner-box">
+                <span class="news">اخبار كرة القدم</span>
+                <span class="date"> 04 يوليو 2023</span>
+                <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
+                <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
             </div>
         </div>
-        
-    </section>
+        <div class="team-block-one item">
+            <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
+            <div class="inner-box">
+                <span class="news">اخبار كرة القدم</span>
+                <span class="date"> 04 يوليو 2023</span>
+                <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
+                <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
+            </div>
+        </div>
+        <div class="team-block-one item">
+            <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
+            <div class="inner-box">
+                <span class="news">اخبار كرة القدم</span>
+                <span class="date"> 04 يوليو 2023</span>
+                <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
+                <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
+            </div>
+        </div>
+        <div class="team-block-one item">
+            <div class="image-box"><img src="assets/images/slider.jpg" alt="slider" /></div>
+            <div class="inner-box">
+                <span class="news">اخبار كرة القدم</span>
+                <span class="date"> 04 يوليو 2023</span>
+                <h2>فريق سموحة لكرة القدم 2009 يكتسح طلائع الأسطول بسداسية نظيفة  </h2>
+                <p>حقق فريق كرة قدم 2009 انتصارًا كبيرًا بالفوز على نظيره طلائع الأسطول بسداسية نظيفة في المباراة التي أقيمت على ملعب الأسطول البحري برأس التين اليوم.                    </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Subscribe -->
-    <section class="subscribe sec-pad">
-        <div class="container">
-            <div class="content-box">
-                <h2 class="subscribe-title">تقدر دلوقتي تجدد اشتراكات النادي من خلال الويب سايت من وانت ف مكانك</h2>
-                <p class="new">لتجديد اشتراك:</p>
-                <ul class="list">
-                    <li>افتح صفحة الاشتراكات</li>
-                    <li>اختر الباقة الخاصة بك و ادخل البريد الالكتروني و كلمة السر .</li>
-                    <li>انقر على الزر تجديد الاشتراك.</li>
-                </ul>
-            </div>
-           
-        </div>
-    </section>
+<!-- Games -->
+<section class="games sec-pad">
+    <div class="container">
+        <h2 class="main-title">الالعاب الرياضية</h2>
+        <div class="row">
+            @foreach (var item in Model.tblService)
+            {
+                var pathPhoto = SettingHelper.GetPublishName() + "/assets/images/blogs/tennis.png";
+                <div class="col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="images">
+                            @if (!String.IsNullOrWhiteSpace(item.ServicePhoto))
+                            {
+                                pathPhoto = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadSportsGame[1].Value, item.ServicePhoto);
+                            }
 
-    <!-- Articles -->
-    <section class="articles sec-pad">
-        <div class="container">
-            <h2 class="main-title">مقالات و اخبار</h2>
-            <div class="articles-caresoul owl-carousel owl-theme">
-                <div class="news-block">
-                    <div class="images">
-                        <img src="assets/images/blogs/img-blog.png" alt="" />
-                    </div>
-                    <span class="category">تنس الريشة</span>
-                    <div class="caption">
-                        <div class="date">01 يونيو 2023</div>
-                        <h3>كرة الريشة "الخارجية" تحصل على الدعم من الاتحاد المحلي</h3>
-                        <p>"يقوم الاتحاد العالمي لتنس الريشة بتطوير لعبة الريشة الجوية والهيئة الإدارية في البلاد، جمعية كرة الريشة الفلبينية.</p>
+                            <img src="@pathPhoto" alt="tennis" />
+                        </div>
+                        <div class="caption">
+                            <p>@item.ServiceName</p>
+                        </div>
                     </div>
                 </div>
-                <div class="news-block">
-                    <div class="images">
-                        <img src="assets/images/blogs/img-blog.png" alt="" />
-                    </div>
-                    <span class="category">تنس الريشة</span>
-                    <div class="caption">
-                        <div class="date">01 يونيو 2023</div>
-                        <h3>كرة الريشة "الخارجية" تحصل على الدعم من الاتحاد المحلي</h3>
-                        <p>"يقوم الاتحاد العالمي لتنس الريشة بتطوير لعبة الريشة الجوية والهيئة الإدارية في البلاد، جمعية كرة الريشة الفلبينية.</p>
-                    </div>
-                </div>
-                <div class="news-block">
-                    <div class="images">
-                        <img src="assets/images/blogs/img-blog.png" alt="" />
-                    </div>
-                    <span class="category">تنس الريشة</span>
-                    <div class="caption">
-                        <div class="date">01 يونيو 2023</div>
-                        <h3>كرة الريشة "الخارجية" تحصل على الدعم من الاتحاد المحلي</h3>
-                        <p>"يقوم الاتحاد العالمي لتنس الريشة بتطوير لعبة الريشة الجوية والهيئة الإدارية في البلاد، جمعية كرة الريشة الفلبينية.</p>
-                    </div>
-                </div>
-                <div class="news-block">
-                    <div class="images">
-                        <img src="assets/images/blogs/img-blog.png" alt="" />
-                    </div>
-                    <span class="category">تنس الريشة</span>
-                    <div class="caption">
-                        <div class="date">01 يونيو 2023</div>
-                        <h3>كرة الريشة "الخارجية" تحصل على الدعم من الاتحاد المحلي</h3>
-                        <p>"يقوم الاتحاد العالمي لتنس الريشة بتطوير لعبة الريشة الجوية والهيئة الإدارية في البلاد، جمعية كرة الريشة الفلبينية.</p>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
-    </section>
+    </div>
+
+</section>
+
+<!-- Subscribe -->
+<section class="subscribe sec-pad">
+    <div class="container">
+        <div class="content-box">
+            <h2 class="subscribe-title">تقدر دلوقتي تجدد اشتراكات النادي من خلال الويب سايت من وانت ف مكانك</h2>
+            <p class="new">لتجديد اشتراك:</p>
+            <ul class="list">
+                <li>افتح صفحة الاشتراكات</li>
+                <li>اختر الباقة الخاصة بك و ادخل البريد الالكتروني و كلمة السر .</li>
+                <li>انقر على الزر تجديد الاشتراك.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- Articles -->
+<section class="articles sec-pad">
+    <div class="container">
+        <h2 class="main-title">مقالات و اخبار</h2>
+        <div class="articles-caresoul owl-carousel owl-theme">
+            @foreach (var item in Model.tblNews)
+            {
+                string day = "";
+                string month = "";
+                string year = "";
+                string parhPhoto = SettingHelper.GetPublishName() + "/assets/images/blogs/img-blog.png";
+                if (!string.IsNullOrWhiteSpace(item.NewsDate.ToString()))
+                {
+                    var date = PublicFunction.ConvertDate(item.NewsDate.ToString()).ToString("yyyy-MM-dd").Split('-').ToList();
+                    day = date[0];
+                    month = PublicFunction.GetMonth(Convert.ToInt32(date[1]));
+                    year = date[2];
+                }
+                <div class="news-block">
+                    <div class="images">
+                        @if (!string.IsNullOrWhiteSpace(item.NewsPhoto))
+                        {
+                            parhPhoto = PublicFunction.GetPath(SettingHelper.GetPublishName(), uploadPaths[1].Value, item.NewsPhoto);
+                        }
+
+                        <img src="@parhPhoto" alt="ss" />
+                    </div>
+                    <span class="category">تنس الريشة</span>
+                    <div class="caption">
+                        <div class="date">@day @month @year </div>
+                        <h3>@item.NewsTitle</h3>
+                        <p>@item.NewsContent</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,35 @@
+@import "./mixins";
+
+header {
+    .main-navbar {
+        background-color: #000217;
+        padding: 24px 0;
+        .row {
+            align-items: center;
+        }
+        .logo {
+            max-width: 100px
+        }
+        .btn-live {
+            background-color: #EB1F29;
+            color: #fff;
+            display: flex;
+            gap: 4px;
+            border: none;
+            padding: 8px 16px;
+            align-items: center;
+            border-radius: 6px;
+        }
+        .nav-list {
+            @include centering;
+            gap: 12px;
+            margin-bottom: 0;
+            li {
+                a {
+                    color: #EBEEF3;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
