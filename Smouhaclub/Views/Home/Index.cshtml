@@ -64,7 +64,7 @@
         <div class="row">
             @foreach (var item in Model.tblService)
             {
-                var pathPhoto = SettingHelper.GetPublishName() + "/assets/images/blogs/tennis.png";
+                var pathPhoto = SettingHelper.GetPublishName() + "/Front/assets/images/blogs/tennis.png";
                 <div class="col-lg-3 col-md-6">
                     <div class="box">
                         <div class="images">
@@ -112,7 +112,7 @@
                 string day = "";
                 string month = "";
                 string year = "";
-                string parhPhoto = SettingHelper.GetPublishName() + "/assets/images/blogs/img-blog.png";
+                string parhPhoto = SettingHelper.GetPublishName() + "/Front/assets/images/blogs/img-blog.png";
                 if (!string.IsNullOrWhiteSpace(item.NewsDate.ToString()))
                 {
                     var date = PublicFunction.ConvertDate(item.NewsDate.ToString()).ToString("yyyy-MM-dd").Split('-').ToList();

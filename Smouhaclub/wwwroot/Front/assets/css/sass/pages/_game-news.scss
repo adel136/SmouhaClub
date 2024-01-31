@@ -1,0 +1,85 @@
+.newsList-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    .news-box {
+        box-shadow: var(--common-box-shadow);
+        background-color: var(--white-color);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 16px;
+        border-radius: 24px;
+        -webkit-border-radius: 24px;
+        -moz-border-radius: 24px;
+        -ms-border-radius: 24px;
+        -o-border-radius: 24px;
+        width: max-content;
+        transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        
+        &:hover {
+            box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+        }
+        .image {
+            border-radius: 12px;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            -ms-border-radius: 12px;
+            -o-border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            img {
+                width: 100%;
+            }
+        }
+        .caption-news {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            p {
+                max-width: 380px;
+                color: rgba(0,0,0,.6);
+                &.gameName {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    span {
+                        font-weight: 700;
+                        font-size: 13px;
+                    }
+                }
+            }
+            a {
+                &.newsLink {
+                    color: var(--main-color);
+                    font-weight: 600;
+                }
+                &:last-child {
+                    color: #454545;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    gap: 4px;
+                    transition: all 0.3s ease-in-out;
+                    -webkit-transition: all 0.3s ease-in-out;
+                    -moz-transition: all 0.3s ease-in-out;
+                    -ms-transition: all 0.3s ease-in-out;
+                    -o-transition: all 0.3s ease-in-out;
+                    &:hover {
+                        color: #3e3e3e;
+                    }
+                }
+            }
+            
+        }
+}
+    
+}

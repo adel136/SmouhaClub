@@ -162,3 +162,14 @@ INSERT [dbo].[tbl_Users] ([UserId], [UserFullName], [UserName], [UserPassword], 
 GO
 SET IDENTITY_INSERT [dbo].[tbl_Users] OFF
 GO
+
+
+
+CREATE TABLE ContactUs (
+    ContactID INT PRIMARY KEY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Email NVARCHAR(100),
+    TitelMessage NVARCHAR(20),
+    ContactSubject NVARCHAR(500),
+);

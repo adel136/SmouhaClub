@@ -1,0 +1,123 @@
+﻿
+@model Smouhaclub.Models.ContactU
+@{
+
+}
+<section class="sec-pad contact-section">
+    <div class="container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d878882.1644284735!2d31.33445399572336!3d30.630196253340102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c494877472e3%3A0xa67f379e82db9555!2z2YbYp9iv2Yog2LPZhdmI2K3YqSDYp9mE2LHZitin2LbZiiDYp9mE2KfYrNiq2YXYp9i52Yo!5e0!3m2!1sar!2seg!4v1703706901629!5m2!1sar!2seg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-12 col-sm-12 inner-column">
+                <div class="contact-info-inner">
+                    <div class="info-box">
+                        <fieldset class="collapsed">
+                            <div class="single-item">
+                                <div class="text">
+                                    <div class="icon-box rotate-icon"><i class="fal fa-phone"></i></div>
+                                    <div class="caption">
+                                        <div class="caption">
+                                            <p>الهاتف</p>
+                                            <a href="tel:5432080">&lrm; 5432080</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="single-item">
+                                    <div class="text">
+                                        <div class="icon-box">
+                                            <i class="fal fa-envelope"></i>
+                                        </div>
+                                        <div class="caption">
+                                            <p>البريد الالكترونى</p>
+                                            <a href="test@smouha.com">test@smouha.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-item">
+                                    <div class="text">
+                                        <div class="icon-box">
+                                            <div class="fal fa-location"></div>
+                                        </div>
+                                        <div class="caption">
+                                            <p>العنوان</p>
+                                            <a target="_blank" href="https://maps.app.goo.gl/5rHveNrq1g3nGNsV8">
+                                                نادي سموحه الرياضي الإجتماعى، فيكتور ايمانويل الثالث، عزبة سعد، قسم سيدى جابر، محافظة الإسكندرية
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="single-item">
+                                    <div class="text">
+                                        <div class="icon-box">
+                                            <i class="fal fa-clock"></i>
+                                        </div>
+                                        <div class="caption">
+                                            <p>من الاثنين الى الجمعه </p>
+                                            <a href="#" style="cursor: default;">من 9:00 صباحا إلى 7 مساء</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 left-column">
+                <div class="information-inner">
+                    <div class="contact-information">
+                        <form id="fromCoutactUs" method="post" asp-action="Create">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                    <div class="field-input">
+                                        <input type="text" class="form-control wizard-required" data-id="divErrorFristName" data-letter="من فضلك، أدخل الاسم الأول" asp-for="FirstName" id="txtFirstName" placeholder="الاسم الاول *">
+                                   <div id="divErrorFristName"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                                    <div class="field-input">
+                                        <input type="text" class="form-control wizard-required" data-id="divErrorLastName" data-letter="من فضلك، أدخل الاسم الاخير" asp-for="LastName" id="txtLastName" placeholder="الاسم الاخير *">
+                                    <div id="divErrorLastName"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                    <div class="field-input">
+                                        <input class="form-control wizard-required" data-id="divErrorEmail" type="email" data-letter="من فضلك، أدخل البريد الالكتروني " asp-for="Email"  id="txtEmail" onchange="emailvalidate(this.id)" placeholder="البريد الالكترونى*">
+                                   <div id="divErrorEmail"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                    <div class="field-input">
+                                        <input type="text" class="form-control wizard-required" data-id="divErrorTitleMessage" data-letter="من فضلك، أدخل عنوان الرساله " asp-for="TitelMessage" placeholder="عنوان الرساله *">
+                                   <div id="divErrorTitleMessage"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                    <div class="field-input">
+                                        <textarea type="text" data-id="divErrorSubject" asp-for="ContactSubject" data-letter="من فضلك، أدخل موضوع الرساله " class="form-control wizard-required" id="txtsubject" placeholder="موضوع الرساله*"></textarea>
+                                 <div id="divErrorSubject"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                    <div class="field-input message-btn">
+                                        <input type="hidden" value="ar" name="lang">
+                                        <button type="button" class="theme-btn" id="btnSumetForm">
+                                            ارسال
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<script src="@SettingHelper.GetPublishName()/Front/assets/js/jquery-3.7.1.min.js" asp-append-version="true"></script>
+
+<script src="@SettingHelper.GetPublishName()/assets/js/validationscripts/publicscript.js" asp-append-version="true"></script>

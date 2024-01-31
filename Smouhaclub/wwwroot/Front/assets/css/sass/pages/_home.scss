@@ -1,0 +1,225 @@
+
+@import "../layout/variables";
+
+
+section {
+    --text-color: #EBEEF3;
+    &.slider {
+        height: 600px;
+        overflow: hidden;
+        .team-block-one {
+            position: relative;
+            img {
+                height: 600px;
+            }
+            .inner-box {
+                position: absolute;
+                background-color: rgb(0 0 0 / 75%);
+                bottom: 0;
+                left: 0;
+                width: 75%;
+                padding: 16px;
+                span {
+                    &.news {
+                        background-color: #15A955;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        color: var(--text-color);
+                        font-size: 14px;
+                        margin-bottom: 8px;
+                        display: block;
+                        width: max-content;
+                    }
+                    &.date {
+                        color: #F9FAFC;
+                    }
+                }
+               h2 {
+                font-size: 36px;
+                color: #F9FAFC;
+                
+               }
+               
+               p {
+                margin-top: 12px;
+                margin-bottom: 4rem;
+                color: #fff;
+               }
+               h2,p {
+                    max-width: 700px;
+                    line-height: 1.5;
+               }
+            }
+        }
+        .owl-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50px;
+            bottom: 4px;
+            .owl-dot {
+                width: 40px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background-color: transparent;
+                &.active {
+                    background-color: #EB1F29;
+                }
+            }
+            .owl-prev {
+                order: 1;
+            }
+            .owl-prev,
+            .owl-next {
+                width: 70px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #EB1F29 !important;
+                color: #fff !important;
+                &.disabled {
+                    background-color: #BAB8B8 !important;
+                }
+            }
+        }
+    }
+    &.games {
+        
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            .images {
+                border-radius: 6px;
+                -webkit-border-radius: 6px;
+                -moz-border-radius: 6px;
+                -ms-border-radius: 6px;
+                -o-border-radius: 6px;
+                overflow: hidden;
+                flex: 1;
+                width: 100%;
+                img {
+                    width: 100%;
+                }
+            }
+            .caption {
+                width: 100%;
+                padding: 20px 8px;
+                background-color: var(--text-color);
+                text-align: center;
+                p {
+                    color: #262626;
+                    font-size: 18px;
+                }
+            }
+        }
+        .row {
+            > div:nth-of-type(even) {
+                .box {
+                    flex-direction: column-reverse;
+                }
+            }
+        }
+    }
+    &.subscribe {
+        position: relative;
+        z-index: 1;
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+        }
+        &::before {
+            background-color: #29307A;
+        }
+        &::after {
+            background-image: url(../images/american-football-player.png);
+            background-repeat: no-repeat;
+            background-position: bottom left;
+        }
+        .content-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .subscribe-title {
+                color: var(--text-color);
+                font-size: 20px;
+                margin-bottom: 12px;
+                max-width: 450px;
+                line-height: 1.7;
+                font-weight: 700;
+            }
+            p{
+                color: #15A955;
+                font-weight: 700;
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+            ul {
+                li {
+                    list-style: nu;
+                    color: var(--text-color);
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+    &.articles  {
+        .main-title {
+            text-align: right;
+        }
+        .news-block {
+            position: relative;
+            .category {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                color: var(--text-color);
+                padding: 8px 12px;
+                border: 1px solid;
+                border-radius: 6px;
+                font-size: 12px;
+            }
+            .caption {
+                margin-top: 16px;
+                .date {
+                    color: rgb(38 38 38 / 60%);
+                    margin-bottom: 8px;
+                    font-size: 14px;
+                }
+                h3 {
+                    font-size: 18px;
+                    line-height: 1.5;
+                    color: #262626;
+                    margin-bottom: 8px;
+                }
+                p {
+                    color: #696868;
+                }
+            }
+        }
+        .owl-nav {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: end;
+            button {
+                width: 70px;
+                height: 50px;
+                background-color: #EB1F29 !important;
+                span {
+                    color: #fff;
+                }
+}
+        }
+    }
+}

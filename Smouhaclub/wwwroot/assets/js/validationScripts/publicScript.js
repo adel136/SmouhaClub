@@ -1,55 +1,50 @@
-﻿function getFileExtension(fileName) {
-    // Find the last occurrence of the dot (.)
-    var lastDotIndex = fileName.lastIndexOf(".");
-    // If there is no dot or it's the last character in the file name, return an empty string
-    if (lastDotIndex === -1 || lastDotIndex === fileName.length - 1) {
-        return "";
-    }
-    // Extract the file extension using the substring method
-    var extension = fileName.substring(lastDotIndex + 1);
-    return extension;
-}
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-    $(".datepicker").flatpickr({
-        allowInput: true,
-        minDate: "1900-01",
-        maxDate: "30.12.2050"
-    });
-  });
-
-
-
-
+﻿
 
 function emailvalidate(id) {
     var val = $("#" + id + "").val();
-    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(val)) {
-
-        Swal.fire({
-            icon: "warning",
-            title: "من فضلك أدخل بريد إلكتروني صحيح",
-            allowOutsideClick: false,
-            showCloseButton: true,
-            confirmButtonText: "موافق",
-            customClass: {
-                confirmButton: 'theme-btn'
-            },
-        }).then((rsult) => {
-            $("#" + id + "").val('');
-            $("#" + id + "").focus();
-        });
-        return false;
-    }
-    return true;
-}
-
-
-
-function AcceptOnlyNumbers(input) {
-    input.value = input.value.replace(/[^0-9\+()]/g, '');
-    if (input.value.indexOf('+') !== input.value.lastIndexOf('+')) {
-        input.value = x.value.substring(0, input.value.lastIndexOf('+'));
+    if (val != "") {
+        //var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Old expression
+        const emailPattern = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.){1,3}[a-zA-Z]{2,}))$/);
+        if (!emailPattern.test(val)) {
+            Swal.fire({
+                icon: "warning",
+                title: "من فضلك أدخل بريد إلكتروني صحيح",
+                allowOutsideClick: false,
+                showCloseButton: true,
+                //confirmButtonText: $("#btnOk").val(),
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((rsult) => {
+                $("#" + id + "").val('');
+                $("#" + id + "").focus();
+            });
+            return false;
+        }
+        return true;
     }
 }
+
+function IsFormValidated() {
+
+    var isValid = true;
+    $('.wizard-required').each(function (index, element) {
+        if ($.trim($(element).val()) === "") {
+            var ErrormegId = $(element).attr('data-id');
+            var letter = $(element).attr("data-letter");
+            $(element).css("border", "solid 1px red");
+            $("#" + ErrormegId).text($("#" + letter).val());
+            isValid = false;
+        }
+    });
+    return isValid;
+}
+
+$("#btnSumetForm").on("click", function () {
+
+    if (IsFormValidated()) {
+        $("#fromCoutactUs").submit();
+    }
+});
