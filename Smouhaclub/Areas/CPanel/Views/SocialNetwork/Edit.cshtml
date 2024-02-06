@@ -1,0 +1,100 @@
+@model TblSocialNetwork
+@{
+    ViewData["Title"] = "مواقع التواصل الإجتاعي";
+}
+
+
+<section class="content">
+    <div class="main-breadcrumb">
+        <div class="header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="Home" asp-action="Index"><i class="far fa-home"></i></a></li>
+                <li class="breadcrumb-item active"><a asp-area="CPanel" asp-controller="SocialNetwork" asp-action="Index">مواقع التواصل الإجتاعي</a></li>
+                <li class="breadcrumb-item active">تعديل</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+    <div class="container">
+        <form asp-area="CPanel" asp-controller="SocialNetwork" asp-action="Edit" id="frmSocial" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="SocialNetworkID">
+
+            <p><b>(<span style="color:red;">*</span>) </b>تعنى حقل يجب إدخاله</p>
+            <div class="con-sp-box ">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label class="control-label"> أيقونة الموقع</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <i class="@Model.SocialIcon"></i>
+                                <input type="hidden" asp-for="SocialIcon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="SocialLink" class="control-label"> رابط الموقع<span class="star-required" style="color:red;">*</span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <input asp-for="SocialLink" name="txtSocialLink" class="form-control wizard-required" data-id="requiredLink" data-letter="من فضلك ادخل رابط الموقع" placeholder="رابط الموقع">
+                            </div>
+                            <span id="requiredLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <label asp-for="IsShowable" class="control-label">عرض بالموقع ؟</label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                @if (Model.IsShowable == true)
+                                {
+                                    <label class="switch">
+                                        <input id="rdShowable" name="rdIsShowable" type="checkbox" value="true" checked="checked" class="checkbox">
+                                        <div class="slider"></div>
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label class="switch">
+                                        <input id="rdShowable" name="rdIsShowable" type="checkbox" value="false" class="checkbox">
+                                        <div class="slider"></div>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-1">
+                    <div class="input-save">
+                        <input type="hidden" value="@Model.SocialNetworkID" name="linkId">
+                        <input type="submit" id="btnSubmit" title="حفظ" value="حفظ" class="theme-btn" />
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a asp-controller="SocialNetwork" asp-area="CPanel" asp-action="Index" class="btn theme-btn cancel">الغاء</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<input type="hidden" id="hdnPublishName" value="@SettingHelper.GetPublishName()" />
+<script src="@SettingHelper.GetPublishName()/assets/js/validationScripts/SocialMediaScript.js" asp-append-version="true"></script>
