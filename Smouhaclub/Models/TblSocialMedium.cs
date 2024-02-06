@@ -6,16 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Smouhaclub.Models;
 
-[Table("tbl_SocailNetwork")]
-public class TblSocialNetwork
+[Table("Tbl_SocialMedia")]
+public partial class TblSocialMedium
 {
     [Key]
-    public int SocialNetworkID { get; set; }
+    [Column("SocialMediaID")]
+    public int SocialMediaId { get; set; }
 
     [StringLength(500)]
+    [Unicode(false)]
     public string? SocialIcon { get; set; }
 
-    [StringLength(150)]
+    [StringLength(500)]
     [Unicode(false)]
     public string? SocialLink { get; set; }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Smouhaclub.Models;
 
-[Table("tbl_Members")]
+[Table("Tbl_Members")]
 public partial class TblMember
 {
     [Key]

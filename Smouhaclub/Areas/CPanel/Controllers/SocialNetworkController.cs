@@ -18,7 +18,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.TblSocialNetwork);
+            return View(_context.TblSocialMedia);
         }
 
         // GET: CPanel/Social Media/Edit/5
@@ -29,7 +29,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
 
             var rowId = Convert.ToInt32(PublicFunction.ConvertToHexAndDecrypt(id));
             
-            var model = _context.TblSocialNetwork.FirstOrDefault(p => p.SocialNetworkID == rowId);
+            var model = _context.TblSocialMedia.FirstOrDefault(p => p.SocialMediaId == rowId);
             if (model == null)
             {
                 return NotFound();
@@ -40,9 +40,9 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // POST: CPanel/Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int linkId,  TblSocialNetwork model ,string txtSocialLink,string rdIsShowable)
+        public async Task<IActionResult> Edit(int linkId,  TblSocialMedium model ,string txtSocialLink,string rdIsShowable)
         {
-            if(linkId != model.SocialNetworkID)
+            if(linkId != model.SocialMediaId)
                 return NotFound();
 
             if (!string.IsNullOrWhiteSpace(txtSocialLink))

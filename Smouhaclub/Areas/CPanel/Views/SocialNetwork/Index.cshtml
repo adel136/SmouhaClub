@@ -1,5 +1,5 @@
 @using EEAAPortal.Setting
-@model IEnumerable<TblSocialNetwork>
+@model IEnumerable<TblSocialMedium>
 @{
     ViewData["Title"] = "مواقع التواصل الإجتماعي";
 }
@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        var linkId = PublicFunction.EncryptAndConvertToHex(item.SocialNetworkID.ToString());
+                        var linkId = PublicFunction.EncryptAndConvertToHex(item.SocialMediaId.ToString());
                         <tr>
                            
                             <td>@item.SocialLink</td>

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Smouhaclub.Models;
 
-public partial class SmouhaclubContext : DbContext
+public partial class IG_EEAAContext : DbContext
 {
-    public SmouhaclubContext()
+    public IG_EEAAContext()
     {
     }
 
-    public SmouhaclubContext(DbContextOptions<SmouhaclubContext> options)
+    public IG_EEAAContext(DbContextOptions<IG_EEAAContext> options)
         : base(options)
     {
     }
@@ -29,53 +29,59 @@ public partial class SmouhaclubContext : DbContext
 
     public virtual DbSet<TblServiceGallery> TblServiceGalleries { get; set; }
 
+    public virtual DbSet<TblSocialMedium> TblSocialMedia { get; set; }
+
     public virtual DbSet<TblUser> TblUsers { get; set; }
-    public virtual DbSet<ContactU> ContactUs { get; set; }
-
-    public virtual DbSet<TblSocialMedium> TblSocialMedia {get;set;}
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(SettingHelper.GetConnectionString());
+        => optionsBuilder.UseSqlServer(SettingHelper.GetPublishName());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("SQL_Latin1_General_CP1256_CI_AS");
-
         modelBuilder.Entity<TblComplaint>(entity =>
         {
-            entity.HasKey(e => e.ComplaintId).HasName("PK__Tbl_Comp__740D898FD9051BA7");
+            entity.HasKey(e => e.ComplaintId).HasName("PK__Tbl_Comp__740D898F1BD012F4");
         });
 
         modelBuilder.Entity<TblMember>(entity =>
         {
-            entity.HasKey(e => e.MemberId).HasName("PK__tbl_Memb__0CF04B183C2ED80C");
+            entity.HasKey(e => e.MemberId).HasName("PK__tbl_Memb__0CF04B18174E6DB0");
         });
 
         modelBuilder.Entity<TblMemberShip>(entity =>
         {
-            entity.HasKey(e => e.ShipId).HasName("PK__tbl_Memb__CC873BC5B1DA03BB");
+            entity.HasKey(e => e.ShipId).HasName("PK__tbl_Memb__CC873BC5664789C2");
         });
 
         modelBuilder.Entity<TblNews>(entity =>
         {
-            entity.HasKey(e => e.NewsId).HasName("PK__Tbl_News__954EBDF3C0DBDF3D");
+            entity.HasKey(e => e.NewsId).HasName("PK__Tbl_News__954EBDF342048B02");
         });
 
         modelBuilder.Entity<TblNewsGallery>(entity =>
         {
-            entity.HasKey(e => e.NewGalleryId).HasName("PK__Tbl_News__95FF4A0A8249F95A");
+            entity.HasKey(e => e.NewGalleryId).HasName("PK__Tbl_News__95FF4A0A53094032");
         });
 
         modelBuilder.Entity<TblService>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__tbl_Serv__C51BB0EA7BE11EEB");
+            entity.HasKey(e => e.ServiceId).HasName("PK__tbl_Serv__C51BB0EADBC12379");
         });
 
         modelBuilder.Entity<TblServiceGallery>(entity =>
         {
-            entity.HasKey(e => e.ServicGalleryId).HasName("PK__ServiceG__E126BE28784F2748");
+            entity.HasKey(e => e.ServicGalleryId).HasName("PK__tbl_Serv__E126BE28FE244AA2");
+        });
+
+        modelBuilder.Entity<TblSocialMedium>(entity =>
+        {
+            entity.HasKey(e => e.SocialMediaId).HasName("PK_SocialMedia");
+        });
+
+        modelBuilder.Entity<TblUser>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK_tbl_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);
