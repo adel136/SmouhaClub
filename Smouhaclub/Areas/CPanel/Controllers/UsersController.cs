@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EEAAPortal.Setting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Smouhaclub.Models;
-using EEAAPortal.Setting;
+
 
 namespace Smouhaclub.Areas.CPanel.Controllers
 {

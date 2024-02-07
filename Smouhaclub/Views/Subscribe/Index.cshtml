@@ -1,15 +1,16 @@
-﻿@{
-
+﻿
+@{
+    ViewData["Title"] = "تجديد الإشتراك";
 }
 
 <section class="sec-pad Complaints">
     <div class="container">
         <div class="main-title"> تجديد الاشتراكات </div>
-        <form action="">
+        <form asp-controller="Subscribe" asp-action="Renew" id="frmRenew">
             <div class="row">
                 <div class="col-md-12">
                     <label class="common-label">رقم الكارت</label>
-                    <input type="text" class="form-control" placeholder="1234  5678  9101  1121" />
+                    <input type="text" id="" class="form-control" placeholder="1234  5678  9101  1121" />
                 </div>
                 <div class="col-md-6">
                     <label class="common-label">رمز التحقق</label>
@@ -26,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 mt-3">
-                    <button type="button" class="theme-btn">تاكيد الدفع</button>
+                    <button type="button" id="btnRenew" class="theme-btn">تاكيد الدفع</button>
                 </div>
             </div>
         </form>

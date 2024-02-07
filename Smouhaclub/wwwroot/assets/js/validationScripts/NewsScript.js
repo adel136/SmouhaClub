@@ -105,7 +105,7 @@ $(".add_field_buttonGallery").on("click", function (e) {//on add input button cl
              </td>
              <td>
              <div class="btns-group">
-                             <a class="remove_fieldGallery btn theme-btn btn-delete" title="حذف"><i class="icon-bin"></i></a>
+                             <a class="remove_fieldGallery btn theme-btn btn-delete" title="حذف"><i class="fal fa-trash-alt"></i></a>
 
              </div>
              </td>       </tr>`

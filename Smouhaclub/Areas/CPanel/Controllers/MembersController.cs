@@ -52,7 +52,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TblMember model)
+        public async Task<IActionResult> Create(TblMember model, string[] MemberType, string[] txtSubscFee)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +66,9 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 }
                 _context.Add(model);
                 await _context.SaveChangesAsync();
+
+                SetRelatedMembers(model.MemberId, MemberType, txtSubscFee);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -96,6 +99,9 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.allRelated = _context.TblMemberShips.Where(x => x.MemberId == int.Parse(memberId)).ToList();
+
             return View(tblMember);
         }
 
@@ -104,7 +110,7 @@ namespace Smouhaclub.Areas.CPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int MemberId, TblMember tblMember)
+        public async Task<IActionResult> Edit(int MemberId, TblMember tblMember, string[] MemberType, string[] txtSubscFee)
         {
             if (MemberId != tblMember.MemberId)
             {
@@ -117,6 +123,8 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 {
                     _context.Update(tblMember);
                     await _context.SaveChangesAsync();
+
+                    SetRelatedMembers(tblMember.MemberId, MemberType, txtSubscFee);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,6 +156,14 @@ namespace Smouhaclub.Areas.CPanel.Controllers
             {
                 return NotFound();
             }
+
+            var allRelated = _context.TblMemberShips.Where(x => x.MemberId == int.Parse(memberId)).ToList();
+            allRelated.ForEach(x =>
+            {
+                _context.Remove(x);
+                _context.SaveChanges();
+            });
+
             _context.Remove(tblMember);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -179,6 +195,33 @@ namespace Smouhaclub.Areas.CPanel.Controllers
                 return Json("1");
             }
             return Json("0");
+        }
+
+        public void SetRelatedMembers(int memberId, string[] relativeRelation, string[] cost)
+        {
+
+            var allRelated = _context.TblMemberShips.Where(x => x.MemberId == memberId).ToList();
+            allRelated.ForEach(x =>
+            {
+                _context.Remove(x);
+                _context.SaveChanges();
+            });
+
+            if (relativeRelation.Length > 0)
+            {
+                for (int i = 0; i < relativeRelation.Length; i++)
+                {
+                    TblMemberShip relatedMember = new()
+                    {
+                        MemberId = memberId,
+                        MemberType = relativeRelation[i],
+                        SubscriptionFee = Convert.ToDecimal(cost[i]),
+                    };
+                    _context.Add(relatedMember);
+                    _context.SaveChanges();
+                }
+            }
+
         }
     }
 }
