@@ -12,6 +12,19 @@ namespace Smouhaclub.Controllers
             return View();
         }
 
+
+        public IActionResult CheckMemberShip(string memberCode)
+        {
+            if(string.IsNullOrWhiteSpace(memberCode))
+                return RedirectToAction("Error","Home");
+
+            var memberData = _context.TblMembers.FirstOrDefault(x=>x.MemberCode == memberCode);
+            if(memberData != null)
+                return View(memberData);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         public IActionResult Renew(TblMemberShip model)
         {
