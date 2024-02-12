@@ -19,17 +19,22 @@ namespace Smouhaclub.Controllers
                 return RedirectToAction("Error","Home");
 
             var memberData = _context.TblMembers.FirstOrDefault(x=>x.MemberCode == memberCode);
-            if(memberData != null)
-                return View(memberData);
 
+
+            if(memberData != null)
+            {
+                ViewBag.relatedMembers = _context.TblMemberShips.Where(x => x.MemberId == memberData.MemberId).Count();
+
+                return View(memberData);
+            }
+
+            TempData["NoMemberCode"] = true;
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public IActionResult Renew(TblMemberShip model)
+        public IActionResult Renew()
         {
-
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
     }

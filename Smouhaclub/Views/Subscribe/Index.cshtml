@@ -1,6 +1,12 @@
 ﻿
 @{
     ViewData["Title"] = "تجديد الإشتراك";
+
+    var msgValue = "0";
+    if (TempData["NoMemberCode"] != null && bool.Parse(TempData["NoMemberCode"].ToString()))
+    {
+        msgValue = "1";
+    }
 }
 
 <section class="sec-pad Complaints">
@@ -23,5 +29,6 @@
     </div>
 </section>
 
+<input type="hidden" id="hdnMessageNoCode" value="@msgValue" />
 
 <script type="text/javascript" src="@SettingHelper.GetPublishName()/assets/js/validationscripts/CheckMemberShipValidation.js" asp-append-version="true"></script>
