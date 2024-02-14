@@ -1,5 +1,5 @@
-$("#btnCheckCode").on('click',function(){
-    if($("#txtMemberShipNo").val() == ""){
+$("#btnCheckCode").on('click', function () {
+    if ($("#txtMemberShipNo").val() == "") {
         Swal.fire({
             icon: "warning",
             title: 'من فضلك ادخل رقم العضوية',
@@ -11,7 +11,7 @@ $("#btnCheckCode").on('click',function(){
                 confirmButton: 'theme-btn'
             },
         });
-    }else{
+    } else {
         $("#frmCheckCode").submit();
     }
 })
@@ -62,7 +62,7 @@ $("#btnRenew").on('click', function () {
                 confirmButton: 'theme-btn'
             },
         });
-        
+
     }
     else if ($("#txtExpireDate").val() == "") {
         Swal.fire({
@@ -76,11 +76,11 @@ $("#btnRenew").on('click', function () {
                 confirmButton: 'theme-btn'
             },
         });
-        
-    } else {
+
+    } else if ($("#txtCardNumber").val() != "" && $("#txtCardNumber").val() != "1234567891234567") {
         Swal.fire({
-            icon: "success",
-            title: 'تم تجديد الإشتراك بنجاح',
+            icon: "warning",
+            title: 'عفواً! بيانات البطاقة غير سليمة',
             allowOutsideClick: false,
             showCloseButton: false,
             showConfirmButton: true,
@@ -88,8 +88,25 @@ $("#btnRenew").on('click', function () {
             customClass: {
                 confirmButton: 'theme-btn'
             },
-        }).then((result) => {
-            $("#txtExpireDate,#txtVisaCode,#txtCardNumber").val('');
         });
+    }
+
+    else {
+        if ($("#txtCardNumber").val() == "1234567891234567") {
+            Swal.fire({
+                icon: "success",
+                title: 'تم تجديد الإشتراك بنجاح',
+                allowOutsideClick: false,
+                showCloseButton: false,
+                showConfirmButton: true,
+                confirmButtonText: 'موافق',
+                customClass: {
+                    confirmButton: 'theme-btn'
+                },
+            }).then((result) => {
+                $("#txtExpireDate,#txtVisaCode,#txtCardNumber").val('');
+            });
+        }
+        
     }
 });

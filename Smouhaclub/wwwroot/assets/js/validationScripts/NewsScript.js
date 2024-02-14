@@ -33,6 +33,7 @@ function IsFormValidated() {
         if ($.trim($(element).val()) === "") {
             var ErrormegId = $(element).attr('data-id');
             var letter = $(element).attr("data-letter");
+            console.log(letter);
             $(element).css("border", "solid 1px red");
             $("#" + ErrormegId).text(letter);
             isValid = false;
